@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget
           // TextStyle? titleTextStyle,
           // SystemUiOverlayStyle? systemOverlayStyle,
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         // bool? applyElevationOverlayColor,
         // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
         // Iterable<ThemeExtension<dynamic>>? extensions,
@@ -179,6 +179,8 @@ class MyHomePage extends StatefulWidget
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+enum Calendar { day, week, month, year }
+
 class _MyHomePageState extends State<MyHomePage> 
 {
   int _counter = 0;
@@ -190,6 +192,7 @@ class _MyHomePageState extends State<MyHomePage>
       _counter++;
     });
   }
+  Calendar calendarView = Calendar.day;
 
   @override
   Widget build(BuildContext context) 
@@ -203,21 +206,318 @@ class _MyHomePageState extends State<MyHomePage>
       ),
       body: Center
       (
-        child: Column
+        child: SingleChildScrollView
         (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>
-          [
-            const Text
-            (
-              'You have pushed the button this many times:',
-            ),
-            Text
-            (
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+          child: Column
+          (
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>
+            [
+              const Text
+              (
+                'You have pushed the button this many times:',
+              ),
+              Text
+              (
+                '$_counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              ElevatedButton
+              (
+                onPressed: () {}, 
+                child: const Text('Elevated')
+              ),
+              const ElevatedButton
+              (
+                onPressed: null, 
+                child: const Text('Elevated')
+              ),
+              FilledButton
+              (
+                onPressed: () {}, 
+                child: const Text('Filled')
+              ),
+              const FilledButton
+              (
+                onPressed: null, 
+                child: const Text('Filled')
+              ),
+              FilledButton.tonal
+              (
+                onPressed: () {}, 
+                child: const Text('Filled Tonal')
+              ),
+              const FilledButton.tonal
+              (
+                onPressed: null, 
+                child: const Text('Filled Tonal')
+              ),
+              OutlinedButton
+              (
+                onPressed: () {}, 
+                child: const Text('Outlined')
+              ),
+              const OutlinedButton
+              (
+                onPressed: null, 
+                child: const Text('Outlined')
+              ),
+              TextButton
+              (
+                onPressed: () {}, 
+                child: const Text('Text')
+              ),
+              const TextButton
+              (
+                onPressed: null, 
+                child: const Text('Text')
+              ),
+              FloatingActionButton
+              (
+                onPressed: () {},
+                child: const Icon(Icons.add),
+              ),
+              const FloatingActionButton
+              (
+                onPressed: null,
+                child: const Icon(Icons.add),
+              ),
+              FloatingActionButton.extended
+              (
+                onPressed: () {},
+                label: const Text('Add'),
+                icon: const Icon(Icons.add),
+              ),
+              const FloatingActionButton.extended
+              (
+                onPressed: null,
+                label: const Text('Add'),
+                icon: const Icon(Icons.add),
+              ),
+              IconButton
+              (
+                icon: const Icon(Icons.volume_up),
+                tooltip: 'Increase volume by 10',
+                onPressed: () {},
+              ),
+              Ink
+              (
+                child: IconButton
+                (
+                  icon: const Icon(Icons.android),
+                  onPressed: () {},
+                ),
+              ),
+              Row
+              (
+                children: 
+                [
+                  IconButton
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: () {},
+                  ),
+                  const IconButton
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: null,
+                  ),
+                  IconButton
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                  IconButton
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                ],
+              ),
+              Row
+              (
+                children: 
+                [
+                  IconButton.filled
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: () {},
+                  ),
+                  const IconButton.filled
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: null,
+                  ),
+                  IconButton.filled
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton.filled
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                  IconButton.filled
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton.filled
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                ],
+              ),
+              Row
+              (
+                children: 
+                [
+                  IconButton.filledTonal
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: () {},
+                  ),
+                  const IconButton.filledTonal
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: null,
+                  ),
+                  IconButton.filledTonal
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton.filledTonal
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                  IconButton.filledTonal
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton.filledTonal
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                ],
+              ),
+              Row
+              (
+                children: 
+                [
+                  IconButton.outlined
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: () {},
+                  ),
+                  const IconButton.outlined
+                  (
+                    icon: const Icon(Icons.filter_drama), 
+                    onPressed: null,
+                  ),
+                  IconButton.outlined
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton.outlined
+                  (
+                    isSelected: true,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                  IconButton.outlined
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: () {},
+                  ),
+                  const IconButton.outlined
+                  (
+                    isSelected: false,
+                    icon: const Icon(Icons.settings_outlined),
+                    selectedIcon: const Icon(Icons.settings),
+                    onPressed: null,
+                  ),
+                ],
+              ),
+              SegmentedButton<Calendar>
+              (
+                segments: const <ButtonSegment<Calendar>>
+                [
+                  ButtonSegment<Calendar>
+                  (
+                    value: Calendar.day,
+                    label: Text('Day'),
+                    icon: Icon(Icons.calendar_view_day),
+                  ),
+                  ButtonSegment<Calendar>
+                  (
+                    value: Calendar.day,
+                    label: Text('week'),
+                    icon: Icon(Icons.calendar_view_week),
+                  ),  
+                  ButtonSegment<Calendar>
+                  (
+                    value: Calendar.day,
+                    label: Text('Month'),
+                    icon: Icon(Icons.calendar_view_month),
+                  ),
+                  ButtonSegment<Calendar>
+                  (
+                    value: Calendar.day,
+                    label: Text('Year'),
+                    icon: Icon(Icons.calendar_today),
+                  ),
+                ],
+                selected: <Calendar>{calendarView},
+                onSelectionChanged: (Set<Calendar> newSelection) {},
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton
