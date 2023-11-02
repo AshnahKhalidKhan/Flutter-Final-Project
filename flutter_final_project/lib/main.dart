@@ -210,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage>
         (
           child: Column
           (
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>
             [
               const Text
@@ -497,7 +497,7 @@ class _MyHomePageState extends State<MyHomePage>
                   ButtonSegment<Calendar>
                   (
                     value: Calendar.day,
-                    label: Text('week'),
+                    label: Text('Week'),
                     icon: Icon(Icons.calendar_view_week),
                   ),  
                   ButtonSegment<Calendar>
@@ -515,6 +515,26 @@ class _MyHomePageState extends State<MyHomePage>
                 ],
                 selected: <Calendar>{calendarView},
                 onSelectionChanged: (Set<Calendar> newSelection) {},
+              ),
+              LinearProgressIndicator(),
+              ElevatedButton
+              (
+                child: const Text('Show Snackbar'),
+                onPressed: () 
+                {
+                  ScaffoldMessenger.of(context).showSnackBar
+                  (
+                    SnackBar
+                    (
+                      content: const Text('Awesome Snackbar!'),
+                      action: SnackBarAction
+                      (
+                        label: 'Action',
+                        onPressed: () {},
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

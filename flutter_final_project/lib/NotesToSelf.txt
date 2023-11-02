@@ -1,3 +1,5 @@
 Material designs/colors etc help: https://m3.material.io/develop/flutter & https://docs.flutter.dev/ui/widgets/material
 
+Help with custom color themes: https://blog.logrocket.com/dynamic-theme-switcher-flutter/
+
 
