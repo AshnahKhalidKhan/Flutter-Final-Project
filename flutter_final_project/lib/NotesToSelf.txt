@@ -2,4 +2,7 @@ Material designs/colors etc help: https://m3.material.io/develop/flutter & https
 
 Help with custom color themes: https://blog.logrocket.com/dynamic-theme-switcher-flutter/
 
+- Badge
+- Bottom Sheet
+
 
