@@ -201,8 +201,42 @@ class _MyHomePageState extends State<MyHomePage>
     (
       appBar: AppBar
       (
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: <Widget>
+        [
+          TextButton
+          (
+            onPressed: () {},
+            child: const Text('Action 1'),
+          ),
+        ]
+      ),
+      bottomNavigationBar: BottomAppBar
+      (
+        child: Row
+        (
+          children: <Widget>
+          [
+            IconButton
+            (
+              tooltip: 'Open navigation menu',
+              icon: const Icon(Icons.menu),
+              onPressed: () {},
+            ),
+            IconButton
+            (
+              tooltip: 'Search',
+              icon: const Icon(Icons.search),
+              onPressed: () {},
+            ),
+            IconButton
+            (
+              tooltip: 'Favorite',
+              icon: const Icon(Icons.favorite),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
       body: Center
       (
@@ -562,7 +596,35 @@ class _MyHomePageState extends State<MyHomePage>
                 ),
                 child: const Text('Show Dialog'),
               ),
-
+              const Card
+              (
+                child: Text('Card'),
+              ),
+              const Card
+              (
+                child: Text('Card'),
+                elevation: 0,
+              ),
+              const Divider(),
+              ListTile
+              (
+                leading: Icon(Icons.alarm),
+                title: Text('Title'),
+                subtitle: Text('Subtitle Description'),
+                trailing: Wrap
+                (
+                  // child: Row
+                  // (
+                  //   mainAxisAlignment: MainAxisAlignment.end,
+                    children:
+                    [
+                      Icon(Icons.edit),
+                      Icon(Icons.delete),
+                    ],
+                  // ),
+                ),
+              ),
+              SizedBox(height: 50.0,)
 
             ],
           ),
