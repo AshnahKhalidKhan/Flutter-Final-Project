@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget
           // TextStyle? titleTextStyle,
           // SystemUiOverlayStyle? systemOverlayStyle,
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         // bool? applyElevationOverlayColor,
         // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
         // Iterable<ThemeExtension<dynamic>>? extensions,
@@ -211,32 +211,62 @@ class _MyHomePageState extends State<MyHomePage>
           ),
         ]
       ),
-      bottomNavigationBar: BottomAppBar
+      floatingActionButton: FloatingActionButton
       (
-        child: Row
-        (
-          children: <Widget>
-          [
-            IconButton
-            (
-              tooltip: 'Open navigation menu',
-              icon: const Icon(Icons.menu),
-              onPressed: () {},
-            ),
-            IconButton
-            (
-              tooltip: 'Search',
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            ),
-            IconButton
-            (
-              tooltip: 'Favorite',
-              icon: const Icon(Icons.favorite),
-              onPressed: () {},
-            ),
-          ],
-        ),
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // bottomNavigationBar: BottomAppBar
+      // (
+      //   shape: CircularNotchedRectangle(),
+      //   child: Row
+      //   (
+      //     children: <Widget>
+      //     [
+      //       IconButton
+      //       (
+      //         tooltip: 'Open navigation menu',
+      //         icon: const Icon(Icons.menu),
+      //         onPressed: () {},
+      //       ),
+      //       IconButton
+      //       (
+      //         tooltip: 'Search',
+      //         icon: const Icon(Icons.search),
+      //         onPressed: () {},
+      //       ),
+      //       IconButton
+      //       (
+      //         tooltip: 'Favorite',
+      //         icon: const Icon(Icons.favorite),
+      //         onPressed: () {},
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      bottomNavigationBar: NavigationBar
+      (
+        destinations: const <Widget>
+        [
+          NavigationDestination
+          (
+            icon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          NavigationDestination
+          (
+            icon: Icon(Icons.commute),
+            label: 'Commute',
+          ),
+          NavigationDestination
+          (
+            selectedIcon: Icon(Icons.bookmark),
+            icon: Icon(Icons.bookmark_border),
+            label: 'Saved',
+          ),
+        ],
       ),
       body: Center
       (
@@ -247,6 +277,51 @@ class _MyHomePageState extends State<MyHomePage>
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>
             [
+              // child: Row
+              // (
+              //   children: <Widget>
+              //   [
+              //     NavigationRail
+              //     (
+              //       selectedIndex: 0,
+              //       groupAlignment: -1.0,
+              //       labelType: NavigationRailLabelType.all,
+              //       leading: FloatingActionButton
+              //       (
+              //         elevation: 0,
+              //         onPressed: () {},
+              //         child: const Icon(Icons.add),
+              //       ),
+              //       trailing: IconButton
+              //       (
+              //         onPressed: () {},
+              //         icon: const Icon(Icons.more_horiz_rounded),
+              //       ),
+              //       destinations: const <NavigationRailDestination>
+              //       [
+              //         NavigationRailDestination
+              //         (
+              //           icon: Icon(Icons.favorite_border),
+              //           selectedIcon: Icon(Icons.favorite),
+              //           label: Text('First'),
+              //         ),
+              //         NavigationRailDestination
+              //         (
+              //           icon: Icon(Icons.bookmark_border),
+              //           selectedIcon: Icon(Icons.book),
+              //           label: Text('Second'),
+              //         ),
+              //         NavigationRailDestination
+              //         (
+              //           icon: Icon(Icons.star_border),
+              //           selectedIcon: Icon(Icons.star),
+              //           label: Text('Third'),
+              //         ),
+              //       ],
+              //     ),
+              //     const VerticalDivider(thickness: 1, width: 1),
+              //   ]
+              // ),
               const Text
               (
                 'You have pushed the button this many times:',
@@ -629,12 +704,6 @@ class _MyHomePageState extends State<MyHomePage>
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton
-      (
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
