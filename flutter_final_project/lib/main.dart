@@ -164,8 +164,11 @@ class MyApp extends StatelessWidget
         // Color? backgroundColor,
         // Color? bottomAppBarColor,
       ),
-      home: TabBarExample(),
+      // home: TabBarExample(),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: DatePickerExample(),
+      // home: PopupMenuExample(),
+      home: RadioExample(),
     );
   }
 }
@@ -323,6 +326,24 @@ class _MyHomePageState extends State<MyHomePage>
               //     const VerticalDivider(thickness: 1, width: 1),
               //   ]
               // ),
+              Chip
+              (
+                avatar: CircleAvatar
+                (
+                  child: const Text('AB'),
+                ),
+                label: const Text('Aaron Burr'),
+              ),
+              Checkbox
+              (
+                value: true, 
+                onChanged: (bool? newValue) {},
+              ),
+              Checkbox
+              (
+                value: false, 
+                onChanged: (bool? newValue) {},
+              ),
               const Text
               (
                 'You have pushed the button this many times:',
@@ -787,3 +808,227 @@ class _TabBarExampleState extends State<TabBarExample> with TickerProviderStateM
   }
 }
 
+class DatePickerExample extends StatefulWidget 
+{
+  const DatePickerExample({super.key, this.restorationId});
+
+  final String? restorationId;
+
+  @override
+  State<DatePickerExample> createState() => _DatePickerExampleState();
+}
+
+/// RestorationProperty objects can be used because of RestorationMixin.
+class _DatePickerExampleState extends State<DatePickerExample> with RestorationMixin 
+{
+  // In this example, the restoration ID for the mixin is passed in through
+  // the [StatefulWidget]'s constructor.
+  @override
+  String? get restorationId => widget.restorationId;
+
+  final RestorableDateTime _selectedDate = RestorableDateTime(DateTime(2021, 7, 25));
+  late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture = RestorableRouteFuture<DateTime?>
+  (
+    onComplete: _selectDate,
+    onPresent: (NavigatorState navigator, Object? arguments) 
+    {
+      return navigator.restorablePush
+      (
+        _datePickerRoute,
+        arguments: _selectedDate.value.millisecondsSinceEpoch,
+      );
+    },
+  );
+
+  @pragma('vm:entry-point')
+  static Route<DateTime> _datePickerRoute
+  (
+    BuildContext context,
+    Object? arguments,
+  )
+  {
+    return DialogRoute<DateTime>
+    (
+      context: context,
+      builder: (BuildContext context) 
+      {
+        return DatePickerDialog
+        (
+          restorationId: 'date_picker_dialog',
+          initialEntryMode: DatePickerEntryMode.calendarOnly,
+          initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
+          firstDate: DateTime(2021),
+          lastDate: DateTime(2022),
+        );
+      },
+    );
+  }
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) 
+  {
+    registerForRestoration(_selectedDate, 'selected_date');
+    registerForRestoration(_restorableDatePickerRouteFuture, 'date_picker_route_future');
+  }
+
+  void _selectDate(DateTime? newSelectedDate) 
+  {
+    if (newSelectedDate != null) 
+    {
+      setState(() 
+      {
+        _selectedDate.value = newSelectedDate;
+        ScaffoldMessenger.of(context).showSnackBar
+        (
+          SnackBar
+          (
+            content: Text('Selected: ${_selectedDate.value.day}/${_selectedDate.value.month}/${_selectedDate.value.year}'),
+          )
+        );
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Scaffold
+    (
+      body: Center
+      (
+        child: OutlinedButton
+        (
+          onPressed: () 
+          {
+            _restorableDatePickerRouteFuture.present();
+          },
+          child: const Text('Open Date Picker'),
+        ),
+      ),
+    );
+  }
+}
+
+enum SampleItem { itemOne, itemTwo, itemThree }
+
+class PopupMenuExample extends StatefulWidget 
+{
+  const PopupMenuExample({super.key});
+
+  @override
+  State<PopupMenuExample> createState() => _PopupMenuExampleState();
+}
+
+class _PopupMenuExampleState extends State<PopupMenuExample> 
+{
+  SampleItem? selectedMenu;
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Scaffold
+    (
+      appBar: AppBar
+      (
+        title: const Text('PopupMenuButton')
+      ),
+      body: Center
+      (
+        child: PopupMenuButton<SampleItem>
+        (
+          initialValue: selectedMenu,
+          // Callback that sets the selected popup menu item.
+          onSelected: (SampleItem item) 
+          {
+            setState(() 
+            {
+              selectedMenu = item;
+            });
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>
+          [
+            const PopupMenuItem<SampleItem>
+            (
+              value: SampleItem.itemOne,
+              child: Text('Item 1'),
+            ),
+            const PopupMenuItem<SampleItem>
+            (
+              value: SampleItem.itemTwo,
+              child: Text('Item 2'),
+            ),
+            const PopupMenuItem<SampleItem>
+            (
+              value: SampleItem.itemThree,
+              child: Text('Item 3'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+enum SingingCharacter { lafayette, jefferson }
+
+class RadioExample extends StatefulWidget 
+{
+  const RadioExample({super.key});
+
+  @override
+  State<RadioExample> createState() => _RadioExampleState();
+}
+
+class _RadioExampleState extends State<RadioExample> 
+{
+  SingingCharacter? _character = SingingCharacter.lafayette;
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Scaffold
+    (
+      body: Center
+      (
+        child: Column
+        (
+          children: <Widget>
+          [
+            ListTile
+            (
+              title: const Text('Lafayette'),
+              leading: Radio<SingingCharacter>
+              (
+                value: SingingCharacter.lafayette,
+                groupValue: _character,
+                onChanged: (SingingCharacter? value) 
+                {
+                  setState(() 
+                  {
+                    _character = value;
+                  });
+                },
+              ),
+            ),
+            ListTile
+            (
+              title: const Text('Thomas Jefferson'),
+              leading: Radio<SingingCharacter>
+              (
+                value: SingingCharacter.jefferson,
+                groupValue: _character,
+                onChanged: (SingingCharacter? value) 
+                {
+                  setState(() 
+                  {
+                    _character = value;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
