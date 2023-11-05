@@ -169,7 +169,8 @@ class MyApp extends StatelessWidget
       // home: DatePickerExample(),
       // home: PopupMenuExample(),
       // home: RadioExample(),
-      home: SliderExample(),
+      // home: SliderExample(),
+      home: SwitchExample(),
     );
   }
 }
@@ -1070,3 +1071,39 @@ class _SliderExampleState extends State<SliderExample>
   }
 }
 
+class SwitchExample extends StatefulWidget 
+{
+  const SwitchExample({super.key});
+
+  @override
+  State<SwitchExample> createState() => _SwitchExampleState();
+}
+
+class _SwitchExampleState extends State<SwitchExample> 
+{
+  bool light = true;
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Scaffold
+    (
+      body: Center
+      (
+        child: Switch
+        (
+          // This bool value toggles the switch.
+          value: light,
+          onChanged: (bool value) 
+          {
+            // This is called when the user toggles the switch.
+            setState(() 
+            {
+              light = value;
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
