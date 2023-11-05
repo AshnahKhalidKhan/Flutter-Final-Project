@@ -170,7 +170,9 @@ class MyApp extends StatelessWidget
       // home: PopupMenuExample(),
       // home: RadioExample(),
       // home: SliderExample(),
-      home: SwitchExample(),
+      // home: SwitchExample(),
+      // home: ShowTimePickerApp(),
+      home: TimePickerOptions(),
     );
   }
 }
@@ -1103,6 +1105,69 @@ class _SwitchExampleState extends State<SwitchExample>
             });
           },
         ),
+      ),
+    );
+  }
+}
+
+class TimePickerOptions extends StatefulWidget 
+{
+  const TimePickerOptions({super.key});
+
+  @override
+  State<TimePickerOptions> createState() => _TimePickerOptionsState();
+}
+
+class _TimePickerOptionsState extends State<TimePickerOptions> 
+{
+  TimeOfDay? selectedTime;
+  Orientation? orientation;
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return Material
+    (
+      child: Column
+      (
+        children: <Widget>
+        [
+          SingleChildScrollView
+          (
+            scrollDirection: Axis.horizontal,
+            child: Row
+            (
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>
+              [
+                Padding
+                (
+                  padding: const EdgeInsets.all(12.0),
+                  child: ElevatedButton
+                  (
+                    child: const Text('Open time picker'),
+                    onPressed: () async 
+                    {
+                      final TimeOfDay? time = await showTimePicker
+                      (
+                        context: context,
+                        initialTime: selectedTime ?? TimeOfDay.now(),
+                        initialEntryMode: TimePickerEntryMode.dial,
+                        orientation: orientation,
+                      );
+                      setState(() 
+                      {
+                        selectedTime = time;
+                      });
+                    },
+                  ),
+                ),
+                if (selectedTime != null)
+                  Text('Selected time: ${selectedTime!.format(context)}'),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
