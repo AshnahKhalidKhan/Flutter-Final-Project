@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_project/Widgets/SignUp.dart';
 
 void main() 
 {
@@ -172,7 +173,8 @@ class MyApp extends StatelessWidget
       // home: SliderExample(),
       // home: SwitchExample(),
       // home: ShowTimePickerApp(),
-      home: TimePickerOptions(),
+      // home: TimePickerOptions(),
+      home: SignUp(),
     );
   }
 }
