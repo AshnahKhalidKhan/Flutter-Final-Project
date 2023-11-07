@@ -10,21 +10,109 @@ class SignUp extends StatefulWidget
 
 class _SignUpState extends State<SignUp> 
 {
+  Icon CheckCircleIcon = Icon
+  (
+    Icons.check_circle_rounded,
+    color: Colors.green,
+  );
+
+  Icon RedCrossIcon = Icon
+  (
+    Icons.cancel_rounded,
+    color: Colors.red,
+  );
+
+  
+
+
   @override
   Widget build(BuildContext context) 
   {
     return Scaffold
     (
-      body: Center
+      body: Padding
       (
+        padding: EdgeInsets.all(30.0),
         child: Column
         (
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: 
           [
-            Image.asset('lib/Assets/Google Pocket App Logo.jpg'),
+            Image.asset
+            (
+              'lib/Assets/Google Pocket App Logo.jpg',
+              width: 100,
+              height: 100
+            ),
             TextField
             (
-
+              decoration: InputDecoration
+              (
+                prefixIcon: Icon(Icons.email_rounded),
+                labelText: 'Email',
+                helperText: 'Helper text',
+                errorText: 'Error text',
+                suffixIcon: RedCrossIcon,
+              ),
+            ),
+            TextField
+            (
+              decoration: InputDecoration
+              (
+                prefixIcon: Icon(Icons.key_rounded),
+                labelText: 'Password',
+                // helperText: 'Helper text',
+                // errorText: 'Error text',
+                suffixIcon: RedCrossIcon,
+                error: Column
+                (
+                  children: 
+                  [
+                    Row
+                    (
+                      children: 
+                      [
+                        CheckCircleIcon,
+                        RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Minimum 8 characters'),
+                      ],
+                    ),
+                    Row
+                    (
+                      children: 
+                      [
+                        CheckCircleIcon,
+                        RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Has one uppercase alphabet (A-Z)'),
+                      ],
+                    ),
+                    Row
+                    (
+                      children: 
+                      [
+                        
+                        CheckCircleIcon,
+                        RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Has one digit (0-9)'),
+                      ],
+                    ),
+                    Row
+                    (
+                      children: 
+                      [
+                        CheckCircleIcon,
+                        RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Has one special character (!, @, #...)'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
