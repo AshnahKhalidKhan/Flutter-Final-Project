@@ -17,6 +17,8 @@ class SignUp extends StatefulWidget
   State<SignUp> createState() => _SignUpState();
 }
 
+enum SampleItem { itemOne, itemTwo, itemThree }
+
 class _SignUpState extends State<SignUp> 
 {
   Icon GreenCheckIcon = Icon
@@ -31,8 +33,7 @@ class _SignUpState extends State<SignUp>
     color: Colors.red,
   );
 
-  
-
+  SampleItem? selectedMenu;
 
   @override
   Widget build(BuildContext context) 
@@ -61,13 +62,39 @@ class _SignUpState extends State<SignUp>
             //   onChanged: onChanged, 
             //   child: child
             // ),
+            PopupMenuButton<SampleItem>(
+              initialValue: selectedMenu,
+              // Callback that sets the selected popup menu item.
+              onSelected: (SampleItem item) {
+                setState(() {
+                  selectedMenu = item;
+                });
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
+                const PopupMenuItem<SampleItem>(
+                  value: SampleItem.itemOne,
+                  child: Text('Item 1'),
+                ),
+                const PopupMenuItem<SampleItem>(
+                  value: SampleItem.itemTwo,
+                  child: Text('Item 2'),
+                ),
+                const PopupMenuItem<SampleItem>(
+                  value: SampleItem.itemThree,
+                  child: Text('Item 3'),
+                ),
+              ],
+            ),
+
+
+            
             TextField
             (
               decoration: InputDecoration
               (
                 prefixIcon: Icon(Icons.person_2_rounded),
                 labelText: 'Full Name',
-                helperText: 'each word must be capitalized',
+                helperText: 'Each word must be capitalized',
                 suffixIcon: RedCrossIcon,
               ),
             ),
