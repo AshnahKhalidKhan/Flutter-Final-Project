@@ -3,6 +3,10 @@
 - Show no cross or tick initially when signing in screen loads first time (null in place of RedCroossIcon and )
 - Visibility password on/off 
 - Password requirements meeting state
+- Whatsaoo Icon
+-Instagarm icon
+- LinkedIn Icon
+
 
 */
 
@@ -22,6 +26,9 @@ enum SampleGDSCCampusName { GDSCCampusNameOne, GDSCCampusNameTwo, GDSCCampusName
 
 class _SignUpState extends State<SignUp> 
 {
+  final TextEditingController campusController = TextEditingController();
+  SampleGDSCCampusName? selectedCampus;
+
   Icon GreenCheckIcon = Icon
   (
     Icons.check_circle_rounded,
@@ -34,11 +41,7 @@ class _SignUpState extends State<SignUp>
     color: Colors.red,
   );
 
-  SampleGDSCCampusName? selectedMenu;
-
-  
-  final TextEditingController campusController = TextEditingController();
-  SampleGDSCCampusName? selectedCampus;
+  // SampleGDSCCampusName? selectedMenu;
 
   @override
   Widget build(BuildContext context) 
@@ -64,7 +67,7 @@ class _SignUpState extends State<SignUp>
             [
               Image.asset
               (
-                'lib/Assets/Google Pocket App Logo.jpg',
+                'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png',
                 width: 100,
                 height: 100
               ),
@@ -78,15 +81,16 @@ class _SignUpState extends State<SignUp>
               
               DropdownMenu<SampleGDSCCampusName>
               (
+                width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
                 controller: campusController,
                 enableFilter: true,
-                leadingIcon: const Icon(Icons.search),
+                leadingIcon: const Icon(Icons.school_rounded),
                 label: const Text('GDSC Campus Name'),
                 dropdownMenuEntries: campusEntries,
                 inputDecorationTheme: const InputDecorationTheme
                 (
-                  filled: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 5.0),
+                  // filled: true,
+                  // contentPadding: EdgeInsets.symmetric(vertical: 5.0),
                 ),
                 onSelected: (SampleGDSCCampusName? campus) 
                 {
@@ -99,174 +103,174 @@ class _SignUpState extends State<SignUp>
 
 
 
-              PopupMenuButton<SampleGDSCCampusName>
-              (
-                child: TextField
-                (
-                  readOnly: true,
-                  decoration: InputDecoration
-                  (
-                    labelText: 'GDSC Campus Name',
-                    helperText: 'Select from menu',
-                    suffixIcon: Icon(Icons.arrow_drop_down_circle),
-                  ),
-                ),
-                initialValue: null,
-                // Callback that sets the selected popup menu item.
-                onSelected: (SampleGDSCCampusName item) 
-                {
-                  setState(() 
-                  {
-                    selectedMenu = item;
-                  });
-                },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
-                [
-                  const PopupMenuItem<SampleGDSCCampusName>
-                  (
-                    value: SampleGDSCCampusName.GDSCCampusNameOne,
-                    child: Text('GDSCCampusName 1'),
-                  ),
-                  const PopupMenuItem<SampleGDSCCampusName>
-                  (
-                    value: SampleGDSCCampusName.GDSCCampusNameTwo,
-                    child: Text('GDSCCampusName 2'),
-                  ),
-                  const PopupMenuItem<SampleGDSCCampusName>
-                  (
-                    value: SampleGDSCCampusName.GDSCCampusNameThree,
-                    child: Text('GDSCCampusName 3'),
-                  ),
-                ],
-              ),
+              // PopupMenuButton<SampleGDSCCampusName>
+              // (
+              //   child: TextField
+              //   (
+              //     readOnly: true,
+              //     decoration: InputDecoration
+              //     (
+              //       labelText: 'GDSC Campus Name',
+              //       helperText: 'Select from menu',
+              //       suffixIcon: Icon(Icons.arrow_drop_down_circle),
+              //     ),
+              //   ),
+              //   initialValue: null,
+              //   // Callback that sets the selected popup menu item.
+              //   onSelected: (SampleGDSCCampusName item) 
+              //   {
+              //     setState(() 
+              //     {
+              //       selectedMenu = item;
+              //     });
+              //   },
+              //   itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
+              //   [
+              //     const PopupMenuItem<SampleGDSCCampusName>
+              //     (
+              //       value: SampleGDSCCampusName.GDSCCampusNameOne,
+              //       child: Text('GDSCCampusName 1'),
+              //     ),
+              //     const PopupMenuItem<SampleGDSCCampusName>
+              //     (
+              //       value: SampleGDSCCampusName.GDSCCampusNameTwo,
+              //       child: Text('GDSCCampusName 2'),
+              //     ),
+              //     const PopupMenuItem<SampleGDSCCampusName>
+              //     (
+              //       value: SampleGDSCCampusName.GDSCCampusNameThree,
+              //       child: Text('GDSCCampusName 3'),
+              //     ),
+              //   ],
+              // ),
 
           
 
-              TextField
-              (
-                readOnly: true,
-                decoration: InputDecoration
-                (
-                  labelText: 'GDSC Campus Name',
-                  helperText: 'Select from menu',
-                ),
-                onTap: () 
-                {
-                  PopupMenuButton<SampleGDSCCampusName>
-                  (
-                    initialValue: selectedMenu,
-                    // Callback that sets the selected popup menu item.
-                    onSelected: (SampleGDSCCampusName item) 
-                    {
-                      setState(() 
-                      {
-                        selectedMenu = item;
-                      });
-                    },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
-                    [
-                      const PopupMenuItem<SampleGDSCCampusName>
-                      (
-                        value: SampleGDSCCampusName.GDSCCampusNameOne,
-                        child: Text('GDSCCampusName 1'),
-                      ),
-                      const PopupMenuItem<SampleGDSCCampusName>
-                      (
-                        value: SampleGDSCCampusName.GDSCCampusNameTwo,
-                        child: Text('GDSCCampusName 2'),
-                      ),
-                      const PopupMenuItem<SampleGDSCCampusName>
-                      (
-                        value: SampleGDSCCampusName.GDSCCampusNameThree,
-                        child: Text('GDSCCampusName 3'),
-                      ),
-                    ],
-                  );
-                }
-              ),
+              // TextField
+              // (
+              //   readOnly: true,
+              //   decoration: InputDecoration
+              //   (
+              //     labelText: 'GDSC Campus Name',
+              //     helperText: 'Select from menu',
+              //   ),
+              //   onTap: () 
+              //   {
+              //     PopupMenuButton<SampleGDSCCampusName>
+              //     (
+              //       initialValue: selectedMenu,
+              //       // Callback that sets the selected popup menu item.
+              //       onSelected: (SampleGDSCCampusName item) 
+              //       {
+              //         setState(() 
+              //         {
+              //           selectedMenu = item;
+              //         });
+              //       },
+              //       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
+              //       [
+              //         const PopupMenuItem<SampleGDSCCampusName>
+              //         (
+              //           value: SampleGDSCCampusName.GDSCCampusNameOne,
+              //           child: Text('GDSCCampusName 1'),
+              //         ),
+              //         const PopupMenuItem<SampleGDSCCampusName>
+              //         (
+              //           value: SampleGDSCCampusName.GDSCCampusNameTwo,
+              //           child: Text('GDSCCampusName 2'),
+              //         ),
+              //         const PopupMenuItem<SampleGDSCCampusName>
+              //         (
+              //           value: SampleGDSCCampusName.GDSCCampusNameThree,
+              //           child: Text('GDSCCampusName 3'),
+              //         ),
+              //       ],
+              //     );
+              //   }
+              // ),
 
 
-              TextField
-              (
-                readOnly: true,
-                decoration: InputDecoration
-                (
-                  labelText: 'GDSC Campus Name',
-                  helperText: 'Select from menu',
-                  suffix: PopupMenuButton<SampleGDSCCampusName>
-                  (
-                    icon: Icon(Icons.arrow_drop_down_circle),
-                    initialValue: null,
-                    // Callback that sets the selected popup menu item.
-                    onSelected: (SampleGDSCCampusName item) 
-                    {
-                      setState(() 
-                      {
-                        selectedMenu = item;
-                      });
-                    },
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
-                    [
-                      const PopupMenuItem<SampleGDSCCampusName>
-                      (
-                        value: SampleGDSCCampusName.GDSCCampusNameOne,
-                        child: Text('GDSCCampusName 1'),
-                      ),
-                      const PopupMenuItem<SampleGDSCCampusName>
-                      (
-                        value: SampleGDSCCampusName.GDSCCampusNameTwo,
-                        child: Text('GDSCCampusName 2'),
-                      ),
-                      const PopupMenuItem<SampleGDSCCampusName>
-                      (
-                        value: SampleGDSCCampusName.GDSCCampusNameThree,
-                        child: Text('GDSCCampusName 3'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // TextField
+              // (
+              //   readOnly: true,
+              //   decoration: InputDecoration
+              //   (
+              //     labelText: 'GDSC Campus Name',
+              //     helperText: 'Select from menu',
+              //     suffix: PopupMenuButton<SampleGDSCCampusName>
+              //     (
+              //       icon: Icon(Icons.arrow_drop_down_circle),
+              //       initialValue: null,
+              //       // Callback that sets the selected popup menu item.
+              //       onSelected: (SampleGDSCCampusName item) 
+              //       {
+              //         setState(() 
+              //         {
+              //           selectedMenu = item;
+              //         });
+              //       },
+              //       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
+              //       [
+              //         const PopupMenuItem<SampleGDSCCampusName>
+              //         (
+              //           value: SampleGDSCCampusName.GDSCCampusNameOne,
+              //           child: Text('GDSCCampusName 1'),
+              //         ),
+              //         const PopupMenuItem<SampleGDSCCampusName>
+              //         (
+              //           value: SampleGDSCCampusName.GDSCCampusNameTwo,
+              //           child: Text('GDSCCampusName 2'),
+              //         ),
+              //         const PopupMenuItem<SampleGDSCCampusName>
+              //         (
+              //           value: SampleGDSCCampusName.GDSCCampusNameThree,
+              //           child: Text('GDSCCampusName 3'),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
 
-              PopupMenuButton<SampleGDSCCampusName>
-              (
-                child: TextField
-                (
-                  readOnly: true,
-                  decoration: InputDecoration
-                  (
-                    labelText: 'GDSC Campus Name',
-                    helperText: 'Select from menu',
-                    suffixIcon: Icon(Icons.arrow_drop_down_circle),
-                  ),
-                ),
-                initialValue: null,
-                // Callback that sets the selected popup menu item.
-                onSelected: (SampleGDSCCampusName item) 
-                {
-                  setState(() 
-                  {
-                    selectedMenu = item;
-                  });
-                },
-                itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
-                [
-                  const PopupMenuItem<SampleGDSCCampusName>
-                  (
-                    value: SampleGDSCCampusName.GDSCCampusNameOne,
-                    child: Text('GDSCCampusName 1'),
-                  ),
-                  const PopupMenuItem<SampleGDSCCampusName>
-                  (
-                    value: SampleGDSCCampusName.GDSCCampusNameTwo,
-                    child: Text('GDSCCampusName 2'),
-                  ),
-                  const PopupMenuItem<SampleGDSCCampusName>
-                  (
-                    value: SampleGDSCCampusName.GDSCCampusNameThree,
-                    child: Text('GDSCCampusName 3'),
-                  ),
-                ],
-              ),
+              // PopupMenuButton<SampleGDSCCampusName>
+              // (
+              //   child: TextField
+              //   (
+              //     readOnly: true,
+              //     decoration: InputDecoration
+              //     (
+              //       labelText: 'GDSC Campus Name',
+              //       helperText: 'Select from menu',
+              //       suffixIcon: Icon(Icons.arrow_drop_down_circle),
+              //     ),
+              //   ),
+              //   initialValue: null,
+              //   // Callback that sets the selected popup menu item.
+              //   onSelected: (SampleGDSCCampusName item) 
+              //   {
+              //     setState(() 
+              //     {
+              //       selectedMenu = item;
+              //     });
+              //   },
+              //   itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleGDSCCampusName>>
+              //   [
+              //     const PopupMenuItem<SampleGDSCCampusName>
+              //     (
+              //       value: SampleGDSCCampusName.GDSCCampusNameOne,
+              //       child: Text('GDSCCampusName 1'),
+              //     ),
+              //     const PopupMenuItem<SampleGDSCCampusName>
+              //     (
+              //       value: SampleGDSCCampusName.GDSCCampusNameTwo,
+              //       child: Text('GDSCCampusName 2'),
+              //     ),
+              //     const PopupMenuItem<SampleGDSCCampusName>
+              //     (
+              //       value: SampleGDSCCampusName.GDSCCampusNameThree,
+              //       child: Text('GDSCCampusName 3'),
+              //     ),
+              //   ],
+              // ),
 
 
               
@@ -358,6 +362,59 @@ class _SignUpState extends State<SignUp>
                   suffixIcon: RedCrossIcon,
                 ),
               ),
+              TextField
+              (
+                obscureText: true,
+                decoration: InputDecoration
+                (
+                  prefixIcon: Icon(Icons.call_rounded),
+                  labelText: 'WhatsApp Number',
+                  helperText: 'e.g. +923022932933',
+                  suffixIcon: RedCrossIcon,
+                ),
+              ),
+              TextField
+              (
+                obscureText: true,
+                decoration: InputDecoration
+                (
+                  prefixIcon: Icon(Icons.facebook_rounded),
+                  labelText: 'Facebook Profile Link',
+                  helperText: 'e.g. https://www.facebook.com/marium.s13/',
+                  suffixIcon: RedCrossIcon,
+                ),
+              ),
+              TextField
+              (
+                obscureText: true,
+                decoration: InputDecoration
+                (
+                  prefixIcon: Icon(Icons.linked_camera_outlined),
+                  labelText: 'Instagram Profile Link',
+                  helperText: 'e.g. https://www.instagram.com/gdsc.iba/',
+                  suffixIcon: RedCrossIcon,
+                ),
+              ),
+              TextField
+              (
+                obscureText: true,
+                decoration: InputDecoration
+                (
+                  prefixIcon: Icon(Icons.book_rounded),
+                  labelText: 'LinkedIn Profile Link',
+                  helperText: 'e.g. https://www.linkedin.com/in/msarim/',
+                  suffixIcon: RedCrossIcon,
+                ),
+              ),
+              ElevatedButton
+              (
+                child: Text('Sign Up'),
+                style: ButtonStyle
+                (
+                  fixedSize: MaterialStateProperty<Size> double.minPositive,
+                ),
+                onPressed: () {}, 
+              )
             ],
           ),
         ),
