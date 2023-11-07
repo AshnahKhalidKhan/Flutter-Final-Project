@@ -6,7 +6,7 @@
 - Whatsaoo Icon
 -Instagarm icon
 - LinkedIn Icon
-
+- Toggle GDSC Lead or GDSC Member mode
 
 */
 
@@ -71,6 +71,13 @@ class _SignUpState extends State<SignUp>
                 width: 100,
                 height: 100
               ),
+
+
+
+
+
+
+
               // RadioMenuButton
               // (
               //   value: Invalid, 
@@ -78,7 +85,44 @@ class _SignUpState extends State<SignUp>
               //   onChanged: onChanged, 
               //   child: child
               // ),
+              Row
+              (
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: 
+                [
+                  Container
+                  (
+                    // height: 30.0,
+                    child: Text('GDSC Lead'),
+                    color: Colors.orange,
+                  ),
+                  Switch
+                  (
+                    value: true, 
+                    onChanged: (bool LeadOrMember) {}
+                  ),
+                  Container
+                  (
+                    child: Text('GDSC Member'),
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+
+
               
+              
+
+
+
+
+
+
+
+
+
+
               DropdownMenu<SampleGDSCCampusName>
               (
                 width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
