@@ -411,7 +411,7 @@ class _SignUpState extends State<SignUp>
                 child: Text('Sign Up'),
                 style: ButtonStyle
                 (
-                  fixedSize: MaterialStateProperty<Size> double.minPositive,
+                  fixedSize: MaterialStateProperty.all(const Size(double.maxFinite, 50.0)),
                 ),
                 onPressed: () {}, 
               )
