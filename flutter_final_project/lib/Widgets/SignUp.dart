@@ -1,3 +1,12 @@
+/*
+
+- Show no cross or tick initially when signing in screen loads first time (null in place of RedCroossIcon and )
+- Visibility password on/off 
+- Password requirements meeting state
+
+*/
+
+
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget 
@@ -10,7 +19,7 @@ class SignUp extends StatefulWidget
 
 class _SignUpState extends State<SignUp> 
 {
-  Icon CheckCircleIcon = Icon
+  Icon GreenCheckIcon = Icon
   (
     Icons.check_circle_rounded,
     color: Colors.green,
@@ -45,6 +54,23 @@ class _SignUpState extends State<SignUp>
               width: 100,
               height: 100
             ),
+            // RadioMenuButton
+            // (
+            //   value: Invalid, 
+            //   groupValue: groupValue, 
+            //   onChanged: onChanged, 
+            //   child: child
+            // ),
+            TextField
+            (
+              decoration: InputDecoration
+              (
+                prefixIcon: Icon(Icons.person_2_rounded),
+                labelText: 'Full Name',
+                helperText: 'each word must be capitalized',
+                suffixIcon: RedCrossIcon,
+              ),
+            ),
             TextField
             (
               decoration: InputDecoration
@@ -58,13 +84,12 @@ class _SignUpState extends State<SignUp>
             ),
             TextField
             (
+              obscureText: true,
               decoration: InputDecoration
               (
                 prefixIcon: Icon(Icons.key_rounded),
                 labelText: 'Password',
-                // helperText: 'Helper text',
-                // errorText: 'Error text',
-                suffixIcon: RedCrossIcon,
+                suffixIcon: Icon(Icons.visibility),
                 error: Column
                 (
                   children: 
@@ -73,7 +98,7 @@ class _SignUpState extends State<SignUp>
                     (
                       children: 
                       [
-                        CheckCircleIcon,
+                        GreenCheckIcon,
                         RedCrossIcon,
                         SizedBox(width: 5.0),
                         Text('Minimum 8 characters'),
@@ -83,7 +108,7 @@ class _SignUpState extends State<SignUp>
                     (
                       children: 
                       [
-                        CheckCircleIcon,
+                        GreenCheckIcon,
                         RedCrossIcon,
                         SizedBox(width: 5.0),
                         Text('Has one uppercase alphabet (A-Z)'),
@@ -94,7 +119,7 @@ class _SignUpState extends State<SignUp>
                       children: 
                       [
                         
-                        CheckCircleIcon,
+                        GreenCheckIcon,
                         RedCrossIcon,
                         SizedBox(width: 5.0),
                         Text('Has one digit (0-9)'),
@@ -104,7 +129,7 @@ class _SignUpState extends State<SignUp>
                     (
                       children: 
                       [
-                        CheckCircleIcon,
+                        GreenCheckIcon,
                         RedCrossIcon,
                         SizedBox(width: 5.0),
                         Text('Has one special character (!, @, #...)'),
@@ -112,6 +137,16 @@ class _SignUpState extends State<SignUp>
                     ),
                   ],
                 ),
+              ),
+            ),
+            TextField
+            (
+              obscureText: true,
+              decoration: InputDecoration
+              (
+                prefixIcon: Icon(Icons.key_rounded),
+                labelText: 'Confirm Password',
+                suffixIcon: RedCrossIcon,
               ),
             ),
           ],
