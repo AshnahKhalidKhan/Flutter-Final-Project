@@ -136,15 +136,6 @@ class _SignUpState extends State<SignUp>
               ),
 
 
-              
-              
-
-
-
-
-
-
-
 
 
 
@@ -165,6 +156,7 @@ class _SignUpState extends State<SignUp>
                 {
                   setState(() 
                   {
+                    firstTimeScreenLoad = false;
                     selectedCampus = campus;
                   });
                 },
@@ -350,7 +342,7 @@ class _SignUpState extends State<SignUp>
                   prefixIcon: Icon(Icons.person_2_rounded),
                   labelText: 'Full Name',
                   helperText: fullNameCorrect ? null : 'Each word must be capitalized',
-                  suffixIcon: RedCrossIcon,
+                  suffixIcon: firstTimeScreenLoad ? null : (fullNameCorrect ? GreenCheckIcon : RedCrossIcon),
                 ),
               ),
               TextField
