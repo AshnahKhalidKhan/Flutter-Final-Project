@@ -43,6 +43,22 @@ class _SignUpState extends State<SignUp>
 
   // SampleGDSCCampusName? selectedMenu;
 
+  bool fullNameCorrect = false;
+  bool emailCorrect = false;
+  bool passwordMinimum8Characters = false;
+  bool passwordHasOneUppercaseAlphabet = false;
+  bool passwordHasOneDigit = false;
+  bool passwordHasOneSpecialCharacter = false;
+  bool confirmPasswordAndPasswordMatch = false;
+  bool whatsAppNumberCorrect = false;
+  bool facebookLinkCorrect = false;
+  bool instagramLinkCorrect = false;
+  bool linkedInLinkCorrect = false;
+  bool allInputFieldsCorrect = false;
+
+  bool passwordVisible = false;
+
+
   @override
   Widget build(BuildContext context) 
   {
