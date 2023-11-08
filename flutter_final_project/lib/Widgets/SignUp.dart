@@ -43,6 +43,8 @@ class _SignUpState extends State<SignUp>
 
   // SampleGDSCCampusName? selectedMenu;
 
+  bool firstTimeScreenLoad = true;
+
   bool fullNameCorrect = false;
   bool emailCorrect = false;
   bool passwordMinimum8Characters = false;
@@ -340,7 +342,7 @@ class _SignUpState extends State<SignUp>
                 (
                   prefixIcon: Icon(Icons.person_2_rounded),
                   labelText: 'Full Name',
-                  helperText: 'Each word must be capitalized',
+                  helperText: fullNameCorrect ? null : 'Each word must be capitalized',
                   suffixIcon: RedCrossIcon,
                 ),
               ),
@@ -350,8 +352,7 @@ class _SignUpState extends State<SignUp>
                 (
                   prefixIcon: Icon(Icons.email_rounded),
                   labelText: 'Email',
-                  helperText: 'Helper text',
-                  errorText: 'Error text',
+                  helperText: emailCorrect ? null : 'Email must be valid',
                   suffixIcon: RedCrossIcon,
                 ),
               ),
@@ -365,14 +366,13 @@ class _SignUpState extends State<SignUp>
                   suffixIcon: Icon(Icons.visibility),
                   error: Column
                   (
-                    children: 
+                    children: firstTimeScreenLoad ? <Widget>[] :
                     [
                       Row
                       (
-                        children: 
+                        children:
                         [
-                          GreenCheckIcon,
-                          RedCrossIcon,
+                          passwordMinimum8Characters ? GreenCheckIcon : RedCrossIcon,
                           SizedBox(width: 5.0),
                           Text('Minimum 8 characters'),
                         ],
@@ -381,8 +381,7 @@ class _SignUpState extends State<SignUp>
                       (
                         children: 
                         [
-                          GreenCheckIcon,
-                          RedCrossIcon,
+                          passwordHasOneUppercaseAlphabet ? GreenCheckIcon : RedCrossIcon,
                           SizedBox(width: 5.0),
                           Text('Has one uppercase alphabet (A-Z)'),
                         ],
@@ -392,8 +391,7 @@ class _SignUpState extends State<SignUp>
                         children: 
                         [
                           
-                          GreenCheckIcon,
-                          RedCrossIcon,
+                          passwordHasOneDigit ? GreenCheckIcon : RedCrossIcon,
                           SizedBox(width: 5.0),
                           Text('Has one digit (0-9)'),
                         ],
@@ -402,13 +400,12 @@ class _SignUpState extends State<SignUp>
                       (
                         children: 
                         [
-                          GreenCheckIcon,
-                          RedCrossIcon,
+                          passwordHasOneSpecialCharacter ? GreenCheckIcon : RedCrossIcon,
                           SizedBox(width: 5.0),
                           Text('Has one special character (!, @, #...)'),
                         ],
                       ),
-                    ],
+                    ].toList(),
                   ),
                 ),
               ),
@@ -419,7 +416,7 @@ class _SignUpState extends State<SignUp>
                 (
                   prefixIcon: Icon(Icons.key_rounded),
                   labelText: 'Confirm Password',
-                  suffixIcon: RedCrossIcon,
+                  suffixIcon: confirmPasswordAndPasswordMatch ? GreenCheckIcon : RedCrossIcon,
                 ),
               ),
               TextField
@@ -430,7 +427,7 @@ class _SignUpState extends State<SignUp>
                   prefixIcon: Icon(Icons.call_rounded),
                   labelText: 'WhatsApp Number',
                   helperText: 'e.g. +923022932933',
-                  suffixIcon: RedCrossIcon,
+                  suffixIcon: whatsAppNumberCorrect ? GreenCheckIcon : RedCrossIcon,
                 ),
               ),
               TextField
@@ -441,7 +438,7 @@ class _SignUpState extends State<SignUp>
                   prefixIcon: Icon(Icons.facebook_rounded),
                   labelText: 'Facebook Profile Link',
                   helperText: 'e.g. https://www.facebook.com/marium.s13/',
-                  suffixIcon: RedCrossIcon,
+                  suffixIcon: facebookLinkCorrect ? GreenCheckIcon : RedCrossIcon,
                 ),
               ),
               TextField
@@ -452,7 +449,7 @@ class _SignUpState extends State<SignUp>
                   prefixIcon: Icon(Icons.linked_camera_outlined),
                   labelText: 'Instagram Profile Link',
                   helperText: 'e.g. https://www.instagram.com/gdsc.iba/',
-                  suffixIcon: RedCrossIcon,
+                  suffixIcon: instagramLinkCorrect ? GreenCheckIcon : RedCrossIcon,
                 ),
               ),
               TextField
@@ -463,7 +460,7 @@ class _SignUpState extends State<SignUp>
                   prefixIcon: Icon(Icons.book_rounded),
                   labelText: 'LinkedIn Profile Link',
                   helperText: 'e.g. https://www.linkedin.com/in/msarim/',
-                  suffixIcon: RedCrossIcon,
+                  suffixIcon: linkedInLinkCorrect ? GreenCheckIcon : RedCrossIcon,
                 ),
               ),
               ElevatedButton
@@ -474,7 +471,7 @@ class _SignUpState extends State<SignUp>
                   fixedSize: MaterialStateProperty.all(const Size(double.maxFinite, 50.0)),
                 ),
                 onPressed: () {}, 
-              )
+              ),
             ],
           ),
         ),
