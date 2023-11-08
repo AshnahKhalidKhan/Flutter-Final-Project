@@ -43,6 +43,7 @@ class _SignUpState extends State<SignUp>
 
   // SampleGDSCCampusName? selectedMenu;
 
+  bool leadOrMemberMode = true;
   bool firstTimeScreenLoad = true;
 
   bool fullNameCorrect = false;
@@ -86,8 +87,8 @@ class _SignUpState extends State<SignUp>
               Image.asset
               (
                 'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png',
-                width: 100,
-                height: 100
+                width: 150,
+                height: 150,
               ),
 
 
@@ -113,17 +114,23 @@ class _SignUpState extends State<SignUp>
                   (
                     // height: 30.0,
                     child: Text('GDSC Lead'),
-                    color: Colors.orange,
+                    color: leadOrMemberMode ? Colors.white : Colors.orange,
                   ),
                   Switch
                   (
-                    value: true, 
-                    onChanged: (bool LeadOrMember) {}
+                    value: leadOrMemberMode, 
+                    onChanged: (bool LeadOrMember) 
+                    {
+                      setState(() 
+                      {
+                        leadOrMemberMode = !leadOrMemberMode;
+                      });
+                    }
                   ),
                   Container
                   (
                     child: Text('GDSC Member'),
-                    color: Colors.blue,
+                    color: leadOrMemberMode ? Colors.blue : Colors.white,
                   ),
                 ],
               ),
