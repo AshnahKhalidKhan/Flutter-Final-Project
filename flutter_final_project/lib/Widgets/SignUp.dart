@@ -59,7 +59,7 @@ class _SignUpState extends State<SignUp>
   bool linkedInLinkCorrect = false;
   bool allInputFieldsCorrect = false;
 
-  bool passwordVisible = false;
+  bool passwordInvisible = true;
 
 
   @override
@@ -134,8 +134,6 @@ class _SignUpState extends State<SignUp>
                   ),
                 ],
               ),
-
-
 
 
 
@@ -357,12 +355,22 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                obscureText: true,
+                obscureText: passwordInvisible,
                 decoration: InputDecoration
                 (
                   prefixIcon: Icon(Icons.key_rounded),
                   labelText: 'Password',
-                  suffixIcon: Icon(Icons.visibility),
+                  suffixIcon: GestureDetector
+                  (
+                    child: passwordInvisible ? Icon(Icons.visibility_off_rounded) : Icon(Icons.visibility_rounded),
+                    onTap: () 
+                    {
+                      setState(() 
+                      {
+                        passwordInvisible = !passwordInvisible;
+                      });
+                    }
+                  ),
                   error: Column
                   (
                     children: firstTimeScreenLoad ? <Widget>[] :
