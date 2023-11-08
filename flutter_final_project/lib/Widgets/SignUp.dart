@@ -46,6 +46,15 @@ class _SignUpState extends State<SignUp>
   bool leadOrMemberMode = true;
   bool firstTimeScreenLoad = true;
 
+  final TextEditingController fullNameText = TextEditingController();
+  final TextEditingController emailText = TextEditingController();
+  final TextEditingController passwordText = TextEditingController();
+  final TextEditingController confirmPasswordText = TextEditingController();
+  final TextEditingController whatsAppNumberText = TextEditingController();
+  final TextEditingController facebookLinkText = TextEditingController();
+  final TextEditingController instagramLinkText = TextEditingController();
+  final TextEditingController linkedInLinkText = TextEditingController();
+
   bool fullNameCorrect = false;
   bool emailCorrect = false;
   bool passwordMinimum8Characters = false;
@@ -335,6 +344,7 @@ class _SignUpState extends State<SignUp>
               
               TextField
               (
+                controller: fullNameText,
                 decoration: InputDecoration
                 (
                   prefixIcon: Icon(Icons.person_2_rounded),
@@ -345,6 +355,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
+                controller: emailText,
                 decoration: InputDecoration
                 (
                   prefixIcon: Icon(Icons.email_rounded),
@@ -355,6 +366,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
+                controller: passwordText,
                 obscureText: passwordInvisible,
                 decoration: InputDecoration
                 (
@@ -418,16 +430,36 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
+                controller: confirmPasswordText,
                 obscureText: true,
                 decoration: InputDecoration
                 (
                   prefixIcon: Icon(Icons.key_rounded),
                   labelText: 'Confirm Password',
+                  helperText: confirmPasswordAndPasswordMatch.toString(),
                   suffixIcon: confirmPasswordAndPasswordMatch ? GreenCheckIcon : RedCrossIcon,
                 ),
+                onChanged: (value) 
+                {
+                  if (confirmPasswordText == passwordText)
+                  {
+                    setState(() 
+                    {
+                      confirmPasswordAndPasswordMatch = true;
+                    });
+                  }
+                  else
+                  {
+                    setState(() 
+                    {
+                      confirmPasswordAndPasswordMatch = false;
+                    });
+                  }
+                },
               ),
               TextField
               (
+                controller: whatsAppNumberText,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -439,6 +471,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
+                controller: facebookLinkText,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -450,6 +483,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
+                controller: instagramLinkText,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -461,6 +495,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
+                controller: linkedInLinkText,
                 obscureText: true,
                 decoration: InputDecoration
                 (
