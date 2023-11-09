@@ -46,14 +46,14 @@ class _SignUpState extends State<SignUp>
   bool leadOrMemberMode = true;
   bool firstTimeScreenLoad = true;
 
-  final TextEditingController fullNameText = TextEditingController();
-  final TextEditingController emailText = TextEditingController();
-  final TextEditingController passwordText = TextEditingController();
-  final TextEditingController confirmPasswordText = TextEditingController();
-  final TextEditingController whatsAppNumberText = TextEditingController();
-  final TextEditingController facebookLinkText = TextEditingController();
-  final TextEditingController instagramLinkText = TextEditingController();
-  final TextEditingController linkedInLinkText = TextEditingController();
+  final TextEditingController fullNameInput = TextEditingController();
+  final TextEditingController emailInput = TextEditingController();
+  final TextEditingController passwordInput = TextEditingController();
+  final TextEditingController confirmpasswordInput = TextEditingController();
+  final TextEditingController whatsAppNumberInput = TextEditingController();
+  final TextEditingController facebookLinkInput = TextEditingController();
+  final TextEditingController instagramLinkInput = TextEditingController();
+  final TextEditingController linkedInLinkInput = TextEditingController();
 
   bool fullNameCorrect = false;
   bool emailCorrect = false;
@@ -344,7 +344,7 @@ class _SignUpState extends State<SignUp>
               
               TextField
               (
-                controller: fullNameText,
+                controller: fullNameInput,
                 decoration: InputDecoration
                 (
                   prefixIcon: Icon(Icons.person_2_rounded),
@@ -355,7 +355,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: emailText,
+                controller: emailInput,
                 decoration: InputDecoration
                 (
                   prefixIcon: Icon(Icons.email_rounded),
@@ -366,7 +366,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: passwordText,
+                controller: passwordInput,
                 obscureText: passwordInvisible,
                 decoration: InputDecoration
                 (
@@ -430,7 +430,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: confirmPasswordText,
+                controller: confirmpasswordInput,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -441,7 +441,7 @@ class _SignUpState extends State<SignUp>
                 ),
                 onChanged: (value) 
                 {
-                  if (confirmPasswordText == passwordText)
+                  if (confirmpasswordInput.text == passwordInput.text)
                   {
                     setState(() 
                     {
@@ -459,7 +459,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: whatsAppNumberText,
+                controller: whatsAppNumberInput,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -471,7 +471,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: facebookLinkText,
+                controller: facebookLinkInput,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -483,7 +483,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: instagramLinkText,
+                controller: instagramLinkInput,
                 obscureText: true,
                 decoration: InputDecoration
                 (
@@ -495,7 +495,7 @@ class _SignUpState extends State<SignUp>
               ),
               TextField
               (
-                controller: linkedInLinkText,
+                controller: linkedInLinkInput,
                 obscureText: true,
                 decoration: InputDecoration
                 (
