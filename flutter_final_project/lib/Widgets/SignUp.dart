@@ -101,11 +101,6 @@ class _SignUpState extends State<SignUp>
               ),
 
 
-
-
-
-
-
               // RadioMenuButton
               // (
               //   value: Invalid, 
@@ -352,6 +347,23 @@ class _SignUpState extends State<SignUp>
                   helperText: fullNameCorrect ? null : 'Each word must be capitalized',
                   suffixIcon: firstTimeScreenLoad ? null : (fullNameCorrect ? GreenCheckIcon : RedCrossIcon),
                 ),
+                onChanged: (value)
+                {
+                  if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(fullNameInput.text) == true && (RegExp(r'\b[A-Z]').allMatches(fullNameInput.text).length == fullNameInput.text.split(' ').length) == true)
+                  {
+                    setState(() 
+                    {
+                      fullNameCorrect = true;
+                    });
+                  }
+                  else
+                  {
+                    setState(() 
+                    {
+                      fullNameCorrect = false;
+                    });
+                  }
+                },
               ),
               TextField
               (
