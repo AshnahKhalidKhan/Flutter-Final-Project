@@ -68,6 +68,17 @@ class _SignUpState extends State<SignUp>
   bool linkedInLinkCorrect = false;
   bool allInputFieldsCorrect = false;
 
+  bool fullNameActive = false;
+  bool emailActive = false;
+  bool passwordActive = false;
+  bool confirmPasswordActive = false;
+  bool whatsAppNumberActive = false;
+  bool facebookLinkActive = false;
+  bool instagramLinkActive = false;
+  bool linkedInLinkActive = false;
+  bool allInputFieldsActive = false;
+
+
   bool passwordInvisible = true;
 
 
