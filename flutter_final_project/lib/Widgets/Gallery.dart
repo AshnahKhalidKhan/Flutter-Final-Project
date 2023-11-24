@@ -10,6 +10,8 @@ class Gallery extends StatefulWidget
 
 class _GalleryState extends State<Gallery> 
 {
+  int NumberOfTiles = 2;
+
   @override
   Widget build(BuildContext context) 
   {
@@ -25,6 +27,24 @@ class _GalleryState extends State<Gallery>
           (
             onPressed: () {},
             icon: Icon(Icons.camera_alt_rounded)
+          ),
+          IconButton
+          (
+            onPressed: () 
+            {
+              setState(() 
+              {
+                if (NumberOfTiles == 2)
+                {
+                  NumberOfTiles = 4;
+                }
+                else if (NumberOfTiles == 4)
+                {
+                  NumberOfTiles = 2;
+                }
+              });
+            },
+            icon: Icon(Icons.grid_view_rounded)
           )
         ],
         
@@ -34,7 +54,7 @@ class _GalleryState extends State<Gallery>
         padding: EdgeInsets.all(10.0),
         child: GridView.builder
         (
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: NumberOfTiles),
           itemCount: 20,
           itemBuilder: (context, i)
           {
