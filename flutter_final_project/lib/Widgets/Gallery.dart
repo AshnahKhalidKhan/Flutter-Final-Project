@@ -15,7 +15,20 @@ class _GalleryState extends State<Gallery>
   {
     return Scaffold
     (
-      // appBar: AppBar(),
+      appBar: AppBar
+      (
+        leading: BackButton(),
+        title: Text('Gallery'),
+        actions: 
+        [
+          IconButton
+          (
+            onPressed: () {},
+            icon: Icon(Icons.camera_alt_rounded)
+          )
+        ],
+        
+      ),
       body: Padding
       (
         padding: EdgeInsets.all(10.0),
@@ -33,7 +46,7 @@ class _GalleryState extends State<Gallery>
               (
                 children: 
                 [
-                  Image.asset('lib/Assets/Google_Pocket_App_Logo')
+                  Image.asset('lib/Assets/Google Pocket App Logo.jpg')
                 ],
               ),
             );
