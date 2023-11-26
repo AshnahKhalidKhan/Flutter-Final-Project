@@ -25,11 +25,6 @@ class _GalleryState extends State<Gallery>
         [
           IconButton
           (
-            onPressed: () {},
-            icon: Icon(Icons.camera_alt_rounded)
-          ),
-          IconButton
-          (
             onPressed: () 
             {
               setState(() 
@@ -45,7 +40,50 @@ class _GalleryState extends State<Gallery>
               });
             },
             icon: Icon(Icons.grid_view_rounded)
-          )
+          ),
+          IconButton
+          (
+            icon: Icon(Icons.add_a_photo),
+            onPressed: ()
+            {
+              showModalBottomSheet<void>
+              (
+                constraints: BoxConstraints
+                (
+                  // maxHeight: MediaQuery.of(context).size.height,
+                ),
+                isScrollControlled: true,
+                context: context,
+                builder: (BuildContext context)
+                {
+                  return SizedBox
+                  (
+                    width: double.maxFinite,
+                    child: Row
+                    (
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: 
+                      [
+                        Column
+                        IconButton
+                        (
+                          padding: EdgeInsets.all(30.0),
+                          icon: Icon(Icons.upload_file_rounded),
+                          onPressed: () {}
+                        ),
+                        IconButton
+                        (
+                          padding: EdgeInsets.all(30.0),
+                          icon: Icon(Icons.camera_alt_rounded),
+                          onPressed: () {}
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ],
         
       ),
