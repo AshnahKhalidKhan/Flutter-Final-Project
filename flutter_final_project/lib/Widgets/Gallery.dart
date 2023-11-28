@@ -133,16 +133,10 @@ class _GalleryState extends State<Gallery>
             (
               color: Colors.grey,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-              child: Expanded
+              child: Image.asset
               (
-                child: Container
-                (
-                  child: Image.asset
-                  (
-                    'lib/Assets/Google Pocket App Logo.jpg',
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
+                'lib/Assets/Google Pocket App Logo.jpg',
+                fit: BoxFit.contain,
               ),
             );
           }
