@@ -116,7 +116,7 @@ class _GalleryState extends State<Gallery>
           //       },
           //     );
           //   },
-          ),
+          // ),
         ],
         
       ),
@@ -133,17 +133,16 @@ class _GalleryState extends State<Gallery>
             (
               color: Colors.grey,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-              child: Column
+              child: Expanded
               (
-                children: 
-                [
-                  Expanded
+                child: Container
+                (
+                  child: Image.asset
                   (
-                    child: Image.asset('lib/Assets/Google Pocket App Logo.jpg'),
+                    'lib/Assets/Google Pocket App Logo.jpg',
+                    fit: BoxFit.fitWidth,
                   ),
-                  // Image.asset('lib/Assets/Google Pocket App Logo.jpg'),
-                  Text('Hi')
-                ],
+                ),
               ),
             );
           }
