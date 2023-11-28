@@ -41,73 +41,81 @@ class _GalleryState extends State<Gallery>
             },
             icon: Icon(Icons.grid_view_rounded)
           ),
-          IconButton
-          (
-            icon: Icon(Icons.add_a_photo),
-            onPressed: ()
-            {
-              showModalBottomSheet<void>
-              (
-                constraints: BoxConstraints
-                (
-                  maxHeight: MediaQuery.of(context).size.height,
-                  // minHeight: MediaQuery.of(context).size.height,
-                ),
-                isScrollControlled: true,
-                context: context,
-                builder: (BuildContext context)
-                {
-                  return SizedBox
-                  (
-                    width: double.infinity,
-                    child: Wrap
-                    (
-                      children: 
-                      [
-                        Row
-                        (
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: 
-                          [
-                            Column
-                            (
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: 
-                              [
-                                IconButton
-                                (
-                                  icon: Icon(Icons.file_upload_rounded),
-                                  onPressed: () {}
-                                ),
-                                Text('Upload file')
-                              ],
-                            ),
-                            SizedBox(width: 30.0),
-                            Column
-                            (
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: 
-                              [
-                                IconButton
-                                (
-                                  icon: Icon(Icons.camera_alt_rounded),
-                                  style: ButtonStyle
-                                  (
-                                    shape: MaterialStateOutlinedBorder(),
-                                  ),
-                                  onPressed: () {}
-                                ),
-                                Text('Camera'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ]
-                    ),
-                  );
-                },
-              );
-            },
+          // IconButton
+          // (
+          //   icon: Icon(Icons.add_a_photo),
+          //   onPressed: ()
+          //   {
+          //     showModalBottomSheet<void>
+          //     (
+          //       constraints: BoxConstraints
+          //       (
+          //         maxHeight: MediaQuery.of(context).size.height,
+          //         // minHeight: MediaQuery.of(context).size.height,
+          //       ),
+          //       isScrollControlled: true,
+          //       context: context,
+          //       builder: (BuildContext context)
+          //       {
+          //         return SizedBox
+          //         (
+          //           width: double.infinity,
+          //           child: Wrap
+          //           (
+          //             children: 
+          //             [
+          //               Row
+          //               (
+          //                 mainAxisAlignment: MainAxisAlignment.center,
+          //                 children: 
+          //                 [
+          //                   Padding
+          //                   (
+          //                     padding: EdgeInsets.all(30.0),
+          //                     child: Column
+          //                     (
+          //                       crossAxisAlignment: CrossAxisAlignment.center,
+          //                       children: 
+          //                       [
+          //                         IconButton.outlined
+          //                         (
+          //                           icon: Icon(Icons.upload_rounded, size: 30.0),
+          //                           padding: EdgeInsets.all(20.0),
+          //                           onPressed: () {}
+          //                         ),
+          //                         SizedBox(height: 10.0),
+          //                         Text('Upload file')
+          //                       ],
+          //                     ),
+          //                   ),
+          //                   // SizedBox(width: 30.0),
+          //                   Padding
+          //                   (
+          //                     padding: EdgeInsets.all(30.0),
+          //                     child: Column
+          //                     (
+          //                       crossAxisAlignment: CrossAxisAlignment.center,
+          //                       children: 
+          //                       [
+          //                         IconButton.outlined
+          //                         (
+          //                           icon: Icon(Icons.camera_alt_rounded, size: 30.0),
+          //                           padding: EdgeInsets.all(20.0),
+          //                           onPressed: () {}
+          //                         ),
+          //                         SizedBox(height: 10.0),
+          //                         Text('Camera')
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //             ]
+          //           ),
+          //         );
+          //       },
+          //     );
+          //   },
           ),
         ],
         
@@ -124,16 +132,104 @@ class _GalleryState extends State<Gallery>
             return Card
             (
               color: Colors.grey,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
               child: Column
               (
                 children: 
                 [
-                  Image.asset('lib/Assets/Google Pocket App Logo.jpg')
+                  Expanded
+                  (
+                    child: Image.asset('lib/Assets/Google Pocket App Logo.jpg'),
+                  ),
+                  // Image.asset('lib/Assets/Google Pocket App Logo.jpg'),
+                  Text('Hi')
                 ],
               ),
             );
           }
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.large
+      (
+        onPressed: () {},
+        shape: CircleBorder(),
+        backgroundColor: Colors.white,
+        child: IconButton
+        (
+          icon: Icon(Icons.add_a_photo),
+          padding: EdgeInsets.all(30.0),
+          onPressed: ()
+          {
+            showModalBottomSheet<void>
+            (
+              constraints: BoxConstraints
+              (
+                maxHeight: MediaQuery.of(context).size.height,
+                // minHeight: MediaQuery.of(context).size.height,
+              ),
+              isScrollControlled: true,
+              context: context,
+              builder: (BuildContext context)
+              {
+                return SizedBox
+                (
+                  width: double.infinity,
+                  child: Wrap
+                  (
+                    children: 
+                    [
+                      Row
+                      (
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: 
+                        [
+                          Padding
+                          (
+                            padding: EdgeInsets.all(30.0),
+                            child: Column
+                            (
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: 
+                              [
+                                IconButton.outlined
+                                (
+                                  icon: Icon(Icons.upload_rounded, size: 30.0),
+                                  padding: EdgeInsets.all(20.0),
+                                  onPressed: () {}
+                                ),
+                                SizedBox(height: 10.0),
+                                Text('Upload file')
+                              ],
+                            ),
+                          ),
+                          // SizedBox(width: 30.0),
+                          Padding
+                          (
+                            padding: EdgeInsets.all(30.0),
+                            child: Column
+                            (
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: 
+                              [
+                                IconButton.outlined
+                                (
+                                  icon: Icon(Icons.camera_alt_rounded, size: 30.0),
+                                  padding: EdgeInsets.all(20.0),
+                                  onPressed: () {}
+                                ),
+                                SizedBox(height: 10.0),
+                                Text('Camera')
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ]
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );
