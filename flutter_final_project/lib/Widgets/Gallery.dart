@@ -50,7 +50,8 @@ class _GalleryState extends State<Gallery>
               (
                 constraints: BoxConstraints
                 (
-                  // maxHeight: MediaQuery.of(context).size.height,
+                  maxHeight: MediaQuery.of(context).size.height,
+                  // minHeight: MediaQuery.of(context).size.height,
                 ),
                 isScrollControlled: true,
                 context: context,
@@ -58,26 +59,50 @@ class _GalleryState extends State<Gallery>
                 {
                   return SizedBox
                   (
-                    width: double.maxFinite,
-                    child: Row
+                    width: double.infinity,
+                    child: Wrap
                     (
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: 
                       [
-                        Column
-                        IconButton
+                        Row
                         (
-                          padding: EdgeInsets.all(30.0),
-                          icon: Icon(Icons.upload_file_rounded),
-                          onPressed: () {}
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: 
+                          [
+                            Column
+                            (
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: 
+                              [
+                                IconButton
+                                (
+                                  icon: Icon(Icons.file_upload_rounded),
+                                  onPressed: () {}
+                                ),
+                                Text('Upload file')
+                              ],
+                            ),
+                            SizedBox(width: 30.0),
+                            Column
+                            (
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: 
+                              [
+                                IconButton
+                                (
+                                  icon: Icon(Icons.camera_alt_rounded),
+                                  style: ButtonStyle
+                                  (
+                                    shape: MaterialStateOutlinedBorder(),
+                                  ),
+                                  onPressed: () {}
+                                ),
+                                Text('Camera'),
+                              ],
+                            ),
+                          ],
                         ),
-                        IconButton
-                        (
-                          padding: EdgeInsets.all(30.0),
-                          icon: Icon(Icons.camera_alt_rounded),
-                          onPressed: () {}
-                        ),
-                      ],
+                      ]
                     ),
                   );
                 },
