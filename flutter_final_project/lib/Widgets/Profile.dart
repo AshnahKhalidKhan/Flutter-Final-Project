@@ -10,6 +10,11 @@ class Profile extends StatefulWidget
 
 class _ProfileState extends State<Profile> 
 {
+  double blueProfileButtonSize = 30.0;
+  double redProfileButtonSize = 30.0;
+  double yellowProfileButtonSize = 30.0;
+  double greenProfileButtonSize = 30.0;
+
   @override
   Widget build(BuildContext context) 
   {
@@ -32,25 +37,79 @@ class _ProfileState extends State<Profile>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: 
               [
+                
                 CircleAvatar
                 (
-                  radius: 30.0,
+                  radius: blueProfileButtonSize,
                   backgroundColor: Colors.blue,
+                  foregroundColor: Colors.black,
+                  child: GestureDetector
+                  (
+                    onTap: ()
+                    {
+                      setState(() 
+                      {
+                        blueProfileButtonSize = 40.0;
+                        redProfileButtonSize = 20.0;
+                        yellowProfileButtonSize = 20.0;
+                        greenProfileButtonSize = 20.0;
+                      });
+                    }
+                  ),
                 ),
                 CircleAvatar
                 (
-                  radius: 30.0,
+                  radius: redProfileButtonSize,
                   backgroundColor: Colors.red,
+                  child: GestureDetector
+                  (
+                    onTap: ()
+                    {
+                      setState(() 
+                      {
+                        blueProfileButtonSize = 20.0;
+                        redProfileButtonSize = 40.0;
+                        yellowProfileButtonSize = 20.0;
+                        greenProfileButtonSize = 20.0;
+                      });
+                    }
+                  ),
                 ),
                 CircleAvatar
                 (
-                  radius: 30.0,
+                  radius: yellowProfileButtonSize,
                   backgroundColor: Colors.amber,
+                  child: GestureDetector
+                  (
+                    onTap: ()
+                    {
+                      setState(() 
+                      {
+                        blueProfileButtonSize = 20.0;
+                        redProfileButtonSize = 20.0;
+                        yellowProfileButtonSize = 40.0;
+                        greenProfileButtonSize = 20.0;
+                      });
+                    }
+                  ),
                 ),
                 CircleAvatar
                 (
-                  radius: 30.0,
+                  radius: greenProfileButtonSize,
                   backgroundColor: Colors.green,
+                  child: GestureDetector
+                  (
+                    onTap: ()
+                    {
+                      setState(() 
+                      {
+                        blueProfileButtonSize = 20.0;
+                        redProfileButtonSize = 20.0;
+                        yellowProfileButtonSize = 20.0;
+                        greenProfileButtonSize = 40.0;
+                      });
+                    }
+                  ),
                 ),
               ],
             )
