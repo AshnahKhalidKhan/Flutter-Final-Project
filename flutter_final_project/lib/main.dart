@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
@@ -178,7 +179,8 @@ class MyApp extends StatelessWidget
       // home: TimePickerOptions(),
       // home: SignUp(),
       // home: Gallery(),
-      home: Profile()
+      // home: Profile()
+      home: GDSCLeadsApproval()
     );
   }
 }

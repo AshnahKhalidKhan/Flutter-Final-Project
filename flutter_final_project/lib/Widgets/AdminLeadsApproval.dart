@@ -19,6 +19,21 @@ class _GDSCLeadsApprovalState extends State<GDSCLeadsApproval>
       (
         title: Text("Pending Requests")
       ),
+      body: Padding
+      (
+        padding: EdgeInsets.all(30.0),
+        child: Column
+        (
+          children: 
+          [
+            ElevatedButton
+            (
+              onPressed: () {},
+              child: Text("Approved Leads")
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
