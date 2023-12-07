@@ -11,7 +11,14 @@ class GDSCLeadsApproval extends StatefulWidget
 class _GDSCLeadsApprovalState extends State<GDSCLeadsApproval> 
 {
   @override
-  Widget build(BuildContext context) {
-    return Container();
+  Widget build(BuildContext context) 
+  {
+    return Scaffold
+    (
+      appBar: AppBar
+      (
+        title: Text("Pending Requests")
+      ),
+    );
   }
 }
