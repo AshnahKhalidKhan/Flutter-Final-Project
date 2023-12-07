@@ -17,11 +17,12 @@ class _GDSCLeadsApprovalState extends State<GDSCLeadsApproval>
     (
       appBar: AppBar
       (
+        leading: Icon(Icons.arrow_back_rounded),
         title: Text("Pending Requests")
       ),
       body: Padding
       (
-        padding: EdgeInsets.all(30.0),
+        padding: EdgeInsets.all(5.0),
         child: Column
         (
           children: 
@@ -31,6 +32,40 @@ class _GDSCLeadsApprovalState extends State<GDSCLeadsApproval>
               onPressed: () {},
               child: Text("Approved Leads")
             ),
+            ListTile
+            (
+              title: Text("Member Name"),
+              subtitle: Text("Name of GDSC Campus"),
+              trailing: Row
+              (
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: 
+                [
+                  IconButton
+                  (
+                    onPressed: () 
+                    {
+                      
+                    },
+                    icon: Icon
+                    (
+                      Icons.check_circle_rounded,
+                      color: Colors.green,
+                    ),
+                  ),
+                  IconButton
+                  (
+                    onPressed: () {},
+                    icon: Icon
+                    (
+                      Icons.cancel_rounded,
+                      color: Colors.red,
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
