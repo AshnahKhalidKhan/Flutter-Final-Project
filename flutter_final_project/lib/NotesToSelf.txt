@@ -5,4 +5,5 @@ Help with custom color themes: https://blog.logrocket.com/dynamic-theme-switcher
 - Badge
 - Bottom Sheet
 
+- Navigation Bar
 
