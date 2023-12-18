@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "880017544333",
+    "project_id": "gdsc-pocket-app",
+    "storage_bucket": "gdsc-pocket-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880017544333:android:c2d16663161047904f7ec4",
+        "android_client_info": {
+          "package_name": "com.example.flutter_final_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkaENrKjnGUPTyBzMHRjYLJWp4wOj2t0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
