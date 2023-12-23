@@ -25,7 +25,7 @@ class GDSCCampus
       required this.instagramEmail,
       required this.instagramPassword,
       required this.linkedInEmail,
-      required this.linkedInPassword,
+      required this.linkedInPassword
     }
   );
 }

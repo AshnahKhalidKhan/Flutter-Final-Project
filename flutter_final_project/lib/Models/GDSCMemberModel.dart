@@ -13,7 +13,7 @@ class GDSCMember
       required this.name,
       required this.email,
       required this.campus,
-      required this.approved,
+      required this.approved
     }
   );
 }

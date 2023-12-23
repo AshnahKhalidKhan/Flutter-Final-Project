@@ -1,11 +1,15 @@
-class Attendance {
+class Attendance 
+{
   final String eventId;
-  final String userId;
+  final String attendeeId;
   final bool present;
 
-  Attendance({
-    required this.eventId,
-    required this.userId,
-    required this.present,
-  });
+  Attendance
+  (
+    {
+      required this.eventId,
+      required this.attendeeId,
+      required this.present
+    }
+  );
 }
