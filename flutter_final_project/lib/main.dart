@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
@@ -187,7 +188,8 @@ class MyApp extends StatelessWidget
       // home: SignUp(),
       // home: Gallery(),
       // home: Profile()
-      home: GDSCLeadsApproval()
+      // home: GDSCLeadsApproval()
+      home: AuthenticationFlowScreen()
     );
   }
 }

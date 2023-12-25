@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-class User extends Equatable
+class AppUser extends Equatable
 {
   final String id;
   final String name;
@@ -10,7 +10,7 @@ class User extends Equatable
   final String? campus;
   final bool? approved;
 
-  const User
+  const AppUser
   (
     {
       required this.id,
@@ -32,9 +32,9 @@ class User extends Equatable
     'approved': approved
   };
 
-  static User fromJson(Map<String, dynamic> json) 
+  static AppUser fromJson(Map<String, dynamic> json) 
   {
-    return User
+    return AppUser
     (
       id: json['id'],
       name: json['name'], 
@@ -45,23 +45,23 @@ class User extends Equatable
     );
   }
 
-  factory User.fromDoc(DocumentSnapshot userDoc)
+  factory AppUser.fromDoc(DocumentSnapshot AppUserDoc)
   {
-    final userData = userDoc.data() as Map<String, dynamic>?;
-    return User
+    final AppUserData = AppUserDoc.data() as Map<String, dynamic>?;
+    return AppUser
     (
-      id: userData!['id'],
-      name: userData!['name'], 
-      email: userData!['email'], 
-      role: userData!['role'],
-      campus: userData!['campus'], 
-      approved: userData!['approved']
+      id: AppUserData!['id'],
+      name: AppUserData!['name'], 
+      email: AppUserData!['email'], 
+      role: AppUserData!['role'],
+      campus: AppUserData!['campus'], 
+      approved: AppUserData!['approved']
     );
   }
 
-  factory User.initial()
+  factory AppUser.initial()
   {
-    return const User
+    return const AppUser
     (
       id: '',
       name: '', 
@@ -81,7 +81,7 @@ class User extends Equatable
     return [id, name, email, role, campus, approved];
   }
   
-  User copyWith
+  AppUser copyWith
   (
     {
       String? id,
@@ -93,7 +93,7 @@ class User extends Equatable
     }
   )
   {
-    return User
+    return AppUser
     (
       id: id ?? this.id,
       name: name ?? this.name,
