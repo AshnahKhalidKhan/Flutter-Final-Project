@@ -1,17 +1,21 @@
-class User {
-  final String userId;
+class User 
+{
+  final String id;
   final String name;
   final String email;
-  final String role;
-  final bool approved;
-  final String campus;
+  final String role; //admin, GDSC member, GDSC lead
+  final String? campus;
+  final bool? approved;
 
-  User({
-    required this.userId,
-    required this.name,
-    required this.email,
-    required this.role,
-    required this.approved,
-    required this.campus,
-  });
+  User
+  (
+    {
+      required this.id,
+      required this.name,
+      required this.email,
+      required this.role,
+      required this.campus,
+      required this.approved
+    }
+  );
 }
