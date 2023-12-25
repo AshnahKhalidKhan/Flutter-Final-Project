@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
+import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
 import 'package:flutter_final_project/firebase_options.dart';
 
+final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,175 +31,226 @@ class MyApp extends StatelessWidget
   @override
   Widget build(BuildContext context) 
   {
-    return MaterialApp
+    return MultiRepositoryProvider
     (
-      title: 'Experimenting With Themes',
-      theme: ThemeData
+      providers: 
+      [
+        RepositoryProvider<AuthenticationRepository>
+        (
+          create: (context) => AuthenticationRepository
+          (
+            firebaseAuth: _firebaseAuth,
+            firebaseFirestore: _firebaseFirestore,
+          ),
+        ),
+        // RepositoryProvider<UserRepository>
+        // (
+        //   create: (context) =>
+        //       UserRepository(_firebaseFirestore, _firebaseAuth),
+        // ),
+      ],
+      child: MultiBlocProvider
       (
-        useMaterial3: true,
-        brightness: Brightness.light,
-        textTheme: TextTheme
+        providers: 
+        [
+          BlocProvider<AuthenticationBloc>
+          (
+            create: (context) => AuthenticationBloc
+            (
+              authenticationRepository: context.read<AuthenticationRepository>()
+            ),
+          ),
+          // BlocProvider<ChatBloc>
+          // (
+          //   create: (context) => ChatBloc
+          //   (
+          //     messageRepository: context.read<MessageRepository>(),
+          //   )
+          // ),
+        ],
+        child: MaterialApp
         (
-          // TextStyle? displayLarge,
-          // TextStyle? displayMedium,
-          // TextStyle? displaySmall,
-          // TextStyle? headlineLarge,
-          // TextStyle? headlineMedium,
-          // TextStyle? headlineSmall,
-          // TextStyle? titleLarge,
-          // TextStyle? titleMedium,
-          // TextStyle? titleSmall,
-          // TextStyle? bodyLarge,
-          // TextStyle? bodyMedium,
-          // TextStyle? bodySmall,
-          // TextStyle? labelLarge,
-          // TextStyle? labelMedium,
-          // TextStyle? labelSmall,
-          // TextStyle? headline1,
-          // TextStyle? headline2,
-          // TextStyle? headline3,
-          // TextStyle? headline4,
-          // TextStyle? headline5,
-          // TextStyle? headline6,
-          // TextStyle? subtitle1,
-          // TextStyle? subtitle2,
-          // TextStyle? bodyText1,
-          // TextStyle? bodyText2,
-          // TextStyle? caption,
-          // TextStyle? button,
-          // TextStyle? overline,
+          title: 'Experimenting With Themes',
+          theme: ThemeData
+          (
+            useMaterial3: true,
+            brightness: Brightness.light,
+            textTheme: const TextTheme
+            (
+              // TextStyle? displayLarge,
+              // TextStyle? displayMedium,
+              // TextStyle? displaySmall,
+              // TextStyle? headlineLarge,
+              // TextStyle? headlineMedium,
+              // TextStyle? headlineSmall,
+              // TextStyle? titleLarge,
+              // TextStyle? titleMedium,
+              // TextStyle? titleSmall,
+              // TextStyle? bodyLarge,
+              // TextStyle? bodyMedium,
+              // TextStyle? bodySmall,
+              // TextStyle? labelLarge,
+              // TextStyle? labelMedium,
+              // TextStyle? labelSmall,
+              // TextStyle? headline1,
+              // TextStyle? headline2,
+              // TextStyle? headline3,
+              // TextStyle? headline4,
+              // TextStyle? headline5,
+              // TextStyle? headline6,
+              // TextStyle? subtitle1,
+              // TextStyle? subtitle2,
+              // TextStyle? bodyText1,
+              // TextStyle? bodyText2,
+              // TextStyle? caption,
+              // TextStyle? button,
+              // TextStyle? overline,
+            ),
+            appBarTheme: const AppBarTheme
+            (
+              // Color? color,
+              // Color? backgroundColor,
+              // Color? foregroundColor,
+              // double? elevation,
+              // double? scrolledUnderElevation,
+              // Color? shadowColor,
+              // Color? surfaceTintColor,
+              // ShapeBorder? shape,
+              // IconThemeData? iconTheme,
+              // IconThemeData? actionsIconTheme,
+              // bool? centerTitle,
+              // double? titleSpacing,
+              // double? toolbarHeight,
+              // TextStyle? toolbarTextStyle,
+              // TextStyle? titleTextStyle,
+              // SystemUiOverlayStyle? systemOverlayStyle,
+            ),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            // bool? applyElevationOverlayColor,
+            // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
+            // Iterable<ThemeExtension<dynamic>>? extensions,
+            // InputDecorationTheme? inputDecorationTheme,
+            // MaterialTapTargetSize? materialTapTargetSize,
+            // PageTransitionsTheme? pageTransitionsTheme,
+            // TargetPlatform? platform,
+            // ScrollbarThemeData? scrollbarTheme,
+            // InteractiveInkFeatureFactory? splashFactory,
+            // bool? useMaterial3,
+            // VisualDensity? visualDensity,
+            // Brightness? brightness,
+            // Color? canvasColor,
+            // Color? cardColor,
+            // ColorScheme? colorScheme,
+            // Color? colorSchemeSeed,
+            // Color? dialogBackgroundColor,
+            // Color? disabledColor,
+            // Color? dividerColor,
+            // Color? focusColor,
+            // Color? highlightColor,
+            // Color? hintColor,
+            // Color? hoverColor,
+            // Color? indicatorColor,
+            // Color? primaryColor,
+            // Color? primaryColorDark,
+            // Color? primaryColorLight,
+            // MaterialColor? primarySwatch,
+            // Color? scaffoldBackgroundColor,
+            // Color? secondaryHeaderColor,
+            // Color? shadowColor,
+            // Color? splashColor,
+            // Color? unselectedWidgetColor,
+            // String? fontFamily,
+            // List<String>? fontFamilyFallback,
+            // String? package,
+            // IconThemeData? iconTheme,
+            // IconThemeData? primaryIconTheme,
+            // TextTheme? primaryTextTheme,
+            // TextTheme? textTheme,
+            // Typography? typography,
+            // ActionIconThemeData? actionIconTheme,
+            // AppBarTheme? appBarTheme,
+            // BadgeThemeData? badgeTheme,
+            // MaterialBannerThemeData? bannerTheme,
+            // BottomAppBarTheme? bottomAppBarTheme,
+            // BottomNavigationBarThemeData? bottomNavigationBarTheme,
+            // BottomSheetThemeData? bottomSheetTheme,
+            // ButtonBarThemeData? buttonBarTheme,
+            // ButtonThemeData? buttonTheme,
+            // CardTheme? cardTheme,
+            // CheckboxThemeData? checkboxTheme,
+            // ChipThemeData? chipTheme,
+            // DataTableThemeData? dataTableTheme,
+            // DatePickerThemeData? datePickerTheme,
+            // DialogTheme? dialogTheme,
+            // DividerThemeData? dividerTheme,
+            // DrawerThemeData? drawerTheme,
+            // DropdownMenuThemeData? dropdownMenuTheme,
+            // ElevatedButtonThemeData? elevatedButtonTheme,
+            // ExpansionTileThemeData? expansionTileTheme,
+            // FilledButtonThemeData? filledButtonTheme,
+            // FloatingActionButtonThemeData? floatingActionButtonTheme,
+            // IconButtonThemeData? iconButtonTheme,
+            // ListTileThemeData? listTileTheme,
+            // MenuBarThemeData? menuBarTheme,
+            // MenuButtonThemeData? menuButtonTheme,
+            // MenuThemeData? menuTheme,
+            // NavigationBarThemeData? navigationBarTheme,
+            // NavigationDrawerThemeData? navigationDrawerTheme,
+            // NavigationRailThemeData? navigationRailTheme,
+            // OutlinedButtonThemeData? outlinedButtonTheme,
+            // PopupMenuThemeData? popupMenuTheme,
+            // ProgressIndicatorThemeData? progressIndicatorTheme,
+            // RadioThemeData? radioTheme,
+            // SearchBarThemeData? searchBarTheme,
+            // SearchViewThemeData? searchViewTheme,
+            // SegmentedButtonThemeData? segmentedButtonTheme,
+            // SliderThemeData? sliderTheme,
+            // SnackBarThemeData? snackBarTheme,
+            // SwitchThemeData? switchTheme,
+            // TabBarTheme? tabBarTheme,
+            // TextButtonThemeData? textButtonTheme,
+            // TextSelectionThemeData? textSelectionTheme,
+            // TimePickerThemeData? timePickerTheme,
+            // ToggleButtonsThemeData? toggleButtonsTheme,
+            // TooltipThemeData? tooltipTheme,
+            // AndroidOverscrollIndicator? androidOverscrollIndicator,
+            // Color? toggleableActiveColor,
+            // Color? selectedRowColor,
+            // Color? errorColor,
+            // Color? backgroundColor,
+            // Color? bottomAppBarColor,
+          ),
+          // home: TabBarExample(),
+          // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          // home: DatePickerExample(),
+          // home: PopupMenuExample(),
+          // home: RadioExample(),
+          // home: SliderExample(),
+          // home: SwitchExample(),
+          // home: ShowTimePickerApp(),
+          // home: TimePickerOptions(),
+          // home: SignUp(),
+          // home: Gallery(),
+          // home: Profile()
+          // home: GDSCLeadsApproval()
+          home: const AuthenticationFlowScreen()
         ),
-        appBarTheme: AppBarTheme
-        (
-          // Color? color,
-          // Color? backgroundColor,
-          // Color? foregroundColor,
-          // double? elevation,
-          // double? scrolledUnderElevation,
-          // Color? shadowColor,
-          // Color? surfaceTintColor,
-          // ShapeBorder? shape,
-          // IconThemeData? iconTheme,
-          // IconThemeData? actionsIconTheme,
-          // bool? centerTitle,
-          // double? titleSpacing,
-          // double? toolbarHeight,
-          // TextStyle? toolbarTextStyle,
-          // TextStyle? titleTextStyle,
-          // SystemUiOverlayStyle? systemOverlayStyle,
-        ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        // bool? applyElevationOverlayColor,
-        // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
-        // Iterable<ThemeExtension<dynamic>>? extensions,
-        // InputDecorationTheme? inputDecorationTheme,
-        // MaterialTapTargetSize? materialTapTargetSize,
-        // PageTransitionsTheme? pageTransitionsTheme,
-        // TargetPlatform? platform,
-        // ScrollbarThemeData? scrollbarTheme,
-        // InteractiveInkFeatureFactory? splashFactory,
-        // bool? useMaterial3,
-        // VisualDensity? visualDensity,
-        // Brightness? brightness,
-        // Color? canvasColor,
-        // Color? cardColor,
-        // ColorScheme? colorScheme,
-        // Color? colorSchemeSeed,
-        // Color? dialogBackgroundColor,
-        // Color? disabledColor,
-        // Color? dividerColor,
-        // Color? focusColor,
-        // Color? highlightColor,
-        // Color? hintColor,
-        // Color? hoverColor,
-        // Color? indicatorColor,
-        // Color? primaryColor,
-        // Color? primaryColorDark,
-        // Color? primaryColorLight,
-        // MaterialColor? primarySwatch,
-        // Color? scaffoldBackgroundColor,
-        // Color? secondaryHeaderColor,
-        // Color? shadowColor,
-        // Color? splashColor,
-        // Color? unselectedWidgetColor,
-        // String? fontFamily,
-        // List<String>? fontFamilyFallback,
-        // String? package,
-        // IconThemeData? iconTheme,
-        // IconThemeData? primaryIconTheme,
-        // TextTheme? primaryTextTheme,
-        // TextTheme? textTheme,
-        // Typography? typography,
-        // ActionIconThemeData? actionIconTheme,
-        // AppBarTheme? appBarTheme,
-        // BadgeThemeData? badgeTheme,
-        // MaterialBannerThemeData? bannerTheme,
-        // BottomAppBarTheme? bottomAppBarTheme,
-        // BottomNavigationBarThemeData? bottomNavigationBarTheme,
-        // BottomSheetThemeData? bottomSheetTheme,
-        // ButtonBarThemeData? buttonBarTheme,
-        // ButtonThemeData? buttonTheme,
-        // CardTheme? cardTheme,
-        // CheckboxThemeData? checkboxTheme,
-        // ChipThemeData? chipTheme,
-        // DataTableThemeData? dataTableTheme,
-        // DatePickerThemeData? datePickerTheme,
-        // DialogTheme? dialogTheme,
-        // DividerThemeData? dividerTheme,
-        // DrawerThemeData? drawerTheme,
-        // DropdownMenuThemeData? dropdownMenuTheme,
-        // ElevatedButtonThemeData? elevatedButtonTheme,
-        // ExpansionTileThemeData? expansionTileTheme,
-        // FilledButtonThemeData? filledButtonTheme,
-        // FloatingActionButtonThemeData? floatingActionButtonTheme,
-        // IconButtonThemeData? iconButtonTheme,
-        // ListTileThemeData? listTileTheme,
-        // MenuBarThemeData? menuBarTheme,
-        // MenuButtonThemeData? menuButtonTheme,
-        // MenuThemeData? menuTheme,
-        // NavigationBarThemeData? navigationBarTheme,
-        // NavigationDrawerThemeData? navigationDrawerTheme,
-        // NavigationRailThemeData? navigationRailTheme,
-        // OutlinedButtonThemeData? outlinedButtonTheme,
-        // PopupMenuThemeData? popupMenuTheme,
-        // ProgressIndicatorThemeData? progressIndicatorTheme,
-        // RadioThemeData? radioTheme,
-        // SearchBarThemeData? searchBarTheme,
-        // SearchViewThemeData? searchViewTheme,
-        // SegmentedButtonThemeData? segmentedButtonTheme,
-        // SliderThemeData? sliderTheme,
-        // SnackBarThemeData? snackBarTheme,
-        // SwitchThemeData? switchTheme,
-        // TabBarTheme? tabBarTheme,
-        // TextButtonThemeData? textButtonTheme,
-        // TextSelectionThemeData? textSelectionTheme,
-        // TimePickerThemeData? timePickerTheme,
-        // ToggleButtonsThemeData? toggleButtonsTheme,
-        // TooltipThemeData? tooltipTheme,
-        // AndroidOverscrollIndicator? androidOverscrollIndicator,
-        // Color? toggleableActiveColor,
-        // Color? selectedRowColor,
-        // Color? errorColor,
-        // Color? backgroundColor,
-        // Color? bottomAppBarColor,
-      ),
-      // home: TabBarExample(),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // home: DatePickerExample(),
-      // home: PopupMenuExample(),
-      // home: RadioExample(),
-      // home: SliderExample(),
-      // home: SwitchExample(),
-      // home: ShowTimePickerApp(),
-      // home: TimePickerOptions(),
-      // home: SignUp(),
-      // home: Gallery(),
-      // home: Profile()
-      // home: GDSCLeadsApproval()
-      home: AuthenticationFlowScreen()
+      )
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 class MyHomePage extends StatefulWidget 
 {

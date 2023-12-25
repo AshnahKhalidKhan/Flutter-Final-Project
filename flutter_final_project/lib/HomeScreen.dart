@@ -24,11 +24,13 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            BlocConsumer<AuthenticationBloc, AuthenticationState>(
+            BlocConsumer<AuthenticationBloc, AuthenticationState>
+            (
               listener: (context, state) {
                 if (state is AuthenticationLoadingState) {
                    const CircularProgressIndicator();
                 } else if (state is AuthenticationErrorState){
+                  
                     showDialog(context: context, builder: (context){
                           return const AlertDialog(
                             content: Text('error'),

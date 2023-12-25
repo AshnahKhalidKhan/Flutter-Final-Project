@@ -7,3 +7,4 @@ Help with custom color themes: https://blog.logrocket.com/dynamic-theme-switcher
 
 - Navigation Bar
 
+https://www.freecodecamp.org/news/set-up-firebase-cloud-messaging-in-flutter/
