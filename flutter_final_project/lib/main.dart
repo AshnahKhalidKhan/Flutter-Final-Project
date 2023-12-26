@@ -9,6 +9,7 @@ import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
+import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
 import 'package:flutter_final_project/firebase_options.dart';
 
@@ -233,7 +234,9 @@ class MyApp extends StatelessWidget
           // home: Gallery(),
           // home: Profile()
           // home: GDSCLeadsApproval()
-          home: const AuthenticationFlowScreen()
+          // home: const AuthenticationFlowScreen()
+          // home: MyHomePage(title: 'Hellow?')
+          home: RegistrationsList()
         ),
       )
     );

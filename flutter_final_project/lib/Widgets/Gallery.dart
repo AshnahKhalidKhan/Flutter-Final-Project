@@ -118,7 +118,6 @@ class _GalleryState extends State<Gallery>
           //   },
           // ),
         ],
-        
       ),
       body: Padding
       (
