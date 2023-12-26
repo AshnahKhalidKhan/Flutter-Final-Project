@@ -28,6 +28,11 @@ void main() async
 class MyApp extends StatelessWidget 
 {
   const MyApp({super.key});
+  
+  static const Color GoogleBlue = Color(0xFF4285F4);
+  static const Color GoogleRed = Color(0xFFEA4335);
+  static const Color GoogleYellow = Color(0xFFFBBC04);
+  static const Color GoogleGreen = Color(0xFF34A853);
 
   @override
   Widget build(BuildContext context) 
@@ -126,7 +131,7 @@ class MyApp extends StatelessWidget
               // TextStyle? titleTextStyle,
               // SystemUiOverlayStyle? systemOverlayStyle,
             ),
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+            colorScheme: ColorScheme.fromSeed(seedColor: GoogleGreen),
             // bool? applyElevationOverlayColor,
             // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
             // Iterable<ThemeExtension<dynamic>>? extensions,
@@ -191,6 +196,13 @@ class MyApp extends StatelessWidget
             // FilledButtonThemeData? filledButtonTheme,
             // FloatingActionButtonThemeData? floatingActionButtonTheme,
             // IconButtonThemeData? iconButtonTheme,
+            iconButtonTheme: const IconButtonThemeData
+            (
+              style: ButtonStyle
+              (
+                iconSize: MaterialStatePropertyAll(30.0)
+              )
+            ),
             // ListTileThemeData? listTileTheme,
             // MenuBarThemeData? menuBarTheme,
             // MenuButtonThemeData? menuButtonTheme,
