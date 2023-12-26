@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RegistrationsList extends StatelessWidget 
+class RegistrationsList extends StatefulWidget 
 {
   const RegistrationsList({super.key});
 
+  @override
+  State<RegistrationsList> createState() => _RegistrationsListState();
+}
+
+class _RegistrationsListState extends State<RegistrationsList> 
+{
   final String x = '40characterslongemailofperson323436...';
 
   @override
