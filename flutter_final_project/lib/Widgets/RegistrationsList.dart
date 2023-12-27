@@ -13,44 +13,37 @@ class _RegistrationsListState extends State<RegistrationsList>
 {
   final String x = '40characterslongemailofperson323436...';
 
+
   @override
   Widget build(BuildContext context) 
   {
     return Scaffold
     (
+      backgroundColor: Colors.white,
       appBar: AppBar
       (
-        leading: BackButton(),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        leading: BackButton
+        (
+          color: Colors.white,
+        ),
         title: const Text
         (
           'Registrations', 
           style: TextStyle
           (
+            color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 30.0
+            fontSize: 30.0,
           ),
         ),
-        actions: 
-        [
-          Padding
-          (
-            padding: const EdgeInsets.only(right: 10.0),
-            child: IconButton
-            (
-              onPressed: () 
-              {
-              },
-              padding: EdgeInsets.all(10.0),
-              alignment: Alignment.center,
-              iconSize: 40.0,
-              icon: Icon
-              (
-                Icons.add_rounded,
-                color: Colors.black,
-              )
-            ),
-          ),
-        ],
+      ),
+      floatingActionButton: FloatingActionButton.large
+      (
+        onPressed: () {},
+        shape: CircleBorder(),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        child: AttendeeAddButton()
       ),
       body: Padding
       (
@@ -60,53 +53,58 @@ class _RegistrationsListState extends State<RegistrationsList>
           itemCount: 10,
           itemBuilder: (context, i)
           {
-            return Padding
-            (
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: ListTile
-              (
-                shape: RoundedRectangleBorder
-                (
-                  side: BorderSide
-                  (
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2.0
-                  ),
-                  borderRadius: BorderRadius.circular(20.0)
-                ),
-                tileColor: Colors.white,
-                style: ListTileStyle.list,
-                title: Text
-                (
-                  'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.characters.take(18).toString() + '...', 
-                  style: TextStyle
-                  (
-                    fontSize: 20.0
-                  ),
-                ),
-                subtitle: Text
-                (
-                  x.length <= 2 ? x : 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.characters.take(25).toString() + '...',
-                  style: TextStyle
-                  (
-                    fontSize: 15.0
-                  ),
-                ),
-                trailing: Icon
-                (
-                  Icons.expand_more,
-                  size: 40.0,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                onTap: () 
-                {
-                  AttendeeTileBottomSheet(context);
-                },
-              ),
-            );
+            return AttendeeListTile(context);
           }
         ),
       )
+    );
+  }
+
+  Padding AttendeeListTile(BuildContext context) 
+  {
+    return Padding
+    (
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: ListTile
+      (
+        shape: RoundedRectangleBorder
+        (
+          side: BorderSide
+          (
+            color: Theme.of(context).colorScheme.primary,
+            width: 2.0
+          ),
+          borderRadius: BorderRadius.circular(20.0)
+        ),
+        tileColor: Colors.white,
+        style: ListTileStyle.list,
+        title: Text
+        (
+          'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.characters.take(18).toString() + '...', 
+          style: TextStyle
+          (
+            fontSize: 20.0
+          ),
+        ),
+        subtitle: Text
+        (
+          x.length <= 2 ? x : 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.characters.take(25).toString() + '...',
+          style: TextStyle
+          (
+            fontSize: 15.0
+          ),
+        ),
+        trailing: Icon
+        (
+          Icons.expand_more,
+          size: 40.0,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        onTap: () 
+        {
+          AttendeeTileBottomSheet(context);
+        },
+      ),
     );
   }
 
@@ -165,6 +163,146 @@ class _RegistrationsListState extends State<RegistrationsList>
   }
 }
 
+class AttendeeAddButton extends StatelessWidget 
+{
+  const AttendeeAddButton
+  (
+    {
+      super.key
+    }
+  );
+
+  @override
+  Widget build(BuildContext context) 
+  {
+    return IconButton
+    (
+      style: ButtonStyle
+      (
+        backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+        iconColor: MaterialStatePropertyAll(Colors.white),
+      ),
+      padding: EdgeInsets.all(20.0),
+      icon: Icon
+      (
+        Icons.add, 
+        size: 40.0
+      ),
+      onPressed: () async 
+      {
+        return showDialog<void>
+        (
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) 
+          {
+            final TextEditingController attendeeName = TextEditingController();
+            final TextEditingController attendeeEmail = TextEditingController();
+            final TextEditingController attendeePhoneNumber = TextEditingController();
+            final TextEditingController attendeeCNIC = TextEditingController();
+
+            return AlertDialog
+            (
+              title: const Text('Add'),
+              content: Column
+              (
+                mainAxisSize: MainAxisSize.min,
+                children: 
+                [
+                  TextField
+                  (
+                    controller: attendeeName,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.person_2_rounded),
+                      labelText: 'Name',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                  TextField
+                  (
+                    controller: attendeeEmail,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.email_rounded),
+                      labelText: 'Email',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                  TextField
+                  (
+                    controller: attendeeCNIC,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.email_rounded),
+                      labelText: 'CNIC',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                  TextField
+                  (
+                    controller: attendeePhoneNumber,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.email_rounded),
+                      labelText: 'Phone Number',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                ],
+              ),
+              actions: <Widget>
+              [
+                TextButton
+                (
+                  child: const Text('Cancel'),
+                  onPressed: () 
+                  {
+                    Navigator.pop(context, 'Cancel');
+                  },
+                ),
+                TextButton
+                (
+                  child: const Text('Save'),
+                  onPressed: () 
+                  {
+                    Navigator.pop(context, 'Save');
+                    final updateAttendeeSnackBarMessage = SnackBar
+                    (
+                      content: Text
+                      (
+                        'Attendee added.',
+                        style: TextStyle
+                        (
+                          color: Colors.white,
+                          fontSize: 20.0
+                        ),
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(updateAttendeeSnackBarMessage);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }, 
+    );
+  }
+}
+
 class AttendeeEditButton extends StatelessWidget 
 {
   const AttendeeEditButton
@@ -198,9 +336,73 @@ class AttendeeEditButton extends StatelessWidget
           barrierDismissible: false,
           builder: (BuildContext context) 
           {
+            final TextEditingController attendeeName = TextEditingController();
+            final TextEditingController attendeeEmail = TextEditingController();
+            final TextEditingController attendeePhoneNumber = TextEditingController();
+            final TextEditingController attendeeCNIC = TextEditingController();
+
             return AlertDialog
             (
               title: const Text('Edit'),
+              content: Column
+              (
+                mainAxisSize: MainAxisSize.min,
+                children: 
+                [
+                  TextField
+                  (
+                    controller: attendeeName,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.person_2_rounded),
+                      labelText: 'Name',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                  TextField
+                  (
+                    controller: attendeeEmail,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.email_rounded),
+                      labelText: 'Email',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                  TextField
+                  (
+                    controller: attendeeCNIC,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.email_rounded),
+                      labelText: 'CNIC',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                  TextField
+                  (
+                    controller: attendeePhoneNumber,
+                    decoration: InputDecoration
+                    (
+                      prefixIcon: Icon(Icons.email_rounded),
+                      labelText: 'Phone Number',
+                    ),
+                    onChanged: (value)
+                    {
+                      //
+                    },
+                  ),
+                ],
+              ),
               actions: <Widget>
               [
                 TextButton
