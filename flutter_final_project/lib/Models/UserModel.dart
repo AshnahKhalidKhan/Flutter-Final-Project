@@ -103,5 +103,17 @@ class AppUser extends Equatable
       approved: approved ?? this.approved
     );
   }
-  
+
+  static AppUser fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) 
+  {
+    return AppUser
+    (
+      id: snapshot['id'],
+      name: snapshot['name'], 
+      email: snapshot['email'], 
+      role: snapshot['role'],
+      campus: snapshot['campus'], 
+      approved: snapshot['approved']
+    );
+  }
 }
