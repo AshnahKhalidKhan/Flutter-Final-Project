@@ -7,12 +7,12 @@ class GDSCCampus
   final String email;
   final String location;
   final String lead;
-  final String facebookEmail;
-  final String facebookPassword;
-  final String instagramEmail;
-  final String instagramPassword;
-  final String linkedInEmail;
-  final String linkedInPassword;
+  final String? facebookEmail;
+  final String? facebookPassword;
+  final String? instagramEmail;
+  final String? instagramPassword;
+  final String? linkedInEmail;
+  final String? linkedInPassword;
 
   const GDSCCampus
   (
