@@ -8,6 +8,7 @@ import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
+import 'package:flutter_final_project/Widgets/LandingPage.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
 import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
@@ -248,7 +249,8 @@ class MyApp extends StatelessWidget
           // home: GDSCLeadsApproval()
           // home: const AuthenticationFlowScreen()
           // home: MyHomePage(title: 'Hellow?')
-          home: RegistrationsList()
+          // home: RegistrationsList()
+          home: LandingPage()
         ),
       )
     );
