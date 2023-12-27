@@ -9,7 +9,7 @@ class Event extends Equatable
   final String startTime;
   final String endTime;
   final String location;
-  final String hashtags;
+  final List<String> hashtags;
   final String registrationFormLink;
   final String? streamingLink;
   final String? whatsappGroupLink;
@@ -54,7 +54,7 @@ class Event extends Equatable
       startTime: json['startTime'],
       endTime: json['endTime'], 
       location: json['location'],
-      hashtags: json['hashtags'],
+      hashtags: List<String>.from(json['hashtags']),
       registrationFormLink: json['registrationFormLink'],
       streamingLink: json['streamingLink'],
       whatsappGroupLink: json['whatsappGroupLink']
@@ -89,7 +89,7 @@ class Event extends Equatable
       startTime: '',
       endTime: '',
       location: '',
-      hashtags: '',
+      hashtags: [],
       registrationFormLink: '',
       streamingLink: '',
       whatsappGroupLink: ''
@@ -115,7 +115,7 @@ class Event extends Equatable
       String? startTime,
       String? endTime,
       String? location,
-      String? hashtags,
+      List<String>? hashtags,
       String? registrationFormLink,
       String? streamingLink,
       String? whatsappGroupLink
@@ -147,7 +147,7 @@ class Event extends Equatable
       startTime: snapshot['startTime'],
       endTime: snapshot['endTime'], 
       location: snapshot['location'],
-      hashtags: snapshot['hashtags'],
+      hashtags: List<String>.from(snapshot['hashtags']),
       registrationFormLink: snapshot['registrationFormLink'],
       streamingLink: snapshot['streamingLink'],
       whatsappGroupLink: snapshot['whatsappGroupLink']

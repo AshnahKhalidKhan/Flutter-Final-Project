@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class Registration 
+class Registration extends Equatable
 {
   final String eventId;
   final String attendeeId;

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class Draft 
+class Draft extends Equatable
 {
   final String eventId;
   final String platform;
@@ -34,19 +35,6 @@ class Draft
     );
   }
 
-  factory Draft.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) 
-  {
-    return Draft
-    (
-      eventId: snapshot['eventId'],
-      platform: snapshot['platform'],
-      content: snapshot['content'],
-      scheduledDate: snapshot['scheduledDate'],
-      scheduledTime: snapshot['scheduledTime'],
-      attachments: List<String>.from(snapshot['attachments'])
-    );
-  }
-
   @override
   List<Object?> get props
   {
@@ -76,6 +64,19 @@ class Draft
       scheduledDate: scheduledDate ?? this.scheduledDate,
       scheduledTime: scheduledTime ?? this.scheduledTime,
       attachments: attachments ?? this.attachments
+    );
+  }
+
+  factory Draft.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) 
+  {
+    return Draft
+    (
+      eventId: snapshot['eventId'],
+      platform: snapshot['platform'],
+      content: snapshot['content'],
+      scheduledDate: snapshot['scheduledDate'],
+      scheduledTime: snapshot['scheduledTime'],
+      attachments: List<String>.from(snapshot['attachments'])
     );
   }
 }
