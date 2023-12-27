@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class GDSCCampus 
 {
   final String id;
@@ -106,7 +108,7 @@ class GDSCCampus
   @override
   List<Object?> get props 
   {
-    return [id, name, email, location, lead, facebookEmail];
+    return [id, name, email, location, lead, facebookEmail, facebookPassword, instagramEmail, instagramPassword, linkedInEmail, linkedInPassword];
   }
   
   GDSCCampus copyWith
@@ -117,7 +119,12 @@ class GDSCCampus
       String? email,
       String? location,
       String? lead,
-      bool? facebookEmail
+      String? facebookEmail,
+      String? facebookPassword,
+      String? instagramEmail,
+      String? instagramPassword,
+      String? linkedInEmail,
+      String? linkedInPassword
     }
   )
   {
@@ -128,7 +135,12 @@ class GDSCCampus
       email: email ?? this.email,
       location: location ?? this.location,
       lead: lead ?? this.lead,
-      facebookEmail: facebookEmail ?? this.facebookEmail
+      facebookEmail: facebookEmail ?? this.facebookEmail,
+      facebookPassword: facebookPassword ?? this.facebookPassword,
+      instagramEmail: instagramEmail ?? this.instagramEmail,
+      instagramPassword: instagramPassword ?? this.instagramPassword,
+      linkedInEmail: linkedInEmail ?? this.linkedInEmail,
+      linkedInPassword: linkedInPassword ?? this.linkedInPassword
     );
   }
 
@@ -141,7 +153,12 @@ class GDSCCampus
       email: snapshot['email'], 
       location: snapshot['location'],
       lead: snapshot['lead'], 
-      facebookEmail: snapshot['facebookEmail']
+      facebookEmail: snapshot['facebookEmail'],
+      facebookPassword: snapshot['facebookPassword'],
+      instagramEmail: snapshot['instagramEmail'],
+      instagramPassword: snapshot['instagramPassword'],
+      linkedInEmail: snapshot['linkedInEmail'],
+      linkedInPassword: snapshot['linkedInPassword']
     );
   }
 }
