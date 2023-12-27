@@ -4,16 +4,18 @@ import 'package:equatable/equatable.dart';
 class Draft extends Equatable
 {
   final String eventId;
+  final String draftId;
   final String platform;
   final String content;
   final String scheduledDate;
   final String scheduledTime;
-  final List<String> attachments;
+  final List<String>? attachments;
 
   Draft
   (
     {
       required this.eventId,
+      required this.draftId,
       required this.platform,
       required this.content,
       required this.scheduledDate,
@@ -22,11 +24,23 @@ class Draft extends Equatable
     }
   );
 
+  Map<String, dynamic> toJson() =>
+  {
+    'eventId': eventId,
+    'draftId': draftId, 
+    'platform': platform,
+    'content': content,
+    'scheduledDate': scheduledDate,
+    'scheduledTime': scheduledTime,
+    'attachments': attachments
+  };
+
   factory Draft.fromJson(Map<String, dynamic> json) 
   {
     return Draft
     (
       eventId: json['eventId'],
+      draftId: json['draftId'],
       platform: json['platform'],
       content: json['content'],
       scheduledDate: json['scheduledDate'],
@@ -38,7 +52,7 @@ class Draft extends Equatable
   @override
   List<Object?> get props
   {
-    return [eventId, platform, content, scheduledDate, scheduledTime, attachments];
+    return [eventId, draftId, platform, content, scheduledDate, scheduledTime, attachments];
   }
 
   @override
@@ -48,6 +62,7 @@ class Draft extends Equatable
   (
     {
       String? eventId,
+      String? draftId,
       String? platform,
       String? content,
       String? scheduledDate,
@@ -59,6 +74,7 @@ class Draft extends Equatable
     return Draft
     (
       eventId: eventId ?? this.eventId,
+      draftId: draftId ?? this.draftId,
       platform: platform ?? this.platform,
       content: content ?? this.content,
       scheduledDate: scheduledDate ?? this.scheduledDate,
@@ -72,6 +88,7 @@ class Draft extends Equatable
     return Draft
     (
       eventId: snapshot['eventId'],
+      draftId: snapshot['draftId'],
       platform: snapshot['platform'],
       content: snapshot['content'],
       scheduledDate: snapshot['scheduledDate'],

@@ -61,7 +61,7 @@ class AuthenticationRepository
         campus: campus,
         approved: false
       );
-      await FirebaseFirestore.instance.collection('users').doc(signedInUser.uid).set(user.toJson());
+      await FirebaseFirestore.instance.collection('Users').doc(signedInUser.uid).set(user.toJson());
     }
     catch (e) 
     {
@@ -121,7 +121,7 @@ class AuthenticationRepository
     {
       final UserCredential userCredential = await firebaseAuth.signInWithCredential(authCredential);
       final User? signedInUser = userCredential.user;
-      final appUserFromFirebase = await FirebaseFirestore.instance.collection('users').doc(signedInUser!.uid).get();
+      final appUserFromFirebase = await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).get();
       if (appUserFromFirebase.exists == false)
       {
         AppUser user = AppUser
@@ -133,7 +133,7 @@ class AuthenticationRepository
           campus: campus,
           approved: false
         );
-        await FirebaseFirestore.instance.collection('users').doc(signedInUser!.uid).set(user.toJson());
+        await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).set(user.toJson());
       }
     }
     catch (e) 

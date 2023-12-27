@@ -10,7 +10,7 @@ class DiscussionsRepository
   Future<void> createDiscussionFunctionInDiscussionRepositoryFile
   (
     {
-      required String discussionId,
+      required String eventId,
       required DateTime timestamp,
       required String senderId,
       required String message,
@@ -20,8 +20,10 @@ class DiscussionsRepository
   {
     try 
     {
+      final String discussionId = FirebaseFirestore.instance.collection('Discussions').doc().id;
       final Discussion newDiscussion = Discussion
       (
+        eventId: eventId,
         discussionId: discussionId, 
         timestamp: timestamp, 
         senderId: senderId, 
@@ -35,11 +37,11 @@ class DiscussionsRepository
     }
   }
 
-  Stream<List<Discussion>> readDiscussionFunctionInDiscussionRepositoryFile(String discussionId) 
+  Stream<List<Discussion>> readDiscussionFunctionInDiscussionRepositoryFile(String eventId) 
   {
     try 
     {
-      return FirebaseFirestore.instance.collection('Discussions').snapshots().map
+      return FirebaseFirestore.instance.collection('Discussions').where('eventId', isEqualTo: eventId).snapshots().map
       (
         (querySnapshot) =>
         querySnapshot.docs.map((e) => Discussion.fromSnapshot(e)).toList()
@@ -59,6 +61,7 @@ class DiscussionsRepository
     {
       final updatedDiscussion = Discussion
       (
+        eventId: discussion.eventId,
         discussionId: discussion.discussionId, 
         timestamp: discussion.timestamp, 
         senderId: discussion.senderId, 

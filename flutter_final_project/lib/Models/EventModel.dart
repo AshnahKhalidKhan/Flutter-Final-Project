@@ -3,20 +3,22 @@ import 'package:equatable/equatable.dart';
 
 class Event extends Equatable
 {
+  final String campusId;
   final String eventId;
   final String eventName;
   final String date;
   final String startTime;
   final String endTime;
   final String location;
-  final List<String> hashtags;
-  final String registrationFormLink;
+  final List<String>? hashtags;
+  final String? registrationFormLink;
   final String? streamingLink;
   final String? whatsappGroupLink;
 
   const Event
   (
     {
+      required this.campusId,
       required this.eventId,
       required this.eventName,
       required this.date,
@@ -32,6 +34,7 @@ class Event extends Equatable
 
   Map<String, dynamic> toJson() =>
   {
+    'campusId': campusId,
     'eventId': eventId,
     'eventName': eventName, 
     'date': date,
@@ -48,6 +51,7 @@ class Event extends Equatable
   {
     return Event
     (
+      campusId: json['campusId'],
       eventId: json['eventId'],
       eventName: json['eventName'], 
       date: json['date'], 
@@ -66,6 +70,7 @@ class Event extends Equatable
     final EventData = EventDoc.data() as Map<String, dynamic>?;
     return Event
     (
+      campusId: EventData!['campusId'],
       eventId: EventData!['eventId'],
       eventName: EventData!['eventName'], 
       date: EventData!['date'], 
@@ -83,6 +88,7 @@ class Event extends Equatable
   {
     return const Event
     (
+      campusId: '',
       eventId: '',
       eventName: '', 
       date: '',
@@ -103,12 +109,13 @@ class Event extends Equatable
   @override
   List<Object?> get props 
   {
-    return [eventId, eventName, date, startTime, endTime, location, hashtags, registrationFormLink, streamingLink, whatsappGroupLink];
+    return [campusId, eventId, eventName, date, startTime, endTime, location, hashtags, registrationFormLink, streamingLink, whatsappGroupLink];
   }
   
   Event copyWith
   (
     {
+      String? campusId,
       String? eventId,
       String? eventName,
       String? date,
@@ -124,6 +131,7 @@ class Event extends Equatable
   {
     return Event
     (
+      campusId: campusId ?? this.campusId,
       eventId: eventId ?? this.eventId,
       eventName: eventName ?? this.eventName,
       date: date ?? this.date,
@@ -141,6 +149,7 @@ class Event extends Equatable
   {
     return Event
     (
+      campusId: snapshot['campusId'],
       eventId: snapshot['eventId'],
       eventName: snapshot['eventName'], 
       date: snapshot['date'], 

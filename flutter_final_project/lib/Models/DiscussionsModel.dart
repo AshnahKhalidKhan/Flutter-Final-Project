@@ -3,7 +3,8 @@ import 'package:equatable/equatable.dart';
 
 class Discussion extends Equatable
 {
-  final String discussionId; //same as eventId
+  final String eventId;
+  final String discussionId;
   final DateTime timestamp;
   final String senderId;
   final String message;
@@ -11,6 +12,7 @@ class Discussion extends Equatable
   const Discussion
   (
     {
+      required this.eventId,
       required this.discussionId,
       required this.timestamp,
       required this.senderId,
@@ -20,6 +22,7 @@ class Discussion extends Equatable
 
   Map<String, dynamic> toJson() =>
   {
+    'eventId': eventId,
     'discussionId': discussionId,
     'timestamp': timestamp, 
     'senderId': senderId,
@@ -30,6 +33,7 @@ class Discussion extends Equatable
   {
     return Discussion
     (
+      eventId: json['eventId'],
       discussionId: json['discussionId'],
       timestamp: json['timestamp'], 
       senderId: json['senderId'], 
@@ -42,6 +46,7 @@ class Discussion extends Equatable
     final DiscussionData = DiscussionDoc.data() as Map<String, dynamic>?;
     return Discussion
     (
+      eventId: DiscussionData!['eventId'],
       discussionId: DiscussionData!['discussionId'],
       timestamp: DiscussionData!['timestamp'], 
       senderId: DiscussionData!['senderId'], 
@@ -53,6 +58,7 @@ class Discussion extends Equatable
   {
     return Discussion
     (
+      eventId: '',
       discussionId: '',
       timestamp: DateTime.now(), 
       senderId: '',
@@ -66,12 +72,13 @@ class Discussion extends Equatable
   @override
   List<Object?> get props 
   {
-    return [discussionId, timestamp, senderId, message];
+    return [eventId, discussionId, timestamp, senderId, message];
   }
 
   Discussion copyWith
   (
     {
+      String? eventId,
       String? discussionId,
       DateTime? timestamp,
       String? senderId,
@@ -81,6 +88,7 @@ class Discussion extends Equatable
   {
     return Discussion
     (
+      eventId: eventId ?? this.eventId,
       discussionId: discussionId ?? this.discussionId,
       timestamp: timestamp ?? this.timestamp,
       senderId: senderId ?? this.senderId,
@@ -92,6 +100,7 @@ class Discussion extends Equatable
   {
     return Discussion
     (
+      eventId: snapshot['eventId'],
       discussionId: snapshot['discussionId'],
       timestamp: snapshot['timestamp'], 
       senderId: snapshot['senderId'], 
