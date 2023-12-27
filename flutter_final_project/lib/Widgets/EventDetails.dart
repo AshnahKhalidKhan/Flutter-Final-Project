@@ -25,7 +25,7 @@ class _EventDetailsState extends State<EventDetails>
         ),
         title: const Text
         (
-          'Events', 
+          'Event Details', 
           style: TextStyle
           (
             color: Colors.white,
@@ -34,6 +34,57 @@ class _EventDetailsState extends State<EventDetails>
           ),
         ),
       ),
+      body: Column
+      (
+        children: 
+        [
+          ListTile
+          (
+            title: Text('Discussion'),
+            trailing: IconButton
+            (
+              icon: Icon(Icons.keyboard_arrow_right_outlined),
+              onPressed: () {},
+            )
+          ),
+          ListTile
+          (
+            title: Text('Tasks'),
+            trailing: IconButton
+            (
+              icon: Icon(Icons.keyboard_arrow_right_outlined),
+              onPressed: () {},
+            )
+          ),
+          ListTile
+          (
+            title: Text('Drafts'),
+            trailing: IconButton
+            (
+              icon: Icon(Icons.keyboard_arrow_right_outlined),
+              onPressed: () {},
+            )
+          ),
+          ListTile
+          (
+            title: Text('Registration List'),
+            trailing: IconButton
+            (
+              icon: Icon(Icons.keyboard_arrow_right_outlined),
+              onPressed: () {},
+            )
+          ),
+          ListTile
+          (
+            title: Text('Attendees List'),
+            trailing: IconButton
+            (
+              icon: Icon(Icons.keyboard_arrow_right_outlined),
+              onPressed: () {},
+            )
+          )
+        ],
+      )
     );
   }
 }

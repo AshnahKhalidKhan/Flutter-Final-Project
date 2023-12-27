@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_final_project/Widgets/EventDetails.dart';
 
 class EventsList extends StatefulWidget 
 {
@@ -126,7 +127,11 @@ class _EventsListState extends State<EventsList>
               ),
               onPressed: () 
               {
-                // EventTileBottomSheet(context);
+                Navigator.push
+                (
+                  context,
+                  MaterialPageRoute(builder: (context) => const EventDetails())
+                );
               },
             ),
           ],
