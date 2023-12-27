@@ -132,7 +132,7 @@ class MyApp extends StatelessWidget
               // TextStyle? titleTextStyle,
               // SystemUiOverlayStyle? systemOverlayStyle,
             ),
-            colorScheme: ColorScheme.fromSeed(seedColor: GoogleGreen),
+            colorScheme: ColorScheme.fromSeed(seedColor: GoogleRed),
             // bool? applyElevationOverlayColor,
             // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
             // Iterable<ThemeExtension<dynamic>>? extensions,

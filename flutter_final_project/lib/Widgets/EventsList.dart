@@ -24,9 +24,11 @@ class _EventsListState extends State<EventsList>
       appBar: AppBar
       (
         backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: BackButton
+        leading: Icon
         (
+          Icons.event_note_rounded,
           color: Colors.white,
+          size: 30.0
         ),
         title: const Text
         (

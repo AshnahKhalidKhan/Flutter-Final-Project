@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/NewSignUpScreen.dart';
+import 'package:flutter_final_project/Widgets/DiscussionsList.dart';
 import 'package:flutter_final_project/Widgets/EventsList.dart';
 import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
@@ -83,7 +84,7 @@ class _LandingPageState extends State<LandingPage>
               isLabelVisible: false,
               child: Icon
               (
-                Icons.chat_bubble_outline_rounded,
+                Icons.message_rounded,
                 // color: Colors.white,
               ),
             ),
@@ -127,6 +128,7 @@ class _LandingPageState extends State<LandingPage>
       [
         RegistrationsList(),
         EventsList(),
+        DiscussionsList(),
         SignUp(),
         NewSignUpScreen(),
         NewSignUpScreen(),
