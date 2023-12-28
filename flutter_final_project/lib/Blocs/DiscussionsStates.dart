@@ -25,7 +25,7 @@ class DiscussionsLoadingState extends DiscussionsState
 
 class DiscussionsSuccessOrLoadedState extends DiscussionsState
 {
-  final Discussion discussion;
+  final List<Discussion> discussion;
   const DiscussionsSuccessOrLoadedState(this.discussion);
 
   @override

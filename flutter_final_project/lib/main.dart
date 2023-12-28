@@ -7,6 +7,7 @@ import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
+import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/LandingPage.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
@@ -250,7 +251,8 @@ class MyApp extends StatelessWidget
           // home: const AuthenticationFlowScreen()
           // home: MyHomePage(title: 'Hellow?')
           // home: RegistrationsList()
-          home: LandingPage()
+          // home: LandingPage()
+          home: GDSCMembersPendingRequest()
         ),
       )
     );
