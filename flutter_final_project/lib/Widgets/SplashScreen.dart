@@ -20,9 +20,20 @@ class _SplashScreenState extends State<SplashScreen>
     Timer
     (
       Duration(seconds: 3), () => 
-      Navigator.of(context).pushReplacement
+      // Navigator.of(context).pushReplacementNamed
+      // (
+      //   Navigator.pushNamedAndRemoveUntil
+      //               (
+      //                 context,
+      //                 '/HomePage',
+      //                 (route) => false,
+      //               );
+      //   MaterialPageRoute(builder: (BuildContext context) => FinalSignInSignUp())
+      // )
+      Navigator.pushReplacementNamed
       (
-        MaterialPageRoute(builder: (BuildContext context) => FinalSignInSignUp())
+        context,
+        '/LoginSignUp',
       )
     );
   }

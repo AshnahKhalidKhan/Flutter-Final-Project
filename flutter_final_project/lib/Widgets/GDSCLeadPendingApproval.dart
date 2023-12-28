@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationEvents.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationStates.dart';
 
 class GDSCLeadPendingRequest extends StatefulWidget 
 {
@@ -61,31 +65,71 @@ class _GDSCLeadPendingRequestState extends State<GDSCLeadPendingRequest>
               textAlign: TextAlign.center,
             ),
             Spacer(),
-            ElevatedButton.icon
+            BlocConsumer<AuthenticationBloc, AuthenticationState>
             (
-              style: ButtonStyle
-              (
-                backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-                padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
-                minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
-              ),
-              onPressed: () {}, 
-              icon: const Icon
-              (
-                Icons.logout_rounded,
-                color: Colors.white,
-                size: 30.0
-              ), 
-              label: const Text
-              (
-                'Sign Out',
-                style: TextStyle
+              builder: (context, state)
+              {
+                return ElevatedButton.icon
                 (
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold
-                ),
-              )
+                  style: ButtonStyle
+                  (
+                    backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+                    padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
+                    minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
+                  ), 
+                  icon: const Icon
+                  (
+                    Icons.logout_rounded,
+                    color: Colors.white,
+                    size: 30.0
+                  ), 
+                  label: const Text
+                  (
+                    'Sign Out',
+                    style: TextStyle
+                    (
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  onPressed: () 
+                  {
+                    BlocProvider.of<AuthenticationBloc>(context).add
+                    (
+                      AuthenticationSignOutEvent()
+                    );
+                  },
+                );
+              },
+              listener: (context, state) 
+              {
+                if (state is AuthenticationInitialState) 
+                {
+                  Navigator.pushNamedAndRemoveUntil
+                  (
+                    context,
+                    '/LoginSignUp',
+                    (route) => false,
+                  );
+                }
+                else if (state is AuthenticationErrorState) 
+                {
+                  final signOutErrorSnackBarMessage = SnackBar
+                  (
+                    content: Text
+                    (
+                      state.error,
+                      style: TextStyle
+                      (
+                        color: Colors.white,
+                        fontSize: 20.0
+                      ),
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(signOutErrorSnackBarMessage);
+                }
+              },
             )
           ],
         ),

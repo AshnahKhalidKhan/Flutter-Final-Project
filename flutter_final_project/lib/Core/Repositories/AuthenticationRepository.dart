@@ -67,6 +67,9 @@ class AuthenticationRepository
     catch (e) 
     {
       print('Error in AuthenticationRepository, signUpWithEmail: $e');
+      // throw e;
+      // throw ('Error in AuthenticationRepository, signUpWithEmail: $e');
+      // throw Error();
     }
   }
 
@@ -86,26 +89,29 @@ class AuthenticationRepository
         email: email, 
         password: password
       );
-      final User? signedInUser = userCredential.user;
-      if (signedInUser != null) 
+      print(userCredential.toString());
+      if (userCredential != null)
       {
-        final userFromFirebase = await FirebaseFirestore.instance.collection('Users').doc(signedInUser.uid).get();
-        if (userFromFirebase.exists) 
+        final User? signedInUser = userCredential.user;
+        if (signedInUser != null) 
         {
-          final Map<String, dynamic>? userData = userFromFirebase.data();
-          if (userData != null) 
+          final userFromFirebase = await FirebaseFirestore.instance.collection('Users').doc(signedInUser.uid).get();
+          if (userFromFirebase.exists) 
           {
-            AppUser user = AppUser.fromJson(userData);
-            return user;
+            final Map<String, dynamic>? userData = userFromFirebase.data();
+            if (userData != null) 
+            {
+              AppUser user = AppUser.fromJson(userData);
+              return user;
+            }
           }
         }
       }
-      return null;    
     }
     catch (e) 
     {
       print('Error in AuthenticationRepository, signInWithEmail: $e');
-      throw Error();
+      // throw Error();
     }
   }
 
@@ -156,7 +162,7 @@ class AuthenticationRepository
     catch (e) 
     {
       print('Error in AuthenticationRepository, signInWithGoogle: $e');
-      throw Error();
+      // throw Error();
     }
   }
 }

@@ -32,12 +32,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
         else 
         {
           print('Yahaaan hun mein');
-          emit(const AuthenticationErrorState('Sign Up Failed'));
+          emit(AuthenticationErrorState('Sign up failed. Please fill all fields correctly.'));
         }
       } 
       catch (e) 
       {
         print(e.toString());
+        emit(AuthenticationErrorState(e.toString()));
       }
       emit(AuthenticationLoadingState(isLoading: false));
     });
@@ -58,7 +59,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
         } 
         else 
         {
-          emit(const AuthenticationErrorState('Sign In Failed'));
+          print('I think here');
+          emit(const AuthenticationErrorState('Login failed. Please enter valid credentials.'));
         }
       } 
       catch (e) 
@@ -75,7 +77,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
       emit(AuthenticationLoadingState(isLoading: true));
       try 
       {
-        authenticationRepository.signOut();
+        await authenticationRepository.signOut();
       } 
       catch (e) 
       {

@@ -8,6 +8,7 @@ import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
+import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadPendingApproval.dart';
@@ -251,15 +252,16 @@ class MyApp extends StatelessWidget
           routes: 
           {
             '/': (context) => SplashScreen(),
-            '/SignUp': (context) => const SignUp(),
+            '/LoginSignUp': (context) => const FinalSignInSignUp(),
+            '/HomePage': (context) => const LandingPage(),
+            '/GDSCMembersPendingRequest': (context) => const GDSCMembersPendingRequest(),
+            '/GDSCLeadPendingRequest': (context) => const GDSCLeadPendingRequest(),
             // '/SignIn': (context) => const SignIn(),
             // '/AdminUsers': (context) => const AdminUsers(), //All Admin Users CRUD thingies
             // '/GDSCLeadsPendingApprovals': (context) => const GDSCLeadsPendingApprovals(),
             // '/AddGDSCCampus': (context) => const AddGDSCCampus(),
 
-            '/HomePage': (context) => const LandingPage(),
-            // '/PageName': (context) => const PageName(),
-            // '/PageName': (context) => const PageName(),
+            
             // '/PageName': (context) => const PageName(),
             // '/PageName': (context) => const PageName(),
             // '/PageName': (context) => const PageName(),

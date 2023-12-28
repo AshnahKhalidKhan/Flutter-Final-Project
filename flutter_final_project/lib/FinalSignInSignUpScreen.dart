@@ -112,10 +112,7 @@ class _LoginTabState extends State<LoginTab>
 
   final TextEditingController emailInput = TextEditingController();
   final TextEditingController passwordInput = TextEditingController();
-
-  bool emailCorrect = false;
-  bool emailActive = false;
-  bool passwordActive = false;
+  
   bool passwordInvisible = true;
 
   @override
@@ -266,6 +263,7 @@ class _SignUpTabState extends State<SignUpTab>
   final TextEditingController confirmpasswordInput = TextEditingController();
   final TextEditingController campusController = TextEditingController();
   String? selectedCampus = '';
+  String? selectedRole = '';
 
   Icon GreenCheckIcon = Icon
   (
@@ -307,114 +305,10 @@ class _SignUpTabState extends State<SignUpTab>
   {
 
     List<DropdownMenuEntry<String>> campusEntries = <DropdownMenuEntry<String>>[];
-    // StreamBuilder<List<GDSCCampus>>
-    //       (
-    //         stream: BlocProvider.of<GDSCCampusesBloc>(context).campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile(),
-    //         builder: (context, snapshot)
-    //         {
-    //           if (snapshot.hasError) 
-    //           {
-    //             return Text('Error: ${snapshot.error}');
-    //           } 
-    //           else if (snapshot.hasData)
-    //           {
-                
-    //             // List<GDSCCampus>? campuses = snapshot.data;
-    //             // return SizedBox(
-    //             //   height: 200,
-    //             //   child: ListView.builder
-    //             //   (
-    //             //     itemCount: campuses?.length,
-    //             //     itemBuilder: ((context, index) 
-    //             //     {
-    //             //       return Text(campuses![index].campusName);
-    //             //     })
-    //             //   ),
-    //             // );
-    //             List<GDSCCampus>? campuses = snapshot.data;
-    //             campusEntries = campuses!
-    //                         .map<DropdownMenuEntry<String>>(
-    //                           (campus) => DropdownMenuEntry<String>(
-    //                             value: campus.campusName,
-    //                             label: campus.campusId
-    //                           ),
-    //                         )
-    //                         .toList();
-    //               return Text('kkk');
-    //           }
-    //           else
-    //           {
-    //             return Text('Snapshaot mein kuch tha he nahin');
-    //           }
-    //         }
-    //       );
-
-    // BlocBuilder<GDSCCampusesBloc, GDSCCampusesState>
-    // (
-    //   builder: (context, state)
-    //   {
-    //     if (state is GDSCCampusesLoadingState)
-    //     {
-    //       return Center(child: CircularProgressIndicator());
-    //     }
-    //     else if (state is GDSCCampusesErrorState)
-    //     {
-    //       return Center(child: Text(state.error));
-    //     }
-    //     else if (state is GDSCCampusesSuccessOrLoadedState)
-    //     {
-    //       return StreamBuilder<List<GDSCCampus>>
-    //       (
-    //         stream: state.campus,
-    //         builder: (context, snapshot)
-    //         {
-    //           if (snapshot.hasError) 
-    //           {
-    //             return Text('Error: ${snapshot.error}');
-    //           } 
-    //           else if (snapshot.hasData)
-    //           {
-                
-    //             // List<GDSCCampus>? campuses = snapshot.data;
-    //             // return SizedBox(
-    //             //   height: 200,
-    //             //   child: ListView.builder
-    //             //   (
-    //             //     itemCount: campuses?.length,
-    //             //     itemBuilder: ((context, index) 
-    //             //     {
-    //             //       return Text(campuses![index].campusName);
-    //             //     })
-    //             //   ),
-    //             // );
-    //             List<GDSCCampus>? campuses = snapshot.data;
-    //             campusEntries = campuses!
-    //                         .map<DropdownMenuEntry<String>>(
-    //                           (campus) => DropdownMenuEntry<String>(
-    //                             value: campus.campusName,
-    //                             label: campus.campusId
-    //                           ),
-    //                         )
-    //                         .toList();
-    //               return Text('kkk');
-    //           }
-    //           else
-    //           {
-    //             return Text('Snapshaot mein kuch tha he nahin');
-    //           }
-    //         }
-    //       );
-    //     }
-    //     else
-    //     {
-    //       return Text('Koi state he match nahin huo');
-    //     }
-    //   }
-    // );
 
     return Padding
     (
-      padding: EdgeInsets.all(30.0),
+      padding: EdgeInsets.all(20.0),
       child: SingleChildScrollView
       (
         child: Column
@@ -446,44 +340,66 @@ class _SignUpTabState extends State<SignUpTab>
                       } 
                       else if (snapshot.hasData)
                       {
-                        
-List<GDSCCampus>? campuses = snapshot.data;
-                        campusEntries = campuses!
-                            .map<DropdownMenuEntry<String>>(
-                              (campus) => DropdownMenuEntry<String>(
-                                label: campus.campusName,
-                                value: campus.campusId
-                              ),
-                            )
-                            .toList();
+                        List<GDSCCampus>? campuses = snapshot.data;
+                        campusEntries = campuses!.map<DropdownMenuEntry<String>>
+                        (
+                          (campus) => DropdownMenuEntry<String>
+                          (
+                            label: campus.campusName,
+                            value: campus.campusId
+                          ),
+                        ).toList();
                         return  DropdownMenu<String>
-            (
-              width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
-              controller: campusController,
-              enableFilter: true,
-              leadingIcon: const Icon(Icons.school_rounded),
-              label: const Text('GDSC Campus Name'),
-              dropdownMenuEntries: campusEntries,
-              inputDecorationTheme: const InputDecorationTheme
-              (
-              ),
-              onSelected: (String? campus) 
-              {
-                setState(() 
-                {
-                  
-                  selectedCampus = campus;
-                });
-              },
-            );
-
-
-
-
+                        (
+                          width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
+                          controller: campusController,
+                          enableFilter: false,
+                          leadingIcon: Icon(Icons.school_rounded, color: Theme.of(context).colorScheme.primary),
+                          label: Text
+                          (
+                            'GDSC Campus Name',
+                            style: TextStyle
+                            (
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          menuStyle: const MenuStyle
+                          (
+                            side: MaterialStatePropertyAll(BorderSide(style: BorderStyle.none))
+                          ),
+                          dropdownMenuEntries: campusEntries,
+                          onSelected: (String? campus) 
+                          {
+                            setState(() 
+                            {
+                              fullNameActive = false;
+                              emailActive = false;
+                              passwordActive = false;
+                              confirmPasswordActive = false;
+                              selectedCampus = campus;
+                            });
+                            if (fullNameCorrect && emailCorrect && passwordMinimum8Characters && passwordHasOneUppercaseAlphabet && passwordHasOneDigit && passwordHasOneSpecialCharacter && confirmPasswordAndPasswordMatch && selectedCampus != null)
+                            {
+                              setState(() 
+                              {
+                                allInputFieldsCorrect = true;
+                              });
+                            }
+                            else
+                            {
+                              setState(() 
+                              {
+                                allInputFieldsCorrect = false;
+                              });
+                            }
+                          },
+                        );
                       }
                       else
                       {
-                        return Text('Snapshaot mein kuch tha he nahin');
+                        return Text('Connection error. Please sign up later.');
                       }
                     }
                   );
@@ -494,45 +410,18 @@ List<GDSCCampus>? campuses = snapshot.data;
                 }
               }
             ),
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // DropdownMenu<String>
-            // (
-            //   width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
-            //   controller: campusController,
-            //   enableFilter: true,
-            //   leadingIcon: const Icon(Icons.school_rounded),
-            //   label: const Text('GDSC Campus Name'),
-            //   dropdownMenuEntries: campusEntries,
-            //   inputDecorationTheme: const InputDecorationTheme
-            //   (
-            //   ),
-            //   onSelected: (String? campus) 
-            //   {
-            //     setState(() 
-            //     {
-                  
-            //       selectedCampus = campus;
-            //     });
-            //   },
-            // ),
             TextField
             (
+              onTap: () 
+              {
+                setState(() 
+                {
+                  fullNameActive = true;
+                  emailActive = false;
+                  passwordActive = false;
+                  confirmPasswordActive = false;
+                });
+              },
               controller: fullNameInput,
               decoration: InputDecoration
               (
@@ -544,11 +433,53 @@ List<GDSCCampus>? campuses = snapshot.data;
                 ),
                 prefixIcon: Icon(Icons.person_2_rounded, color: Theme.of(context).colorScheme.primary,),
                 labelText: 'Full Name',
+                helperText: fullNameActive ? (fullNameCorrect ? null : 'Each word must be capitalized.') : null,
+                suffixIcon: fullNameActive ? (fullNameCorrect ? GreenCheckIcon : RedCrossIcon) : null,
               ),
-              
+              onChanged: (value)
+              {
+                if (RegExp(r'^[a-zA-Z\s]+$').hasMatch(fullNameInput.text) == true && (RegExp(r'\b[A-Z]').allMatches(fullNameInput.text).length == fullNameInput.text.split(' ').length) == true)
+                {
+                  setState(() 
+                  {
+                    fullNameCorrect = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    fullNameCorrect = false;
+                  });
+                }
+                if (fullNameCorrect && emailCorrect && passwordMinimum8Characters && passwordHasOneUppercaseAlphabet && passwordHasOneDigit && passwordHasOneSpecialCharacter && confirmPasswordAndPasswordMatch && selectedCampus != null)
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = false;
+                  });
+                }
+              },
             ),
             TextField
             (
+              onTap: () 
+              {
+                setState(() 
+                {
+                  fullNameActive = false;
+                  emailActive = true;
+                  passwordActive = false;
+                  confirmPasswordActive = false;
+                });
+              },
               controller: emailInput,
               decoration: InputDecoration
               (
@@ -560,10 +491,53 @@ List<GDSCCampus>? campuses = snapshot.data;
                 ),
                 prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).colorScheme.primary,),
                 labelText: 'Email',
+                helperText: emailActive ? (emailCorrect ? null : 'Email must be valid.') : null,
+                suffixIcon: emailActive ? (emailCorrect ? GreenCheckIcon : RedCrossIcon) : null,
               ),
+              onChanged: (value)
+              {
+                if (RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', caseSensitive: false, multiLine: false).hasMatch(emailInput.text) == true)
+                {
+                  setState(() 
+                  {
+                    emailCorrect = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    emailCorrect = false;
+                  });
+                }
+                if (fullNameCorrect && emailCorrect && passwordMinimum8Characters && passwordHasOneUppercaseAlphabet && passwordHasOneDigit && passwordHasOneSpecialCharacter && confirmPasswordAndPasswordMatch && selectedCampus != null)
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = false;
+                  });
+                }
+              },
             ),
             TextField
             (
+              onTap: () 
+              {
+                setState(() 
+                {
+                  fullNameActive = false;
+                  emailActive = false;
+                  passwordActive = true;
+                  confirmPasswordActive = false;
+                });
+              },
               controller: passwordInput,
               obscureText: passwordInvisible,
               decoration: InputDecoration
@@ -586,10 +560,232 @@ List<GDSCCampus>? campuses = snapshot.data;
                       passwordInvisible = !passwordInvisible;
                     });
                   },
-                )
-              )
+                ),
+                error: Column
+                (
+                  children: passwordActive ? <Widget>
+                  [
+                    Row
+                    (
+                      children:
+                      [
+                        passwordMinimum8Characters ? GreenCheckIcon : RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Minimum 8 characters'),
+                      ],
+                    ),
+                    Row
+                    (
+                      children: 
+                      [
+                        passwordHasOneUppercaseAlphabet ? GreenCheckIcon : RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Has one uppercase alphabet (A-Z)'),
+                      ],
+                    ),
+                    Row
+                    (
+                      children: 
+                      [
+                        
+                        passwordHasOneDigit ? GreenCheckIcon : RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Has one digit (0-9)'),
+                      ],
+                    ),
+                    Row
+                    (
+                      children: 
+                      [
+                        passwordHasOneSpecialCharacter ? GreenCheckIcon : RedCrossIcon,
+                        SizedBox(width: 5.0),
+                        Text('Has one special character (!, @, #...)'),
+                      ],
+                    ),
+                  ].toList() : <Widget>[],
+                ),
+              ),
+              onChanged: (value)
+              {
+                if (RegExp(r'^.{8,}$').hasMatch(passwordInput.text) == true)
+                {
+                  setState(() 
+                  {
+                    passwordMinimum8Characters = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    passwordMinimum8Characters = false;
+                  });
+                }
+                if (RegExp(r'[A-Z]').hasMatch(passwordInput.text) == true)
+                {
+                  setState(() 
+                  {
+                    passwordHasOneUppercaseAlphabet = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    passwordHasOneUppercaseAlphabet = false;
+                  });
+                }
+                if (RegExp(r'[0-9]').hasMatch(passwordInput.text) == true)
+                {
+                  setState(() 
+                  {
+                    passwordHasOneDigit = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    passwordHasOneDigit = false;
+                  });
+                }
+                if (RegExp(r'[!@#\$%^&*(),.?":{}|<>]').hasMatch(passwordInput.text) == true)
+                {
+                  setState(() 
+                  {
+                    passwordHasOneSpecialCharacter = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    passwordHasOneSpecialCharacter = false;
+                  });
+                }
+                if (fullNameCorrect && emailCorrect && passwordMinimum8Characters && passwordHasOneUppercaseAlphabet && passwordHasOneDigit && passwordHasOneSpecialCharacter && confirmPasswordAndPasswordMatch && selectedCampus != null)
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = false;
+                  });
+                }
+              },
             ),
-            SizedBox(height: 40.0),
+            TextField
+            (
+              onTap: () 
+              {
+                setState(() 
+                {
+                  fullNameActive = false;
+                  emailActive = false;
+                  passwordActive = false;
+                  confirmPasswordActive = true;
+                });
+              },
+              controller: confirmpasswordInput,
+              obscureText: true,
+              decoration: InputDecoration
+              (
+                labelStyle: TextStyle
+                (
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold
+                ),
+                prefixIcon: Icon(Icons.key_rounded, color: Theme.of(context).colorScheme.primary,),
+                labelText: 'Confirm Password',
+                helperText: confirmPasswordActive ? (confirmPasswordAndPasswordMatch ? null : 'Passwords do not match.') : null,
+                suffixIcon: confirmPasswordActive ? (confirmPasswordAndPasswordMatch ? GreenCheckIcon : RedCrossIcon) : null,
+              ),
+              onChanged: (value) 
+              {
+                if (confirmpasswordInput.text == passwordInput.text)
+                {
+                  setState(() 
+                  {
+                    confirmPasswordAndPasswordMatch = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    confirmPasswordAndPasswordMatch = false;
+                  });
+                }
+                if (fullNameCorrect && emailCorrect && passwordMinimum8Characters && passwordHasOneUppercaseAlphabet && passwordHasOneDigit && passwordHasOneSpecialCharacter && confirmPasswordAndPasswordMatch && selectedCampus != null)
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = true;
+                  });
+                }
+                else
+                {
+                  setState(() 
+                  {
+                    allInputFieldsCorrect = false;
+                  });
+                }
+              },
+            ),
+            SizedBox(height: 15.0),
+            Text
+            (
+              'Select Role',
+              style: TextStyle
+              (
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            Padding
+            (
+              padding: const EdgeInsets.only(top: 5.0, bottom: 20.0),
+              child: SegmentedButton
+              (
+                segments:
+                [
+                  ButtonSegment(value: 'Member', label: Text('Member')),
+                  ButtonSegment(value: 'Lead', label: Text('Lead')),
+                ], 
+                selected: {selectedRole},
+                onSelectionChanged: (value) 
+                {
+                  setState(() 
+                  {
+                    fullNameActive = false;
+                    emailActive = false;
+                    passwordActive = false;
+                    confirmPasswordActive = false;
+                    selectedRole = value.first;
+                  });
+                },
+                style: ButtonStyle
+                (
+                  textStyle: MaterialStatePropertyAll
+                  (
+                    TextStyle
+                    (
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    )
+                  ),
+                ),
+              ),
+            ),
+            // SizedBox(height: 10.0),
             BlocConsumer<AuthenticationBloc, AuthenticationState>
             (
               builder: (context, state) 
@@ -598,7 +794,7 @@ List<GDSCCampus>? campuses = snapshot.data;
                 (
                   style: ButtonStyle
                   (
-                    backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+                    backgroundColor: allInputFieldsCorrect ? MaterialStatePropertyAll(Theme.of(context).colorScheme.primary) : null,
                     padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
                     minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
                   ),
@@ -622,10 +818,13 @@ List<GDSCCampus>? campuses = snapshot.data;
                   {
                     BlocProvider.of<AuthenticationBloc>(context).add
                     (
-                      AuthenticationSignInWithEmailEvent
+                      AuthenticationSignUpWithEmailEvent
                       (
+                        fullNameInput.text.trim(),
                         emailInput.text.trim(),
                         passwordInput.text.trim(),
+                        selectedRole!.trim(),
+                        selectedCampus!.trim()
                       ),
                     );
                   },
@@ -635,12 +834,24 @@ List<GDSCCampus>? campuses = snapshot.data;
               {
                 if (state is AuthenticationSuccessOrLoadedState) 
                 {
-                  Navigator.pushNamedAndRemoveUntil
-                  (
-                    context,
-                    '/HomePage',
-                    (route) => false,
-                  );
+                  if (selectedRole!.startsWith('Member'))
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/GDSCMembersPendingRequest',
+                      (route) => false,
+                    );
+                  }
+                  else if (selectedRole!.startsWith('Lead'))
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/GDSCLeadPendingRequest',
+                      (route) => false,
+                    );
+                  }
                 }
                 else if (state is AuthenticationErrorState) 
                 {
