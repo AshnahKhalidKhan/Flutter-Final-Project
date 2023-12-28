@@ -37,21 +37,26 @@ class GDSCCampusesRepository
     }
   }
 
-  Stream<List<GDSCCampus>> readGDSCCampusFunctionInGDSCCampusesRepositoryFile(String campusId) 
+  Stream<List<GDSCCampus>> readGDSCCampusFunctionInGDSCCampusesRepositoryFile(String campusId)
   {
-    try 
-    {
-      return FirebaseFirestore.instance.collection('GDSCCampus').where('campusId', isEqualTo: campusId).snapshots().map
+    return FirebaseFirestore.instance.collection('GDSCCampus').where('campusId', isEqualTo: campusId).snapshots().map
       (
         (querySnapshot) =>
         querySnapshot.docs.map((e) => GDSCCampus.fromSnapshot(e)).toList()
       );
-    } 
-    catch (e) 
-    {
-      print('Error in GDSCCampusesRepository, readGDSCCampus: $e');
-      return Stream<List<GDSCCampus>>.empty();
-    }
+    // try 
+    // {
+    //   return FirebaseFirestore.instance.collection('GDSCCampus').where('campusId', isEqualTo: campusId).snapshots().map
+    //   (
+    //     (querySnapshot) =>
+    //     querySnapshot.docs.map((e) => GDSCCampus.fromSnapshot(e)).toList()
+    //   );
+    // } 
+    // catch (e) 
+    // {
+    //   print('Error in GDSCCampusesRepository, readGDSCCampus: $e');
+    //   return Stream<List<GDSCCampus>>.empty();
+    // }
   }
 
   Stream<List<GDSCCampus>> allGDSCCampusesFunctionInGDSCCampusesRepositoryFile() 

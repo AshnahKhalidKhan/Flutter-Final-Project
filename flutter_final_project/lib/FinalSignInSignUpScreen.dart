@@ -296,16 +296,17 @@ class _SignUpTabState extends State<SignUpTab>
   bool passwordInvisible = true;
 
   @override
+  void initState() 
+  {
+    BlocProvider.of<GDSCCampusesBloc>(context).add(ReadAllGDSCCampusesEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) 
   {
 
     final List<DropdownMenuEntry<String>> campusEntries = <DropdownMenuEntry<String>>[];
-    // BlocConsumer(builder: builder, listener: listener);
-
-    // for (final String campus in String)
-    // {
-    //   campusEntries.add(DropdownMenuEntry<String>(value: campus, label: campus.name));
-    // }
 
     return Padding
     (
@@ -341,22 +342,30 @@ class _SignUpTabState extends State<SignUpTab>
                       } 
                       else if (snapshot.hasData)
                       {
+                        
                         List<GDSCCampus>? campuses = snapshot.data;
-                        return ListView.builder
-                        (
-                          itemCount: campuses?.length,
-                          itemBuilder: ((context, index) 
-                          {
-                            return Text(campuses![index].campusName);
-                          })
+                        return SizedBox(
+                          height: 200,
+                          child: ListView.builder
+                          (
+                            itemCount: campuses?.length,
+                            itemBuilder: ((context, index) 
+                            {
+                              return Text(campuses![index].campusName);
+                            })
+                          ),
                         );
                       }
                       else
                       {
-                        return Text('Koi state he match nahin huo');
+                        return Text('Snapshaot mein kuch tha he nahin');
                       }
                     }
                   );
+                }
+                else
+                {
+                  return Text('Koi state he match nahin huo');
                 }
               }
             ),

@@ -9,11 +9,10 @@ import 'package:flutter_final_project/Models/GDSCCampusModel.dart';
 class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState> 
 {
   final GDSCCampusesRepository campussRepository;
+  StreamSubscription<List<GDSCCampus>>? campussStreamSubscription;
   
   GDSCCampusesBloc({required this.campussRepository}) : super(GDSCCampusesInitialState()) 
   {
-    StreamSubscription<List<GDSCCampus>>? campussStreamSubscription;
-
     @override
     Future<void> close() async 
     {
@@ -71,15 +70,17 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
       try 
       {
         emit(GDSCCampusesLoadingState());
-        final streamResponse = campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile();
-        campussStreamSubscription?.cancel();
-        campussStreamSubscription = streamResponse.listen((campus) 
-        {
-          add(ReadAllGDSCCampusesEvent());
-          // emit(GDSCCampusesSuccessOrLoadedState(campus));
-          // add(GDSCCampusesSuccessOrLoadedState(campus));
-        });
-        // emit(GDSCCampusesSuccessOrLoadedState(disc));
+        Stream<List<GDSCCampus>> streamResponse = campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile();
+        emit(GDSCCampusesSuccessOrLoadedState(streamResponse));
+        // campussStreamSubscription?.cancel();
+        // emit(GDSCCampusesSuccessOrLoadedState(str));
+        // campussStreamSubscription = streamResponse.listen((campus) 
+        // {
+        //   // add(ReadAllGDSCCampusesEvent());
+        //   emit(GDSCCampusesSuccessOrLoadedState(streamResponse));
+        //   // add(GDSCCampusesSuccessOrLoadedState(campus));
+        // });
+        // emit(GDSCCampusesSuccessOrLoadedState());
       } 
       catch(e) 
       {
@@ -133,7 +134,7 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
 //     {
 //       yield* mapCreateGDSCCampusToState(event);
 //     }
-//     else if (event is ReadGDSCCampusEvent) 
+//     else if (event is ReadAllGDSCCampusesEvent) 
 //     {
 //       yield* mapReadGDSCCampusToState(event);
 //     } 
@@ -151,7 +152,7 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
 //   {
 //     try 
 //     {
-//       await campussRepository.createGDSCCampusFunctionInGDSCCampusRepositoryFile
+//       await campussRepository.createGDSCCampusFunctionInGDSCCampusesRepositoryFile
 //       (
 //         campusId: event.campusId,
 //         campusName: event.campusName,
@@ -165,15 +166,15 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
 //     }
 //   }
 
-//   Stream<GDSCCampusesState> mapReadGDSCCampusToState(ReadGDSCCampusEvent event) async* 
+//   Stream<GDSCCampusesState> mapReadGDSCCampusToState(ReadAllGDSCCampusesEvent event) async* 
 //   {
 //     try 
 //     {
 //       yield GDSCCampusesLoadingState();
-//       final campuss = campussRepository.readGDSCCampusFunctionInGDSCCampusRepositoryFile(event.campusId);
+//       final campuss = campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile();
 //       await for (var campus in campuss) 
 //       {
-//         yield GDSCCampusesSuccessOrLoadedState(campus as GDSCCampus);
+//         yield GDSCCampusesSuccessOrLoadedState(campus as Stream<List<GDSCCampus>>);
 //       }
 //     } 
 //     catch (e) 
@@ -186,8 +187,8 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
 //   {
 //     try 
 //     {
-//       await campussRepository.updateGDSCCampusFunctionInGDSCCampusRepositoryFile(event.campus);
-//       yield GDSCCampusesSuccessOrLoadedState(event.campus);
+//       await campussRepository.updateGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campus);
+//       yield GDSCCampusesSuccessOrLoadedState(event.campus as Stream<List<GDSCCampus>>);
 //     } 
 //     catch (e) 
 //     {
@@ -199,7 +200,7 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
 //   {
 //     try 
 //     {
-//       await campussRepository.deleteGDSCCampusFunctionInGDSCCampusRepositoryFile(event.campusId);
+//       await campussRepository.deleteGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campusId);
 //       yield GDSCCampusesEmptyState();
 //     } 
 //     catch (e) 

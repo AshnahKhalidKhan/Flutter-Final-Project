@@ -26,7 +26,7 @@ class GDSCCampusesLoadingState extends GDSCCampusesState
 class GDSCCampusesSuccessOrLoadedState extends GDSCCampusesState
 {
   final Stream<List<GDSCCampus>> campus;
-  const GDSCCampusesSuccessOrLoadedState(this.campus);
+  GDSCCampusesSuccessOrLoadedState(this.campus);
 
   @override
   List<Object> get props => [campus];
