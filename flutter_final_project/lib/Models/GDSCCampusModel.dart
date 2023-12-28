@@ -2,65 +2,65 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GDSCCampus 
 {
-  final String id;
-  final String name;
+  final String campusId;
+  final String campusName;
   final String email;
   final String location;
   final String lead;
-  final String? facebookEmail;
-  final String? facebookPassword;
-  final String? instagramEmail;
-  final String? instagramPassword;
-  final String? linkedInEmail;
-  final String? linkedInPassword;
+  // final String? facebookEmail;
+  // final String? facebookPassword;
+  // final String? instagramEmail;
+  // final String? instagramPassword;
+  // final String? linkedInEmail;
+  // final String? linkedInPassword;
 
   const GDSCCampus
   (
     {
-      required this.id,
-      required this.name,
+      required this.campusId,
+      required this.campusName,
       required this.email,
       required this.location,
       required this.lead,
-      required this.facebookEmail,
-      required this.facebookPassword,
-      required this.instagramEmail,
-      required this.instagramPassword,
-      required this.linkedInEmail,
-      required this.linkedInPassword
+      // required this.facebookEmail,
+      // required this.facebookPassword,
+      // required this.instagramEmail,
+      // required this.instagramPassword,
+      // required this.linkedInEmail,
+      // required this.linkedInPassword
     }
   );
 
   Map<String, dynamic> toJson() =>
   {
-    'id': id,
-    'name': name, 
+    'campusId': campusId,
+    'campusName': campusName, 
     'email': email,
     'location': location,
     'lead': lead,
-    'facebookEmail': facebookEmail,
-    'facebookPassword': facebookPassword,
-    'instagramEmail': instagramEmail,
-    'instagramPassword': instagramPassword,
-    'linkedInEmail': linkedInEmail,
-    'linkedInPassword': linkedInPassword
+    // 'facebookEmail': facebookEmail,
+    // 'facebookPassword': facebookPassword,
+    // 'instagramEmail': instagramEmail,
+    // 'instagramPassword': instagramPassword,
+    // 'linkedInEmail': linkedInEmail,
+    // 'linkedInPassword': linkedInPassword
   };
 
   static GDSCCampus fromJson(Map<String, dynamic> json) 
   {
     return GDSCCampus
     (
-      id: json['id'],
-      name: json['name'], 
+      campusId: json['campusId'],
+      campusName: json['campusName'], 
       email: json['email'], 
       location: json['location'],
       lead: json['lead'], 
-      facebookEmail: json['facebookEmail'],
-      facebookPassword: json['facebookPassword'],
-      instagramEmail: json['instagramEmail'],
-      instagramPassword: json['instagramPassword'],
-      linkedInEmail: json['linkedInEmail'],
-      linkedInPassword: json['linkedInPassword']
+      // facebookEmail: json['facebookEmail'],
+      // facebookPassword: json['facebookPassword'],
+      // instagramEmail: json['instagramEmail'],
+      // instagramPassword: json['instagramPassword'],
+      // linkedInEmail: json['linkedInEmail'],
+      // linkedInPassword: json['linkedInPassword']
     );
   }
 
@@ -69,17 +69,17 @@ class GDSCCampus
     final GDSCCampusData = GDSCCampusDoc.data() as Map<String, dynamic>?;
     return GDSCCampus
     (
-      id: GDSCCampusData!['id'],
-      name: GDSCCampusData!['name'], 
+      campusId: GDSCCampusData!['campusId'],
+      campusName: GDSCCampusData!['campusName'], 
       email: GDSCCampusData!['email'], 
       location: GDSCCampusData!['location'],
       lead: GDSCCampusData!['lead'], 
-      facebookEmail: GDSCCampusData!['facebookEmail'],
-      facebookPassword: GDSCCampusData!['facebookPassword'],
-      instagramEmail: GDSCCampusData!['instagramEmail'],
-      instagramPassword: GDSCCampusData!['instagramPassword'],
-      linkedInEmail: GDSCCampusData!['linkedInEmail'],
-      linkedInPassword: GDSCCampusData!['linkedInPassword']
+      // facebookEmail: GDSCCampusData!['facebookEmail'],
+      // facebookPassword: GDSCCampusData!['facebookPassword'],
+      // instagramEmail: GDSCCampusData!['instagramEmail'],
+      // instagramPassword: GDSCCampusData!['instagramPassword'],
+      // linkedInEmail: GDSCCampusData!['linkedInEmail'],
+      // linkedInPassword: GDSCCampusData!['linkedInPassword']
     );
   }
 
@@ -87,17 +87,17 @@ class GDSCCampus
   {
     return const GDSCCampus
     (
-      id: '',
-      name: '', 
+      campusId: '',
+      campusName: '', 
       email: '',
       location: '',
       lead: '',
-      facebookEmail: '',
-      facebookPassword: '',
-      instagramEmail: '',
-      instagramPassword: '',
-      linkedInEmail: '',
-      linkedInPassword: ''
+      // facebookEmail: '',
+      // facebookPassword: '',
+      // instagramEmail: '',
+      // instagramPassword: '',
+      // linkedInEmail: '',
+      // linkedInPassword: ''
 
     );
   }
@@ -108,39 +108,40 @@ class GDSCCampus
   @override
   List<Object?> get props 
   {
-    return [id, name, email, location, lead, facebookEmail, facebookPassword, instagramEmail, instagramPassword, linkedInEmail, linkedInPassword];
+    // return [campusId, campusName, email, location, lead, facebookEmail, facebookPassword, instagramEmail, instagramPassword, linkedInEmail, linkedInPassword];
+    return [campusId, campusName, email, location, lead];
   }
   
   GDSCCampus copyWith
   (
     {
-      String? id,
-      String? name,
+      String? campusId,
+      String? campusName,
       String? email,
       String? location,
       String? lead,
-      String? facebookEmail,
-      String? facebookPassword,
-      String? instagramEmail,
-      String? instagramPassword,
-      String? linkedInEmail,
-      String? linkedInPassword
+      // String? facebookEmail,
+      // String? facebookPassword,
+      // String? instagramEmail,
+      // String? instagramPassword,
+      // String? linkedInEmail,
+      // String? linkedInPassword
     }
   )
   {
     return GDSCCampus
     (
-      id: id ?? this.id,
-      name: name ?? this.name,
+      campusId: campusId ?? this.campusId,
+      campusName: campusName ?? this.campusName,
       email: email ?? this.email,
       location: location ?? this.location,
       lead: lead ?? this.lead,
-      facebookEmail: facebookEmail ?? this.facebookEmail,
-      facebookPassword: facebookPassword ?? this.facebookPassword,
-      instagramEmail: instagramEmail ?? this.instagramEmail,
-      instagramPassword: instagramPassword ?? this.instagramPassword,
-      linkedInEmail: linkedInEmail ?? this.linkedInEmail,
-      linkedInPassword: linkedInPassword ?? this.linkedInPassword
+      // facebookEmail: facebookEmail ?? this.facebookEmail,
+      // facebookPassword: facebookPassword ?? this.facebookPassword,
+      // instagramEmail: instagramEmail ?? this.instagramEmail,
+      // instagramPassword: instagramPassword ?? this.instagramPassword,
+      // linkedInEmail: linkedInEmail ?? this.linkedInEmail,
+      // linkedInPassword: linkedInPassword ?? this.linkedInPassword
     );
   }
 
@@ -148,17 +149,17 @@ class GDSCCampus
   {
     return GDSCCampus
     (
-      id: snapshot['id'],
-      name: snapshot['name'], 
+      campusId: snapshot['campusId'],
+      campusName: snapshot['campusName'], 
       email: snapshot['email'], 
       location: snapshot['location'],
       lead: snapshot['lead'], 
-      facebookEmail: snapshot['facebookEmail'],
-      facebookPassword: snapshot['facebookPassword'],
-      instagramEmail: snapshot['instagramEmail'],
-      instagramPassword: snapshot['instagramPassword'],
-      linkedInEmail: snapshot['linkedInEmail'],
-      linkedInPassword: snapshot['linkedInPassword']
+      // facebookEmail: snapshot['facebookEmail'],
+      // facebookPassword: snapshot['facebookPassword'],
+      // instagramEmail: snapshot['instagramEmail'],
+      // instagramPassword: snapshot['instagramPassword'],
+      // linkedInEmail: snapshot['linkedInEmail'],
+      // linkedInPassword: snapshot['linkedInPassword']
     );
   }
 }

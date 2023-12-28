@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
+import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadPendingApproval.dart';
@@ -54,6 +56,13 @@ class MyApp extends StatelessWidget
             firebaseFirestore: _firebaseFirestore,
           ),
         ),
+        RepositoryProvider<GDSCCampusesRepository>
+        (
+          create: (context) => GDSCCampusesRepository
+          (
+            firebaseFirestore: _firebaseFirestore,
+          ),
+        ),
         // RepositoryProvider<UserRepository>
         // (
         //   create: (context) =>
@@ -71,13 +80,13 @@ class MyApp extends StatelessWidget
               authenticationRepository: context.read<AuthenticationRepository>()
             ),
           ),
-          // BlocProvider<ChatBloc>
-          // (
-          //   create: (context) => ChatBloc
-          //   (
-          //     messageRepository: context.read<MessageRepository>(),
-          //   )
-          // ),
+          BlocProvider<GDSCCampusesBloc>
+          (
+            create: (context) => GDSCCampusesBloc
+            (
+              campussRepository: context.read<GDSCCampusesRepository>()
+            ),
+          ),
         ],
         child: MaterialApp
         (

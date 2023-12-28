@@ -1,0 +1,210 @@
+import 'dart:async';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesEvents.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesStates.dart';
+import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
+import 'package:flutter_final_project/Models/GDSCCampusModel.dart';
+
+class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState> 
+{
+  final GDSCCampusesRepository campussRepository;
+  
+  GDSCCampusesBloc({required this.campussRepository}) : super(GDSCCampusesInitialState()) 
+  {
+    StreamSubscription<List<GDSCCampus>>? campussStreamSubscription;
+
+    @override
+    Future<void> close() async 
+    {
+      await campussStreamSubscription!.cancel();
+      return super.close();
+    }
+
+    on<GDSCCampusesEvent>((event, emit) {});
+
+    on<CreateGDSCCampusEvent>((event, emit) async 
+    {
+      try 
+      {
+        if (state is GDSCCampusesSuccessOrLoadedState)
+        {
+          await campussRepository.createGDSCCampusFunctionInGDSCCampusesRepositoryFile
+          (
+            campusId: event.campusId,
+            campusName: event.campusName, 
+            email: event.email, 
+            location: event.location
+          );
+        }
+      } 
+      catch (e) 
+      {
+        emit(const GDSCCampusesErrorState('GDSCCampus creation failed.'));
+      }
+    });
+    ///////////////////////////////////
+
+    on<ReadGDSCCampusEvent>((event, emit) 
+    {
+      try 
+      {
+        emit(GDSCCampusesLoadingState());
+        final streamResponse = campussRepository.readGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campusId);
+        campussStreamSubscription?.cancel();
+        campussStreamSubscription = streamResponse.listen((campus) 
+        {
+          add(ReadGDSCCampusEvent(event.campusId));
+          // emit(GDSCCampusesSuccessOrLoadedState(campus));
+          // add(GDSCCampusesSuccessOrLoadedState(campus));
+        });
+        // emit(GDSCCampusesSuccessOrLoadedState(disc));
+      } 
+      catch(e) 
+      {
+        emit(const GDSCCampusesErrorState('GDSCCampus loading/reading failed.'));
+      }
+    });
+
+    on<ReadAllGDSCCampusesEvent>((event, emit) 
+    {
+      try 
+      {
+        emit(GDSCCampusesLoadingState());
+        final streamResponse = campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile();
+        campussStreamSubscription?.cancel();
+        campussStreamSubscription = streamResponse.listen((campus) 
+        {
+          add(ReadAllGDSCCampusesEvent());
+          // emit(GDSCCampusesSuccessOrLoadedState(campus));
+          // add(GDSCCampusesSuccessOrLoadedState(campus));
+        });
+        // emit(GDSCCampusesSuccessOrLoadedState(disc));
+      } 
+      catch(e) 
+      {
+        emit(const GDSCCampusesErrorState('GDSCCampus loading/reading failed.'));
+      }
+    });
+    ////////////////////////////////////////////
+
+    on<UpdateGDSCCampusEvent>((event, emit) async 
+    {
+      try 
+      {
+        if (state is GDSCCampusesSuccessOrLoadedState)
+        {
+          await campussRepository.updateGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campus);
+        }
+      } 
+      catch (e) 
+      {
+        emit(const GDSCCampusesErrorState('GDSCCampus update-ion failed.'));
+      }
+    });
+
+    on<DeleteGDSCCampusEvent>((event, emit) async 
+    {
+      try 
+      {
+        if (state is GDSCCampusesSuccessOrLoadedState)
+        {
+          await campussRepository.deleteGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campusId);
+        }
+      } 
+      catch (e) 
+      {
+        emit(const GDSCCampusesErrorState('GDSCCampus deletion failed.'));
+      }
+    });
+  }
+}
+
+// class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState> 
+// {
+//   final GDSCCampusesRepository campussRepository;
+
+//   GDSCCampusesBloc({required this.campussRepository}) : super(GDSCCampusesEmptyState());
+
+//   @override
+//   Stream<GDSCCampusesState> mapEventToState(GDSCCampusesEvent event) async* 
+//   {
+//     if (event is CreateGDSCCampusEvent) 
+//     {
+//       yield* mapCreateGDSCCampusToState(event);
+//     }
+//     else if (event is ReadGDSCCampusEvent) 
+//     {
+//       yield* mapReadGDSCCampusToState(event);
+//     } 
+//     else if (event is UpdateGDSCCampusEvent) 
+//     {
+//       yield* mapUpdateGDSCCampusToState(event);
+//     } 
+//     else if (event is DeleteGDSCCampusEvent) 
+//     {
+//       yield* mapDeleteGDSCCampusToState(event);
+//     }
+//   }
+
+//   Stream<GDSCCampusesState> mapCreateGDSCCampusToState (CreateGDSCCampusEvent event) async* 
+//   {
+//     try 
+//     {
+//       await campussRepository.createGDSCCampusFunctionInGDSCCampusRepositoryFile
+//       (
+//         campusId: event.campusId,
+//         campusName: event.campusName,
+//         email: event.email,
+//         location: event.location,
+//       );
+//     } 
+//     catch (e) 
+//     {
+//       yield GDSCCampusesErrorState('GDSCCampus creation failed.');
+//     }
+//   }
+
+//   Stream<GDSCCampusesState> mapReadGDSCCampusToState(ReadGDSCCampusEvent event) async* 
+//   {
+//     try 
+//     {
+//       yield GDSCCampusesLoadingState();
+//       final campuss = campussRepository.readGDSCCampusFunctionInGDSCCampusRepositoryFile(event.campusId);
+//       await for (var campus in campuss) 
+//       {
+//         yield GDSCCampusesSuccessOrLoadedState(campus as GDSCCampus);
+//       }
+//     } 
+//     catch (e) 
+//     {
+//       yield GDSCCampusesErrorState('Error reading campuss.');
+//     }
+//   }
+
+//   Stream<GDSCCampusesState> mapUpdateGDSCCampusToState (UpdateGDSCCampusEvent event) async* 
+//   {
+//     try 
+//     {
+//       await campussRepository.updateGDSCCampusFunctionInGDSCCampusRepositoryFile(event.campus);
+//       yield GDSCCampusesSuccessOrLoadedState(event.campus);
+//     } 
+//     catch (e) 
+//     {
+//       yield GDSCCampusesErrorState('GDSCCampus update failed.');
+//     }
+//   }
+
+//   Stream<GDSCCampusesState> mapDeleteGDSCCampusToState (DeleteGDSCCampusEvent event) async* 
+//   {
+//     try 
+//     {
+//       await campussRepository.deleteGDSCCampusFunctionInGDSCCampusRepositoryFile(event.campusId);
+//       yield GDSCCampusesEmptyState();
+//     } 
+//     catch (e) 
+//     {
+//       yield GDSCCampusesErrorState('GDSCCampus deletion failed.');
+//     }
+//   }
+// }

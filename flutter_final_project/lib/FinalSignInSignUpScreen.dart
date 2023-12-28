@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationEvents.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationStates.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesEvents.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesStates.dart';
 import 'package:flutter_final_project/HomeScreen.dart';
+import 'package:flutter_final_project/Models/GDSCCampusModel.dart';
 
 class FinalSignInSignUp extends StatefulWidget 
 {
@@ -108,7 +112,6 @@ class _LoginTabState extends State<LoginTab>
 
   final TextEditingController emailInput = TextEditingController();
   final TextEditingController passwordInput = TextEditingController();
-  final Text error = Text('');
 
   bool emailCorrect = false;
   bool emailActive = false;
@@ -121,122 +124,127 @@ class _LoginTabState extends State<LoginTab>
     return Padding
     (
       padding: EdgeInsets.all(30.0),
-      child: Column
+      child: SingleChildScrollView
       (
-        children: 
-        [
-          TextField
-          (
-            controller: emailInput,
-            decoration: InputDecoration
+        child: Column
+        (
+          children: 
+          [
+            TextField
             (
-              labelStyle: TextStyle
+              controller: emailInput,
+              decoration: InputDecoration
               (
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold
+                labelStyle: TextStyle
+                (
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold
+                ),
+                prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).colorScheme.primary,),
+                labelText: 'Email',
               ),
-              prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).colorScheme.primary,),
-              labelText: 'Email',
             ),
-          ),
-          TextField
-          (
-            controller: passwordInput,
-            obscureText: passwordInvisible,
-            decoration: InputDecoration
+            TextField
             (
-              labelStyle: TextStyle
+              controller: passwordInput,
+              obscureText: passwordInvisible,
+              decoration: InputDecoration
               (
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold
-              ),
-              prefixIcon: Icon(Icons.key_rounded, color: Theme.of(context).colorScheme.primary,),
-              labelText: 'Password',
-              suffixIcon: GestureDetector
-              (
-                child: passwordInvisible ? Icon(Icons.visibility_off_rounded) : Icon(Icons.visibility_rounded),
-                onTap:() 
-                {
-                  setState(() 
+                labelStyle: TextStyle
+                (
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold
+                ),
+                prefixIcon: Icon(Icons.key_rounded, color: Theme.of(context).colorScheme.primary,),
+                labelText: 'Password',
+                suffixIcon: GestureDetector
+                (
+                  child: passwordInvisible ? Icon(Icons.visibility_off_rounded) : Icon(Icons.visibility_rounded),
+                  onTap:() 
                   {
-                    passwordInvisible = !passwordInvisible;
-                  });
-                },
+                    setState(() 
+                    {
+                      passwordInvisible = !passwordInvisible;
+                    });
+                  },
+                )
               )
-            )
-          ),
-          SizedBox(height: 40.0),
-          BlocConsumer<AuthenticationBloc, AuthenticationState>
-          (
-            builder: (context, state) 
-            {
-              return ElevatedButton.icon
-              (
-                style: ButtonStyle
+            ),
+            SizedBox(height: 40.0),
+            BlocConsumer<AuthenticationBloc, AuthenticationState>
+            (
+              builder: (context, state) 
+              {
+                return ElevatedButton.icon
                 (
-                  backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-                  padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
-                  minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
-                ),
-                icon: const Icon
-                (
-                  Icons.login_rounded,
-                  color: Colors.white,
-                  size: 30.0
-                ), 
-                label: const Text
-                (
-                  'LoginTab',
-                  style: TextStyle
+                  style: ButtonStyle
                   (
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold
+                    backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+                    padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
+                    minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
                   ),
-                ),
-                onPressed: ()
-                {
-                  BlocProvider.of<AuthenticationBloc>(context).add
+                  icon: const Icon
                   (
-                    AuthenticationSignInWithEmailEvent
+                    Icons.login_rounded,
+                    color: Colors.white,
+                    size: 30.0
+                  ), 
+                  label: const Text
+                  (
+                    'Login',
+                    style: TextStyle
                     (
-                      emailInput.text.trim(),
-                      passwordInput.text.trim(),
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  onPressed: ()
+                  {
+                    BlocProvider.of<AuthenticationBloc>(context).add
+                    (
+                      AuthenticationSignInWithEmailEvent
+                      (
+                        emailInput.text.trim(),
+                        passwordInput.text.trim(),
+                      ),
+                    );
+                  },
+                );
+              }, 
+              listener: (context, state) 
+              {
+                if (state is AuthenticationSuccessOrLoadedState) 
+                {
+                  Navigator.pushNamedAndRemoveUntil
+                  (
+                    context,
+                    '/HomePage',
+                    (route) => false,
+                  );
+                }
+                else if (state is AuthenticationErrorState) 
+                {
+                  final signInErrorSnackBarMessage = SnackBar
+                  (
+                    content: Text
+                    (
+                      state.error,
+                      style: TextStyle
+                      (
+                        color: Colors.white,
+                        fontSize: 20.0
+                      ),
                     ),
                   );
-                },
-              );
-            }, 
-            listener: (context, state) 
-            {
-              if (state is AuthenticationSuccessOrLoadedState) 
-              {
-                Navigator.pushNamedAndRemoveUntil
-                (
-                  context,
-                  '/HomePage',
-                  (route) => false,
-                );
+                  ScaffoldMessenger.of(context).showSnackBar(signInErrorSnackBarMessage);
+                }
               }
-              else if (state is AuthenticationErrorState) 
-              {
-                showDialog
-                (
-                context: context,
-                builder: (context) 
-                {
-                  return AlertDialog
-                  (
-                    content: Text(state.error),
-                  );
-                  }
-                );
-              }
-            }
-          ),
-        ]
+            ),
+          ]
+        ),
       ),
     );
   }
@@ -252,138 +260,273 @@ class SignUpTab extends StatefulWidget
 
 class _SignUpTabState extends State<SignUpTab> 
 {
-
+  final TextEditingController fullNameInput = TextEditingController();
   final TextEditingController emailInput = TextEditingController();
   final TextEditingController passwordInput = TextEditingController();
-  final Text error = Text('');
+  final TextEditingController confirmpasswordInput = TextEditingController();
+  final TextEditingController campusController = TextEditingController();
+  String? selectedCampus = '';
 
+  Icon GreenCheckIcon = Icon
+  (
+    Icons.check_circle_rounded,
+    color: Colors.green,
+  );
+
+  Icon RedCrossIcon = Icon
+  (
+    Icons.cancel_rounded,
+    color: Colors.red,
+  );
+
+  bool fullNameCorrect = false;
   bool emailCorrect = false;
+  bool passwordMinimum8Characters = false;
+  bool passwordHasOneUppercaseAlphabet = false;
+  bool passwordHasOneDigit = false;
+  bool passwordHasOneSpecialCharacter = false;
+  bool confirmPasswordAndPasswordMatch = false;
+  bool allInputFieldsCorrect = false;
+
+  bool fullNameActive = false;
   bool emailActive = false;
   bool passwordActive = false;
+  bool confirmPasswordActive = false;
+
   bool passwordInvisible = true;
 
   @override
   Widget build(BuildContext context) 
   {
+
+    final List<DropdownMenuEntry<String>> campusEntries = <DropdownMenuEntry<String>>[];
+    // BlocConsumer(builder: builder, listener: listener);
+
+    // for (final String campus in String)
+    // {
+    //   campusEntries.add(DropdownMenuEntry<String>(value: campus, label: campus.name));
+    // }
+
     return Padding
     (
       padding: EdgeInsets.all(30.0),
-      child: Column
+      child: SingleChildScrollView
       (
-        children: 
-        [
-          TextField
-          (
-            controller: emailInput,
-            decoration: InputDecoration
+        child: Column
+        (
+          children: 
+          [
+            BlocBuilder<GDSCCampusesBloc, GDSCCampusesState>
             (
-              labelStyle: TextStyle
-              (
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold
-              ),
-              prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).colorScheme.primary,),
-              labelText: 'Email',
+              builder: (context, state)
+              {
+                if (state is GDSCCampusesLoadingState)
+                {
+                  return Center(child: CircularProgressIndicator());
+                }
+                else if (state is GDSCCampusesErrorState)
+                {
+                  return Center(child: Text(state.error));
+                }
+                else if (state is GDSCCampusesSuccessOrLoadedState)
+                {
+                  return StreamBuilder<List<GDSCCampus>>
+                  (
+                    stream: state.campus,
+                    builder: (context, snapshot)
+                    {
+                      if (snapshot.hasError) 
+                      {
+                        return Text('Error: ${snapshot.error}');
+                      } 
+                      else if (snapshot.hasData)
+                      {
+                        List<GDSCCampus>? campuses = snapshot.data;
+                        return ListView.builder
+                        (
+                          itemCount: campuses?.length,
+                          itemBuilder: ((context, index) 
+                          {
+                            return Text(campuses![index].campusName);
+                          })
+                        );
+                      }
+                      else
+                      {
+                        return Text('Koi state he match nahin huo');
+                      }
+                    }
+                  );
+                }
+              }
             ),
-          ),
-          TextField
-          (
-            controller: passwordInput,
-            obscureText: passwordInvisible,
-            decoration: InputDecoration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            DropdownMenu<String>
             (
-              labelStyle: TextStyle
+              width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
+              controller: campusController,
+              enableFilter: true,
+              leadingIcon: const Icon(Icons.school_rounded),
+              label: const Text('GDSC Campus Name'),
+              dropdownMenuEntries: campusEntries,
+              inputDecorationTheme: const InputDecorationTheme
               (
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold
               ),
-              prefixIcon: Icon(Icons.key_rounded, color: Theme.of(context).colorScheme.primary,),
-              labelText: 'Password',
-              suffixIcon: GestureDetector
-              (
-                child: passwordInvisible ? Icon(Icons.visibility_off_rounded) : Icon(Icons.visibility_rounded),
-                onTap:() 
+              onSelected: (String? campus) 
+              {
+                setState(() 
                 {
-                  setState(() 
+                  
+                  selectedCampus = campus;
+                });
+              },
+            ),
+            TextField
+            (
+              controller: fullNameInput,
+              decoration: InputDecoration
+              (
+                labelStyle: TextStyle
+                (
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold
+                ),
+                prefixIcon: Icon(Icons.person_2_rounded, color: Theme.of(context).colorScheme.primary,),
+                labelText: 'Full Name',
+              ),
+              
+            ),
+            TextField
+            (
+              controller: emailInput,
+              decoration: InputDecoration
+              (
+                labelStyle: TextStyle
+                (
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold
+                ),
+                prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).colorScheme.primary,),
+                labelText: 'Email',
+              ),
+            ),
+            TextField
+            (
+              controller: passwordInput,
+              obscureText: passwordInvisible,
+              decoration: InputDecoration
+              (
+                labelStyle: TextStyle
+                (
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold
+                ),
+                prefixIcon: Icon(Icons.key_rounded, color: Theme.of(context).colorScheme.primary,),
+                labelText: 'Password',
+                suffixIcon: GestureDetector
+                (
+                  child: passwordInvisible ? Icon(Icons.visibility_off_rounded) : Icon(Icons.visibility_rounded),
+                  onTap:() 
                   {
-                    passwordInvisible = !passwordInvisible;
-                  });
-                },
+                    setState(() 
+                    {
+                      passwordInvisible = !passwordInvisible;
+                    });
+                  },
+                )
               )
-            )
-          ),
-          SizedBox(height: 40.0),
-          BlocConsumer<AuthenticationBloc, AuthenticationState>
-          (
-            builder: (context, state) 
-            {
-              return ElevatedButton.icon
-              (
-                style: ButtonStyle
+            ),
+            SizedBox(height: 40.0),
+            BlocConsumer<AuthenticationBloc, AuthenticationState>
+            (
+              builder: (context, state) 
+              {
+                return ElevatedButton.icon
                 (
-                  backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-                  padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
-                  minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
-                ),
-                icon: const Icon
-                (
-                  Icons.login_rounded,
-                  color: Colors.white,
-                  size: 30.0
-                ), 
-                label: const Text
-                (
-                  'SignUpTab',
-                  style: TextStyle
+                  style: ButtonStyle
                   (
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold
+                    backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+                    padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
+                    minimumSize: MaterialStatePropertyAll(Size.fromHeight(50)),
                   ),
-                ),
-                onPressed: ()
-                {
-                  BlocProvider.of<AuthenticationBloc>(context).add
+                  icon: const Icon
                   (
-                    AuthenticationSignInWithEmailEvent
+                    Icons.person_add_alt_1_rounded,
+                    color: Colors.white,
+                    size: 30.0
+                  ), 
+                  label: const Text
+                  (
+                    'Create Account',
+                    style: TextStyle
                     (
-                      emailInput.text.trim(),
-                      passwordInput.text.trim(),
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  onPressed: ()
+                  {
+                    BlocProvider.of<AuthenticationBloc>(context).add
+                    (
+                      AuthenticationSignInWithEmailEvent
+                      (
+                        emailInput.text.trim(),
+                        passwordInput.text.trim(),
+                      ),
+                    );
+                  },
+                );
+              }, 
+              listener: (context, state) 
+              {
+                if (state is AuthenticationSuccessOrLoadedState) 
+                {
+                  Navigator.pushNamedAndRemoveUntil
+                  (
+                    context,
+                    '/HomePage',
+                    (route) => false,
+                  );
+                }
+                else if (state is AuthenticationErrorState) 
+                {
+                  final signUpErrorSnackBarMessage = SnackBar
+                  (
+                    content: Text
+                    (
+                      state.error,
+                      style: TextStyle
+                      (
+                        color: Colors.white,
+                        fontSize: 20.0
+                      ),
                     ),
                   );
-                },
-              );
-            }, 
-            listener: (context, state) 
-            {
-              if (state is AuthenticationSuccessOrLoadedState) 
-              {
-                Navigator.pushNamedAndRemoveUntil
-                (
-                  context,
-                  '/HomePage',
-                  (route) => false,
-                );
+                  ScaffoldMessenger.of(context).showSnackBar(signUpErrorSnackBarMessage);
+                }
               }
-              else if (state is AuthenticationErrorState) 
-              {
-                showDialog
-                (
-                context: context,
-                builder: (context) 
-                {
-                  return AlertDialog
-                  (
-                    content: Text(state.error),
-                  );
-                  }
-                );
-              }
-            }
-          ),
-        ]
+            ),
+          ]
+        ),
       ),
     );
   }
