@@ -8,11 +8,14 @@ import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
+import 'package:flutter_final_project/Widgets/GDSCLeadPendingApproval.dart';
+import 'package:flutter_final_project/Widgets/GDSCMembersPendingApproval.dart';
 import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/LandingPage.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
 import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
+import 'package:flutter_final_project/Widgets/SplashScreen.dart';
 import 'package:flutter_final_project/firebase_options.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -235,6 +238,12 @@ class MyApp extends StatelessWidget
             // Color? backgroundColor,
             // Color? bottomAppBarColor,
           ),
+          initialRoute: '/',
+          routes: 
+          {
+            '/': (context) => SplashScreen(),
+            // '/second': (context) => const SecondScreen(),
+          }
           // home: TabBarExample(),
           // home: const MyHomePage(title: 'Flutter Demo Home Page'),
           // home: DatePickerExample(),
@@ -252,7 +261,8 @@ class MyApp extends StatelessWidget
           // home: MyHomePage(title: 'Hellow?')
           // home: RegistrationsList()
           // home: LandingPage()
-          home: GDSCMembersPendingRequest()
+          // home: GDSCMembersPendingRequest()
+          // home: GDSCLeadPendingRequest()
         ),
       )
     );

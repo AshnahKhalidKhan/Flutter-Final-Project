@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class GDSCMembersPendingRequest extends StatefulWidget 
+class GDSCLeadPendingRequest extends StatefulWidget 
 {
-  const GDSCMembersPendingRequest({super.key});
+  const GDSCLeadPendingRequest({super.key});
 
   @override
-  State<GDSCMembersPendingRequest> createState() => _GDSCMembersPendingRequestState();
+  State<GDSCLeadPendingRequest> createState() => _GDSCLeadPendingRequestState();
 }
 
-class _GDSCMembersPendingRequestState extends State<GDSCMembersPendingRequest> 
+class _GDSCLeadPendingRequestState extends State<GDSCLeadPendingRequest> 
 {
   @override
   Widget build(BuildContext context) 
@@ -19,7 +19,10 @@ class _GDSCMembersPendingRequestState extends State<GDSCMembersPendingRequest>
       appBar: AppBar
       (
         backgroundColor: Theme.of(context).colorScheme.primary,
-        centerTitle: true,
+        leading: BackButton
+        (
+          color: Colors.white,
+        ),
         title: const Text
         (
           'Pending Approval', 
@@ -49,7 +52,7 @@ class _GDSCMembersPendingRequestState extends State<GDSCMembersPendingRequest>
             SizedBox(height: 30.0),
             Text
             (
-              'Your GDSC Lead needs to approve your sign up request before you can access your GDSC\'s account. Please return once your request has been approved.',
+              'Your GDSC Lead request needs to be approved by an Admin before you can access your GDSC Lead privelleges. Please return once your request has been approved.',
               style: TextStyle
               (
                 color: Theme.of(context).colorScheme.primary,
