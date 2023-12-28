@@ -306,7 +306,111 @@ class _SignUpTabState extends State<SignUpTab>
   Widget build(BuildContext context) 
   {
 
-    final List<DropdownMenuEntry<String>> campusEntries = <DropdownMenuEntry<String>>[];
+    List<DropdownMenuEntry<String>> campusEntries = <DropdownMenuEntry<String>>[];
+    // StreamBuilder<List<GDSCCampus>>
+    //       (
+    //         stream: BlocProvider.of<GDSCCampusesBloc>(context).campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile(),
+    //         builder: (context, snapshot)
+    //         {
+    //           if (snapshot.hasError) 
+    //           {
+    //             return Text('Error: ${snapshot.error}');
+    //           } 
+    //           else if (snapshot.hasData)
+    //           {
+                
+    //             // List<GDSCCampus>? campuses = snapshot.data;
+    //             // return SizedBox(
+    //             //   height: 200,
+    //             //   child: ListView.builder
+    //             //   (
+    //             //     itemCount: campuses?.length,
+    //             //     itemBuilder: ((context, index) 
+    //             //     {
+    //             //       return Text(campuses![index].campusName);
+    //             //     })
+    //             //   ),
+    //             // );
+    //             List<GDSCCampus>? campuses = snapshot.data;
+    //             campusEntries = campuses!
+    //                         .map<DropdownMenuEntry<String>>(
+    //                           (campus) => DropdownMenuEntry<String>(
+    //                             value: campus.campusName,
+    //                             label: campus.campusId
+    //                           ),
+    //                         )
+    //                         .toList();
+    //               return Text('kkk');
+    //           }
+    //           else
+    //           {
+    //             return Text('Snapshaot mein kuch tha he nahin');
+    //           }
+    //         }
+    //       );
+
+    // BlocBuilder<GDSCCampusesBloc, GDSCCampusesState>
+    // (
+    //   builder: (context, state)
+    //   {
+    //     if (state is GDSCCampusesLoadingState)
+    //     {
+    //       return Center(child: CircularProgressIndicator());
+    //     }
+    //     else if (state is GDSCCampusesErrorState)
+    //     {
+    //       return Center(child: Text(state.error));
+    //     }
+    //     else if (state is GDSCCampusesSuccessOrLoadedState)
+    //     {
+    //       return StreamBuilder<List<GDSCCampus>>
+    //       (
+    //         stream: state.campus,
+    //         builder: (context, snapshot)
+    //         {
+    //           if (snapshot.hasError) 
+    //           {
+    //             return Text('Error: ${snapshot.error}');
+    //           } 
+    //           else if (snapshot.hasData)
+    //           {
+                
+    //             // List<GDSCCampus>? campuses = snapshot.data;
+    //             // return SizedBox(
+    //             //   height: 200,
+    //             //   child: ListView.builder
+    //             //   (
+    //             //     itemCount: campuses?.length,
+    //             //     itemBuilder: ((context, index) 
+    //             //     {
+    //             //       return Text(campuses![index].campusName);
+    //             //     })
+    //             //   ),
+    //             // );
+    //             List<GDSCCampus>? campuses = snapshot.data;
+    //             campusEntries = campuses!
+    //                         .map<DropdownMenuEntry<String>>(
+    //                           (campus) => DropdownMenuEntry<String>(
+    //                             value: campus.campusName,
+    //                             label: campus.campusId
+    //                           ),
+    //                         )
+    //                         .toList();
+    //               return Text('kkk');
+    //           }
+    //           else
+    //           {
+    //             return Text('Snapshaot mein kuch tha he nahin');
+    //           }
+    //         }
+    //       );
+    //     }
+    //     else
+    //     {
+    //       return Text('Koi state he match nahin huo');
+    //     }
+    //   }
+    // );
 
     return Padding
     (
@@ -343,49 +447,16 @@ class _SignUpTabState extends State<SignUpTab>
                       else if (snapshot.hasData)
                       {
                         
-                        List<GDSCCampus>? campuses = snapshot.data;
-                        return SizedBox(
-                          height: 200,
-                          child: ListView.builder
-                          (
-                            itemCount: campuses?.length,
-                            itemBuilder: ((context, index) 
-                            {
-                              return Text(campuses![index].campusName);
-                            })
-                          ),
-                        );
-                      }
-                      else
-                      {
-                        return Text('Snapshaot mein kuch tha he nahin');
-                      }
-                    }
-                  );
-                }
-                else
-                {
-                  return Text('Koi state he match nahin huo');
-                }
-              }
-            ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            DropdownMenu<String>
+List<GDSCCampus>? campuses = snapshot.data;
+                        campusEntries = campuses!
+                            .map<DropdownMenuEntry<String>>(
+                              (campus) => DropdownMenuEntry<String>(
+                                label: campus.campusName,
+                                value: campus.campusId
+                              ),
+                            )
+                            .toList();
+                        return  DropdownMenu<String>
             (
               width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
               controller: campusController,
@@ -404,7 +475,62 @@ class _SignUpTabState extends State<SignUpTab>
                   selectedCampus = campus;
                 });
               },
+            );
+
+
+
+
+                      }
+                      else
+                      {
+                        return Text('Snapshaot mein kuch tha he nahin');
+                      }
+                    }
+                  );
+                }
+                else
+                {
+                  return Text('Koi state he match nahin huo');
+                }
+              }
             ),
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // DropdownMenu<String>
+            // (
+            //   width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
+            //   controller: campusController,
+            //   enableFilter: true,
+            //   leadingIcon: const Icon(Icons.school_rounded),
+            //   label: const Text('GDSC Campus Name'),
+            //   dropdownMenuEntries: campusEntries,
+            //   inputDecorationTheme: const InputDecorationTheme
+            //   (
+            //   ),
+            //   onSelected: (String? campus) 
+            //   {
+            //     setState(() 
+            //     {
+                  
+            //       selectedCampus = campus;
+            //     });
+            //   },
+            // ),
             TextField
             (
               controller: fullNameInput,
