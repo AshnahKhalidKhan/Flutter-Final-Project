@@ -31,6 +31,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
         } 
         else 
         {
+          print('Yahaaan hun mein');
           emit(const AuthenticationErrorState('Sign Up Failed'));
         }
       } 
@@ -40,6 +41,34 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
       }
       emit(AuthenticationLoadingState(isLoading: false));
     });
+
+    on<AuthenticationSignInWithEmailEvent>((event, emit) async 
+    {
+      emit(AuthenticationLoadingState(isLoading: true));
+      try 
+      {
+        final AppUser? user = await authenticationRepository.signInWithEmail
+        (
+          email: event.email,
+          password: event.password
+        );
+        if (user != null) 
+        {
+          emit(AuthenticationSuccessOrLoadedState(user));
+        } 
+        else 
+        {
+          emit(const AuthenticationErrorState('Sign In Failed'));
+        }
+      } 
+      catch (e) 
+      {
+        print(e.toString());
+      }
+      emit(AuthenticationLoadingState(isLoading: false));
+    });
+
+    
 
     on<AuthenticationSignOutEvent>((event, emit) async 
     {

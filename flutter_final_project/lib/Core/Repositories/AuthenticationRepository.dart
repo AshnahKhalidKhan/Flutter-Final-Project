@@ -62,6 +62,7 @@ class AuthenticationRepository
         approved: false
       );
       await FirebaseFirestore.instance.collection('Users').doc(signedInUser.uid).set(user.toJson());
+      return user;
     }
     catch (e) 
     {
@@ -69,7 +70,7 @@ class AuthenticationRepository
     }
   }
 
-  Future<void> signInWithEmail
+  Future<AppUser?> signInWithEmail
   (
     {
       required String email,
@@ -80,19 +81,35 @@ class AuthenticationRepository
   {
     try 
     {
-      await firebaseAuth.signInWithEmailAndPassword
+      final UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword
       (
         email: email, 
         password: password
       );
+      final User? signedInUser = userCredential.user;
+      if (signedInUser != null) 
+      {
+        final userFromFirebase = await FirebaseFirestore.instance.collection('Users').doc(signedInUser.uid).get();
+        if (userFromFirebase.exists) 
+        {
+          final Map<String, dynamic>? userData = userFromFirebase.data();
+          if (userData != null) 
+          {
+            AppUser user = AppUser.fromJson(userData);
+            return user;
+          }
+        }
+      }
+      return null;    
     }
     catch (e) 
     {
       print('Error in AuthenticationRepository, signInWithEmail: $e');
+      throw Error();
     }
   }
 
-  Future<void> signInWithGoogle
+  Future<AppUser?> signInWithGoogle
   (
     {
       // required String name,
@@ -116,7 +133,6 @@ class AuthenticationRepository
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken
     );
-    
     try 
     {
       final UserCredential userCredential = await firebaseAuth.signInWithCredential(authCredential);
@@ -134,12 +150,13 @@ class AuthenticationRepository
           approved: false
         );
         await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).set(user.toJson());
+        return user;
       }
     }
     catch (e) 
     {
       print('Error in AuthenticationRepository, signInWithGoogle: $e');
+      throw Error();
     }
-
   }
 }

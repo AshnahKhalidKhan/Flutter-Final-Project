@@ -1,8 +1,8 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
+import 'package:flutter_final_project/Widgets/LandingPage.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
 
 class SplashScreen extends StatefulWidget 
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
       Duration(seconds: 3), () => 
       Navigator.of(context).pushReplacement
       (
-        MaterialPageRoute(builder: (BuildContext context) => SignUp())
+        MaterialPageRoute(builder: (BuildContext context) => FinalSignInSignUp())
       )
     );
   }

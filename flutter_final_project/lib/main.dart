@@ -242,7 +242,18 @@ class MyApp extends StatelessWidget
           routes: 
           {
             '/': (context) => SplashScreen(),
-            // '/second': (context) => const SecondScreen(),
+            '/SignUp': (context) => const SignUp(),
+            // '/SignIn': (context) => const SignIn(),
+            // '/AdminUsers': (context) => const AdminUsers(), //All Admin Users CRUD thingies
+            // '/GDSCLeadsPendingApprovals': (context) => const GDSCLeadsPendingApprovals(),
+            // '/AddGDSCCampus': (context) => const AddGDSCCampus(),
+
+            '/HomePage': (context) => const LandingPage(),
+            // '/PageName': (context) => const PageName(),
+            // '/PageName': (context) => const PageName(),
+            // '/PageName': (context) => const PageName(),
+            // '/PageName': (context) => const PageName(),
+            // '/PageName': (context) => const PageName(),
           }
           // home: TabBarExample(),
           // home: const MyHomePage(title: 'Flutter Demo Home Page'),

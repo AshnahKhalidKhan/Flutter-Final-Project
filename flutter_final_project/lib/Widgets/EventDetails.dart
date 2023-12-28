@@ -50,7 +50,6 @@ class _EventDetailsState extends State<EventDetails>
             [
               EventDetailsInfoTile(sectionName: 'Web Development Bootcamp Session 2',),
               
-              
               EventDetailsNextSectionTile
               (
                 icon: Icons.message,
@@ -79,6 +78,12 @@ class _EventDetailsState extends State<EventDetails>
               (
                 icon: Icons.people,
                 sectionName: 'Attendees List',
+                section: RegistrationsList(),
+              ),
+              EventDetailsNextSectionTile
+              (
+                icon: Icons.folder_special_rounded,
+                sectionName: 'Assets',
                 section: RegistrationsList(),
               ),
             ],

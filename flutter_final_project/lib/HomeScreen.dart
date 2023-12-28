@@ -26,10 +26,21 @@ class HomeScreen extends StatelessWidget {
             ),
             BlocConsumer<AuthenticationBloc, AuthenticationState>
             (
-              listener: (context, state) {
-                if (state is AuthenticationLoadingState) {
+              listener: (context, state) 
+              {
+                if (state is AuthenticationLoadingState) 
+                {
                    const CircularProgressIndicator();
-                } else if (state is AuthenticationErrorState){
+                } 
+                else if (state is AuthenticationSuccessOrLoadedState)
+                {
+                  showDialog(context: context, builder: (context){
+                          return const AlertDialog(
+                            content: Text('Error nahin hai bhai'),
+                          );
+                        });
+                }
+                else if (state is AuthenticationErrorState){
                   
                     showDialog(context: context, builder: (context){
                           return const AlertDialog(

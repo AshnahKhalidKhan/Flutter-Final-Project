@@ -20,8 +20,29 @@ class AuthenticationSignUpWithEmailEvent extends AuthenticationEvent
   List<Object> get props => [email, password];
 }
 
-
 class AuthenticationSignOutEvent extends AuthenticationEvent 
 {
   //Ye empty rahay ga
+}
+
+class AuthenticationSignInWithEmailEvent extends AuthenticationEvent 
+{
+  final String email;
+  final String password;
+  
+  const AuthenticationSignInWithEmailEvent(this.email, this.password);
+
+  @override
+  List<Object> get props => [email, password];
+}
+
+class AuthenticationSignInWithGoogleEvent extends AuthenticationEvent 
+{
+  final String email;
+  final String password;
+  
+  const AuthenticationSignInWithGoogleEvent(this.email, this.password);
+
+  @override
+  List<Object> get props => [email, password];
 }
