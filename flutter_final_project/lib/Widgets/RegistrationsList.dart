@@ -13,7 +13,6 @@ class _RegistrationsListState extends State<RegistrationsList>
 {
   final String x = '40characterslongemailofperson323436...';
 
-
   @override
   Widget build(BuildContext context) 
   {

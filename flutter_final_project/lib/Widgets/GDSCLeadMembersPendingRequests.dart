@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationEvents.dart';
+import 'package:flutter_final_project/Blocs/AuthenticationStates.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesEvents.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesStates.dart';
@@ -45,7 +48,21 @@ class _GDSCLeadMembersPendingRequestsState extends State<GDSCLeadMembersPendingR
       appBar: AppBar
       (
         backgroundColor: Theme.of(context).colorScheme.primary,
-        centerTitle: true,
+        leading: Builder
+        (
+          builder: (BuildContext context) 
+          {
+            return IconButton
+            (
+              icon: Icon(Icons.menu_rounded),
+              color: Colors.white,
+              onPressed: () 
+              {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }
+        ),
         title: const Text
         (
           'Leads', 
@@ -93,6 +110,103 @@ class _GDSCLeadMembersPendingRequestsState extends State<GDSCLeadMembersPendingR
               ],
             ),
           ),
+        ),
+      ),
+      drawer: Drawer
+      (
+        backgroundColor: Colors.white,
+        child: ListView
+        (
+          padding: EdgeInsets.all(0.0),
+          children: 
+          [
+            DrawerHeader
+            (
+              child: SizedBox(width: 20.0),
+              decoration: BoxDecoration
+              (
+                image: DecorationImage
+                (
+                  image: AssetImage
+                  (
+                    'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png'
+                  ),
+                  fit: BoxFit.fitHeight,
+                ),
+                // gradient: LinearGradient(colors: [GoogleBlue, GoogleGreen, GoogleRed, GoogleYellow].toList())
+              ),
+            ),
+            BlocConsumer<AuthenticationBloc, AuthenticationState>
+            (
+              builder: (context, state)
+              {
+                return ListTile
+                (
+                  // shape: RoundedRectangleBorder
+                  // (
+                  //   side: BorderSide
+                  //   (
+                  //     color: Theme.of(context).colorScheme.primary,
+                  //     width: 2.0,
+                  //   ),
+                  //   borderRadius: BorderRadius.circular(0.0)
+                  // ),
+                  // tileColor: Colors.white,
+                  leading: Icon
+                  (
+                    Icons.logout_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 30.0
+                  ),
+                  title: Text
+                  (
+                    'Sign Out',
+                    style: TextStyle
+                    (
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  onTap:() 
+                  {
+                    BlocProvider.of<AuthenticationBloc>(context).add
+                    (
+                      AuthenticationSignOutEvent()
+                    );
+                  },
+                );
+              },
+              listener: (context, state) 
+              {
+                if (state is AuthenticationInitialState) 
+                {
+                  Navigator.pushNamedAndRemoveUntil
+                  (
+                    context,
+                    '/LoginSignUp',
+                    (route) => false,
+                  );
+                }
+                else if (state is AuthenticationErrorState) 
+                {
+                  final signOutErrorSnackBarMessage = SnackBar
+                  (
+                    content: Text
+                    (
+                      state.error,
+                      style: TextStyle
+                      (
+                        color: Colors.white,
+                        fontSize: 20.0
+                      ),
+                    ),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(signOutErrorSnackBarMessage);
+                }
+              },
+            )
+          ],
         ),
       ),
       body: TabBarView

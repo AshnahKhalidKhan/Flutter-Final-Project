@@ -358,11 +358,17 @@ class _SignUpTabState extends State<SignUpTab>
                           (campus) => DropdownMenuEntry<String>
                           (
                             label: campus.campusName,
-                            value: campus.campusId
+                            value: campus.campusId,
+                            style: ButtonStyle
+                            (
+                              alignment: Alignment.center,
+                              side: MaterialStatePropertyAll(BorderSide(width: 0.2, color: Theme.of(context).colorScheme.primary)),
+                            )
                           ),
                         ).toList();
                         return  DropdownMenu<String>
                         (
+                          menuHeight: 400,
                           width: MediaQuery.sizeOf(context).width - 60.0, //Crazy maths here, Ash!!
                           controller: campusController,
                           enableFilter: false,
@@ -377,9 +383,9 @@ class _SignUpTabState extends State<SignUpTab>
                               fontWeight: FontWeight.bold
                             ),
                           ),
-                          menuStyle: const MenuStyle
+                          menuStyle: MenuStyle
                           (
-                            side: MaterialStatePropertyAll(BorderSide(style: BorderStyle.none))
+                            side: MaterialStatePropertyAll(BorderSide(width: 1.0, color: Theme.of(context).colorScheme.primary))
                           ),
                           dropdownMenuEntries: campusEntries,
                           onSelected: (String? campus) 
@@ -826,7 +832,7 @@ class _SignUpTabState extends State<SignUpTab>
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  onPressed: ()
+                  onPressed: allInputFieldsCorrect! ? null : ()
                   {
                     BlocProvider.of<AuthenticationBloc>(context).add
                     (

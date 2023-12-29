@@ -116,9 +116,6 @@ class _AdminHomePageState extends State<AdminHomePage>
       [
         GDSCCampusesList(),
         GDSCLeadMembersPendingRequests(),
-        // NewSignUpScreen(),
-        // HomeScreen(),
-        // FinalSignInSignUp(),
         AdminsList(),
         Profile(),
       ][currentPageIndex],
