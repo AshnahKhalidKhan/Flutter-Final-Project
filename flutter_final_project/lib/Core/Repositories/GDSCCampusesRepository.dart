@@ -10,7 +10,6 @@ class GDSCCampusesRepository
   Future<void> createGDSCCampusFunctionInGDSCCampusesRepositoryFile
   (
     {
-      required String campusId,
       required String campusName,
       required String email,
       required String location,
@@ -63,7 +62,7 @@ class GDSCCampusesRepository
   {
     try 
     {
-      return FirebaseFirestore.instance.collection('GDSCCampus').snapshots().map
+      return FirebaseFirestore.instance.collection('GDSCCampus').orderBy('campusName').snapshots().map
       (
         (querySnapshot) =>
         querySnapshot.docs.map((e) => GDSCCampus.fromSnapshot(e)).toList()
@@ -81,7 +80,7 @@ class GDSCCampusesRepository
   {
     try 
     {
-      final updateGDSCCampus = GDSCCampus
+      final Map<String, dynamic> updateGDSCCampus = GDSCCampus
       (
         campusId: campus.campusId,
         campusName: campus.campusName, 
@@ -89,7 +88,11 @@ class GDSCCampusesRepository
         location: campus.location,
         lead: campus.lead,
       ).toJson();
-      await FirebaseFirestore.instance.collection('GDSCCampus').doc(campus.campusId).update(updateGDSCCampus);
+      final snapshot = await FirebaseFirestore.instance.collection('GDSCCampus').where('campusId', isEqualTo: campus.campusId).get();
+      if (snapshot.docs.isNotEmpty) 
+      {
+        await FirebaseFirestore.instance.collection('GDSCCampus').doc(snapshot.docs.first.id).update(updateGDSCCampus);
+      }
     }
     catch (e) 
     {
@@ -102,7 +105,11 @@ class GDSCCampusesRepository
   {
     try 
     {
-      await FirebaseFirestore.instance.collection('GDSCCampus').doc(campusId).delete();
+      final snapshot = await FirebaseFirestore.instance.collection('GDSCCampus').where('campusId', isEqualTo: campusId).get();
+      if (snapshot.docs.isNotEmpty) 
+      {
+        await FirebaseFirestore.instance.collection('GDSCCampus').doc(snapshot.docs.first.id).delete();
+      }
     }
     catch (e) 
     {

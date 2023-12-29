@@ -66,6 +66,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
       catch (e) 
       {
         print(e.toString());
+        emit(AuthenticationErrorState('Login failed.' + e.toString()));
       }
       emit(AuthenticationLoadingState(isLoading: false));
     });

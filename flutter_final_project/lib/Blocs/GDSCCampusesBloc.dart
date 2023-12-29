@@ -26,11 +26,20 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
     {
       try 
       {
+        // emit(GDSCCampusesLoadingState());
+        // await campussRepository.createGDSCCampusFunctionInGDSCCampusesRepositoryFile
+        // (
+        //   campusName: event.campusName, 
+        //   email: event.email, 
+        //   location: event.location
+        // );
+        // emit(GDSCCampusesInitialState());
+        // Stream<List<GDSCCampus>> streamResponse = campussRepository.allGDSCCampusesFunctionInGDSCCampusesRepositoryFile();
+        // emit(GDSCCampusesSuccessOrLoadedState(streamResponse));
         if (state is GDSCCampusesSuccessOrLoadedState)
         {
           await campussRepository.createGDSCCampusFunctionInGDSCCampusesRepositoryFile
           (
-            campusId: event.campusId,
             campusName: event.campusName, 
             email: event.email, 
             location: event.location
@@ -93,8 +102,12 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
     {
       try 
       {
+        // emit(GDSCCampusesLoadingState());
+        // print('************************************');
+        // await campussRepository.updateGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campus);
         if (state is GDSCCampusesSuccessOrLoadedState)
         {
+          // print('\n\n\n\n\n**************************************************************');
           await campussRepository.updateGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campus);
         }
       } 

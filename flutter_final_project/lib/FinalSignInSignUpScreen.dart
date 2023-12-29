@@ -215,12 +215,24 @@ class _LoginTabState extends State<LoginTab>
               {
                 if (state is AuthenticationSuccessOrLoadedState) 
                 {
-                  Navigator.pushNamedAndRemoveUntil
-                  (
-                    context,
-                    '/HomePage',
-                    (route) => false,
-                  );
+                  if (state.user.role.startsWith('Admin'))
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/AdminHomePage',
+                      (route) => false,
+                    );
+                  }
+                  else
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/HomePage',
+                      (route) => false,
+                    );
+                  }
                 }
                 else if (state is AuthenticationErrorState) 
                 {

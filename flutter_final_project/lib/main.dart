@@ -6,9 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListBloc.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
+import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
 import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
+import 'package:flutter_final_project/Widgets/AdminHomepage.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadPendingApproval.dart';
@@ -64,6 +67,13 @@ class MyApp extends StatelessWidget
             firebaseFirestore: _firebaseFirestore,
           ),
         ),
+        RepositoryProvider<GDSCLeadsMembersListRepository>
+        (
+          create: (context) => GDSCLeadsMembersListRepository
+          (
+            firebaseFirestore: _firebaseFirestore,
+          ),
+        ),
         // RepositoryProvider<UserRepository>
         // (
         //   create: (context) =>
@@ -86,6 +96,13 @@ class MyApp extends StatelessWidget
             create: (context) => GDSCCampusesBloc
             (
               campussRepository: context.read<GDSCCampusesRepository>()
+            ),
+          ),
+          BlocProvider<GDSCLeadsMembersListBloc>
+          (
+            create: (context) => GDSCLeadsMembersListBloc
+            (
+              gDSCLeadsMembersRepository: context.read<GDSCLeadsMembersListRepository>()
             ),
           ),
         ],
@@ -254,6 +271,7 @@ class MyApp extends StatelessWidget
             '/': (context) => SplashScreen(),
             '/LoginSignUp': (context) => const FinalSignInSignUp(),
             '/HomePage': (context) => const LandingPage(),
+            '/AdminHomePage': (context) => const AdminHomePage(),
             '/GDSCMembersPendingRequest': (context) => const GDSCMembersPendingRequest(),
             '/GDSCLeadPendingRequest': (context) => const GDSCLeadPendingRequest(),
             // '/SignIn': (context) => const SignIn(),

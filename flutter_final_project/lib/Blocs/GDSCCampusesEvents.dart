@@ -9,16 +9,14 @@ abstract class GDSCCampusesEvent extends Equatable
 
 class CreateGDSCCampusEvent extends GDSCCampusesEvent 
 {
-  final String campusId;
   final String campusName;
   final String email;
   final String location;
-  final String lead;
   
-  const CreateGDSCCampusEvent(this.campusId, this.campusName, this.email, this.location, this.lead);
+  const CreateGDSCCampusEvent(this.campusName, this.email, this.location);
 
   @override
-  List<Object> get props => [campusId, campusName, email, location, this.lead];
+  List<Object> get props => [campusName, email, location];
 }
 
 class ReadGDSCCampusEvent extends GDSCCampusesEvent 

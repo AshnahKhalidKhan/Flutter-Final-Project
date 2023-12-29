@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
-import 'package:flutter_final_project/HomeScreen.dart';
 import 'package:flutter_final_project/NewSignUpScreen.dart';
-import 'package:flutter_final_project/Widgets/DiscussionsList.dart';
-import 'package:flutter_final_project/Widgets/EventsList.dart';
+import 'package:flutter_final_project/Widgets/GDSCCampusesList.dart';
+import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
-import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
 import 'package:flutter_final_project/Widgets/SignUp.dart';
-import 'package:flutter_final_project/main.dart';
 
-class LandingPage extends StatefulWidget 
+class AdminHomePage extends StatefulWidget 
 {
-  const LandingPage({super.key});
+  const AdminHomePage({super.key});
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  State<AdminHomePage> createState() => _AdminHomePageState();
 }
 
-class _LandingPageState extends State<LandingPage> 
+class _AdminHomePageState extends State<AdminHomePage> 
 {
   int currentPageIndex = 0;
 
@@ -56,38 +53,38 @@ class _LandingPageState extends State<LandingPage>
         [
           BottomNavigationBarItem
           (
-            label: 'Actviity Calendar',
+            label: 'Campuses',
             icon: Badge
             (
               isLabelVisible: false,
               child: Icon
               (
-                Icons.calendar_month_rounded,
+                Icons.school_rounded,
                 // color: Colors.white,
               ),
             ),
           ),
           BottomNavigationBarItem
           (
-            label: 'Events',
+            label: 'Leads',
             icon: Badge
             (
               isLabelVisible: false,
               child: Icon
               (
-                Icons.event_note_rounded,
+                Icons.star_rounded,
               ),
             ),
           ),
           BottomNavigationBarItem
           (
-            label: 'Discussions',
+            label: 'Admins',
             icon: Badge
             (
               isLabelVisible: false,
               child: Icon
               (
-                Icons.message_rounded,
+                Icons.admin_panel_settings_rounded,
                 // color: Colors.white,
               ),
             ),
@@ -116,12 +113,9 @@ class _LandingPageState extends State<LandingPage>
       ),
       body: <Widget>
       [
-        // RegistrationsList(),
-        // EventsList(),
-        // DiscussionsList(),
-        // Profile(),
-        SignUp(),
-        NewSignUpScreen(),
+        GDSCCampusesList(),
+        GDSCLeadMembersPendingRequests(),
+        // NewSignUpScreen(),
         // HomeScreen(),
         FinalSignInSignUp(),
         Profile(),
