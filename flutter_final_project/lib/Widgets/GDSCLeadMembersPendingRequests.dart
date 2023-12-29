@@ -13,19 +13,23 @@ class GDSCLeadMembersPendingRequests extends StatefulWidget
   State<GDSCLeadMembersPendingRequests> createState() => _GDSCLeadMembersPendingRequestsState();
 }
 
-class _GDSCLeadMembersPendingRequestsState extends State<GDSCLeadMembersPendingRequests> 
+class _GDSCLeadMembersPendingRequestsState extends State<GDSCLeadMembersPendingRequests> with TickerProviderStateMixin 
 {
-
+  late final TabController _tabController;
 
   @override
   void initState() 
   {
-    BlocProvider.of<GDSCLeadsMembersListBloc>(context).add(ReadAllApprovedGDSCLeadsListEvent());
-    BlocProvider.of<GDSCLeadsMembersListBloc>(context).add(ReadAllPendingGDSCLeadsListEvent());
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
   }
 
-
+  @override
+  void dispose() 
+  {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) 
@@ -38,7 +42,7 @@ class _GDSCLeadMembersPendingRequestsState extends State<GDSCLeadMembersPendingR
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text
         (
-          'Campuses', 
+          'Leads', 
           style: TextStyle
           (
             color: Colors.white,
@@ -46,128 +50,168 @@ class _GDSCLeadMembersPendingRequestsState extends State<GDSCLeadMembersPendingR
             fontSize: 30.0,
           ),
         ),
-      ),
-      body: Padding
-      (
-        padding: EdgeInsets.all(10.0),
-        child: Column
+        toolbarHeight: 150,
+        bottom: TabBar
         (
-          children: 
+          indicatorColor: Theme.of(context).colorScheme.primary,
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorPadding: EdgeInsets.only(left: 20.0, right: 20.0),
+          indicatorWeight: 3.0,
+          labelStyle: TextStyle
+          (
+            color: Theme.of(context).colorScheme.primary,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            
+          ),
+          unselectedLabelStyle: TextStyle
+          (
+            fontWeight: FontWeight.normal
+          ),
+          controller: _tabController,
+          tabs: const <Widget>
           [
-            BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
+            Tab
             (
-              builder: (context, state)
-              {
-                if (state is GDSCLeadsMembersListLoadingState)
-                {
-                  return Center(child: CircularProgressIndicator());
-                }
-                else if (state is GDSCLeadsMembersListErrorState)
-                {
-                  return Center(child: Text(state.error));
-                }
-                else if (state is GDSCLeadsMembersListSuccessOrLoadedState)
-                {
-                  return StreamBuilder<List<AppUser>>
-                  (
-                    stream: state.user,
-                    builder: (context, snapshot)
-                    {
-                      if (snapshot.hasError) 
-                      {
-                        return Text('Error: ${snapshot.error}');
-                      } 
-                      else if (snapshot.hasData)
-                      {
-                        List<AppUser>? campuses = snapshot.data;
-                        return SizedBox(
-                          height: 200,
-                          child: ListView.builder
-                          (
-                            itemCount: campuses!.length,
-                            itemBuilder: (context, i)
-                            {
-                              return Text(campuses![i].name);
-                            }
-                          ),
-                        );
-                      }
-                      else
-                      {
-                        return Center(child: Text(state.toString()));
-                      }
-                    }
-                  );
-                }
-                // else
-                // {
-                //   return Center(child: Text('Unable to load pending GDSC Leads\' list at the moment. Please try later.'));
-                // }
-                if (state is GDSCLeadsMembersListSuccessOrLoadedState)
-                {
-                  return Text('data');
-                }
-                else
-                {
-                  return Center(child: Text('Unable to load pending GDSC Leads\' list at the moment. Please try later.'));
-                }
-              }
+              text: 'Pending',
             ),
-            BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
+            Tab
             (
-              builder: (context, state)
-              {
-                if (state is GDSCLeadsMembersListLoadingState)
-                {
-                  return Center(child: CircularProgressIndicator());
-                }
-                else if (state is GDSCLeadsMembersListErrorState)
-                {
-                  return Center(child: Text(state.error));
-                }
-                else if (state is GDSCLeadsMembersListSuccessOrLoadedState)
-                {
-                  return StreamBuilder<List<AppUser>>
-                  (
-                    stream: state.user,
-                    builder: (context, snapshot)
-                    {
-                      if (snapshot.hasError) 
-                      {
-                        return Text('Error: ${snapshot.error}');
-                      } 
-                      else if (snapshot.hasData)
-                      {
-                        List<AppUser>? campuses = snapshot.data;
-                        return SizedBox(
-                          height: 200,
-                          child: ListView.builder
-                          (
-                            itemCount: campuses!.length,
-                            itemBuilder: (context, i)
-                            {
-                              return Text(campuses![i].name);
-                            }
-                          ),
-                        );
-                      }
-                      else
-                      {
-                        // return Center(child: CircularProgressIndicator());
-                        return Center(child: Text(state.toString()));
-                      }
-                    }
-                  );
-                }
-                else
-                {
-                  return Center(child: Text('Unable to load approved GDSC Leadss\' list at the moment. Please try later.'));
-                }
-              }
+              text: 'Approved',
             ),
           ],
         ),
-      )
+      ),
+      body: TabBarView
+      (
+        controller: _tabController,
+        children: <Widget>
+        [
+          Text('Babe'),
+          Text('Approved babe'),
+        ],
+      ),
+      // body: Padding
+      // (
+      //   padding: EdgeInsets.all(10.0),
+      //   child: Column
+      //   (
+      //     children: 
+      //     [
+      //       // BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
+      //       // (
+      //       //   builder: (context, state)
+      //       //   {
+      //       //     if (state is GDSCLeadsMembersListLoadingState)
+      //       //     {
+      //       //       return Center(child: CircularProgressIndicator());
+      //       //     }
+      //       //     else if (state is GDSCLeadsMembersListErrorState)
+      //       //     {
+      //       //       return Center(child: Text(state.error));
+      //       //     }
+      //       //     else if (state is GDSCLeadsMembersListSuccessOrLoadedState)
+      //       //     {
+      //       //       return StreamBuilder<List<AppUser>>
+      //       //       (
+      //       //         stream: state.user,
+      //       //         builder: (context, snapshot)
+      //       //         {
+      //       //           if (snapshot.hasError) 
+      //       //           {
+      //       //             return Text('Error: ${snapshot.error}');
+      //       //           } 
+      //       //           else if (snapshot.hasData)
+      //       //           {
+      //       //             List<AppUser>? campuses = snapshot.data;
+      //       //             return SizedBox(
+      //       //               height: 200,
+      //       //               child: ListView.builder
+      //       //               (
+      //       //                 itemCount: campuses!.length,
+      //       //                 itemBuilder: (context, i)
+      //       //                 {
+      //       //                   return Text(campuses![i].name);
+      //       //                 }
+      //       //               ),
+      //       //             );
+      //       //           }
+      //       //           else
+      //       //           {
+      //       //             return Center(child: Text(state.toString()));
+      //       //           }
+      //       //         }
+      //       //       );
+      //       //     }
+      //       //     // else
+      //       //     // {
+      //       //     //   return Center(child: Text('Unable to load pending GDSC Leads\' list at the moment. Please try later.'));
+      //       //     // }
+      //       //     if (state is GDSCLeadsMembersListSuccessOrLoadedState)
+      //       //     {
+      //       //       return Text('data');
+      //       //     }
+      //       //     else
+      //       //     {
+      //       //       return Center(child: Text('Unable to load pending GDSC Leads\' list at the moment. Please try later.'));
+      //       //     }
+      //       //   }
+      //       // ),
+      //       // BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
+      //       // (
+      //       //   builder: (context, state)
+      //       //   {
+      //       //     if (state is GDSCLeadsMembersListLoadingState)
+      //       //     {
+      //       //       return Center(child: CircularProgressIndicator());
+      //       //     }
+      //       //     else if (state is GDSCLeadsMembersListErrorState)
+      //       //     {
+      //       //       return Center(child: Text(state.error));
+      //       //     }
+      //       //     else if (state is GDSCLeadsMembersListSuccessOrLoadedState)
+      //       //     {
+      //       //       return StreamBuilder<List<AppUser>>
+      //       //       (
+      //       //         stream: state.user,
+      //       //         builder: (context, snapshot)
+      //       //         {
+      //       //           if (snapshot.hasError) 
+      //       //           {
+      //       //             return Text('Error: ${snapshot.error}');
+      //       //           } 
+      //       //           else if (snapshot.hasData)
+      //       //           {
+      //       //             List<AppUser>? campuses = snapshot.data;
+      //       //             return SizedBox(
+      //       //               height: 200,
+      //       //               child: ListView.builder
+      //       //               (
+      //       //                 itemCount: campuses!.length,
+      //       //                 itemBuilder: (context, i)
+      //       //                 {
+      //       //                   return Text(campuses![i].name);
+      //       //                 }
+      //       //               ),
+      //       //             );
+      //       //           }
+      //       //           else
+      //       //           {
+      //       //             // return Center(child: CircularProgressIndicator());
+      //       //             return Center(child: Text(state.toString()));
+      //       //           }
+      //       //         }
+      //       //       );
+      //       //     }
+      //       //     else
+      //       //     {
+      //       //       return Center(child: Text('Unable to load approved GDSC Leadss\' list at the moment. Please try later.'));
+      //       //     }
+      //       //   }
+      //       // ),
+      //     ],
+      //   ),
+      // )
     );
   }
 }
