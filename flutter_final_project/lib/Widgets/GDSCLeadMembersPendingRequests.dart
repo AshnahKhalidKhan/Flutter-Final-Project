@@ -199,20 +199,11 @@ class _PendingLeadsState extends State<PendingLeads>
                               LeadInfoField(icon: Icons.email, text: users![i].email),
                               SizedBox(height: 10.0),
                               CampusNameField(campusId: users![i].campus),
-                              // SizedBox(height: 10.0),
-                              // LeadInfoField(icon: Icons.star_rounded, text: campus.lead.isEmpty ? 'No Lead assigned' : campus.lead),
+                              SizedBox(height: 10.0),
+                              
                             ],
                           ),
-                          trailing: Icon
-                          (
-                            Icons.expand_more,
-                            size: 40.0,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          onTap: () 
-                          {
-                            // GDSCCampusTileBottomSheet(context, campus);
-                          },
+                          trailing: ApprovalDecisionButton(user: users![i]),
                         ),
                       );
                     }
@@ -415,6 +406,143 @@ class LeadInfoField extends StatelessWidget
           )
         )
       ],
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ApprovalDecisionButton extends StatefulWidget 
+{
+  final AppUser user;
+
+  const ApprovalDecisionButton
+  (
+    {
+      super.key,
+      required this.user
+    }
+  );
+
+  @override
+  State<ApprovalDecisionButton> createState() => _ApprovalDecisionButtonState();
+}
+
+class _ApprovalDecisionButtonState extends State<ApprovalDecisionButton> {
+  @override
+  Widget build(BuildContext context) 
+  {
+    return ElevatedButton
+    (
+      style: ButtonStyle
+      (
+        // backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+        // iconColor: MaterialStatePropertyAll(Colors.white),
+        // shape: MaterialStatePropertyAll
+        // (
+        // ),
+        padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
+        alignment: Alignment.centerRight,
+      ),
+      // padding: EdgeInsets.all(20.0),
+      // icon: Icon
+      // (
+      //   Icons.edit, 
+      //   size: 30.0
+      // ),
+      child: widget.user.approved! ? const Text('Remove') : const Text('Approve'),
+      onPressed: () async 
+      {
+        return showDialog<void>
+        (
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) 
+          {
+            return AlertDialog
+            (
+              title: widget.user.approved! ? const Text('Remove Lead?') : const Text('Approve Lead?'),
+              actions: <Widget>
+              [
+                TextButton
+                (
+                  child: const Text('Cancel'),
+                  onPressed: () 
+                  {
+                    Navigator.pop(context, 'Cancel');
+                  },
+                ),
+                TextButton
+                (
+                  child: widget.user.approved! ? const Text('Remove') : const Text('Approve'),
+                  onPressed: () 
+                  {
+                    if (widget.user.approved! == true)
+                    {
+                      BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
+                      (
+                        RemoveGDSCLeadEvent
+                        (
+                          widget.user
+                        )
+                      );
+                    }
+                    else
+                    {
+                      BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
+                      (
+                        ApproveGDSCLeadEvent
+                        (
+                          widget.user
+                        )
+                      );
+                    }
+                    Navigator.pop(context, 'Remove/Approve');
+                    final updateLeadStatusSnackBarMessage = SnackBar
+                    (
+                      content: Text
+                      (
+                        widget.user.approved! ? 'Lead removed.' : 'Lead approved.',
+                        style: TextStyle
+                        (
+                          color: Colors.white,
+                          fontSize: 20.0
+                        ),
+                      ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(updateLeadStatusSnackBarMessage);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }, 
     );
   }
 }
