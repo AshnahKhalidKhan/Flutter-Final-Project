@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesEvents.dart';
 import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListStates.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
@@ -43,17 +44,31 @@ class GDSCLeadsMembersListBloc extends Bloc<GDSCLeadsMembersListEvent, GDSCLeads
       }
     });
 
-    on<ReadGDSCLeadsMembersListEvent>((event, emit) 
+    // on<ReadGDSCLeadsMembersListEvent>((event, emit) 
+    // {
+    //   try 
+    //   {
+    //     emit(GDSCLeadsMembersListLoadingState());
+    //     final streamResponse = gDSCLeadsMembersRepository.readAppUserFunctionInGDSCLeadsMembersListRepositoryFile(event.userId);
+    //     gDSCLeadsMembersStreamSubscription?.cancel();
+    //     gDSCLeadsMembersStreamSubscription = streamResponse.listen((campus) 
+    //     {
+    //       add(ReadGDSCLeadsMembersListEvent(event.userId));
+    //     });
+    //   } 
+    //   catch(e) 
+    //   {
+    //     emit(const GDSCLeadsMembersListErrorState('GDSCLeadsMembersList loading/reading failed.'));
+    //   }
+    // });
+
+    on<ReadOneGDSCLeadsMembersListEvent>((event, emit) 
     {
       try 
       {
         emit(GDSCLeadsMembersListLoadingState());
-        final streamResponse = gDSCLeadsMembersRepository.readAppUserFunctionInGDSCLeadsMembersListRepositoryFile(event.userId);
-        gDSCLeadsMembersStreamSubscription?.cancel();
-        gDSCLeadsMembersStreamSubscription = streamResponse.listen((campus) 
-        {
-          add(ReadGDSCLeadsMembersListEvent(event.userId));
-        });
+        final user = gDSCLeadsMembersRepository.readOneAppUserFunctionInGDSCLeadsMembersListRepositoryFile(event.userId);
+        emit(OneGDSCLeadsMembersListSuccessOrLoadedState(user));
       } 
       catch(e) 
       {

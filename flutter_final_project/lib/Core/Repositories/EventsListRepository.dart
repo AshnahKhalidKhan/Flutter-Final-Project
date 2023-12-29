@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
 import 'package:flutter_final_project/Models/EventModel.dart';
+import 'package:flutter_final_project/Models/UserModel.dart';
 
 class EventsListRepository 
 {
@@ -22,7 +24,7 @@ class EventsListRepository
   {
     try 
     {
-      final String eventId = FirebaseFirestore.instance.collection('EventsList').doc().id;
+      final String eventId = FirebaseFirestore.instance.collection('Events').doc().id;
       final Event newEvent = Event
       (
         campusId: campusId,
@@ -37,7 +39,7 @@ class EventsListRepository
         streamingLink: '',
         whatsappGroupLink: ''
       );
-      await FirebaseFirestore.instance.collection('EventsList').doc().set(newEvent.toJson());
+      await FirebaseFirestore.instance.collection('Events').doc().set(newEvent.toJson());
     }
     catch (e) 
     {
@@ -49,7 +51,7 @@ class EventsListRepository
   {
     try 
     {
-      return FirebaseFirestore.instance.collection('EventsList').where('campusId', isEqualTo: campusId).snapshots().map
+      return FirebaseFirestore.instance.collection('Events').where('campusId', isEqualTo: campusId).snapshots().map
       (
         (querySnapshot) =>
         querySnapshot.docs.map((e) => Event.fromSnapshot(e)).toList()
@@ -59,6 +61,19 @@ class EventsListRepository
     {
       print('Error in EventRepository, readEvent: $e');
       return Stream<List<Event>>.empty();
+    }
+  }
+
+  Future<Event?> readOneEventFunctionInEventRepositoryFile(String eventId) async 
+  {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('Events').where('eventId', isEqualTo: eventId).limit(1).get();
+    if (snapshot.docs.isNotEmpty) 
+    {
+      return Event.fromSnapshot(snapshot.docs.first);
+    } 
+    else 
+    {
+      return null;
     }
   }
 
@@ -81,7 +96,7 @@ class EventsListRepository
         streamingLink: event.streamingLink,
         whatsappGroupLink: event.whatsappGroupLink
       ).toJson();
-      await FirebaseFirestore.instance.collection('EventsList').doc(event.eventId).update(updatedEvent);
+      await FirebaseFirestore.instance.collection('Events').doc(event.eventId).update(updatedEvent);
     }
     catch (e) 
     {
@@ -94,7 +109,7 @@ class EventsListRepository
   {
     try 
     {
-      await FirebaseFirestore.instance.collection('EventsList').doc(eventId).delete();
+      await FirebaseFirestore.instance.collection('Events').doc(eventId).delete();
     }
     catch (e) 
     {

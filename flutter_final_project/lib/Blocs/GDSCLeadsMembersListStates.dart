@@ -32,6 +32,15 @@ class GDSCLeadsMembersListSuccessOrLoadedState extends GDSCLeadsMembersListState
   List<Object> get props => [user];
 }
 
+class OneGDSCLeadsMembersListSuccessOrLoadedState extends GDSCLeadsMembersListState
+{
+  final Future<AppUser?> user;
+  OneGDSCLeadsMembersListSuccessOrLoadedState(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
+
 class GDSCLeadsMembersListErrorState extends GDSCLeadsMembersListState
 {
   final String error;

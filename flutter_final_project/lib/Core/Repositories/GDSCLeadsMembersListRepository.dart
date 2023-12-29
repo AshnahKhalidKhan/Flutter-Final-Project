@@ -37,6 +37,19 @@ class GDSCLeadsMembersListRepository
     }
   }
 
+  Future<AppUser?> readOneAppUserFunctionInGDSCLeadsMembersListRepositoryFile(String userId) async
+  {
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: userId).limit(1).get();
+    if (snapshot.docs.isNotEmpty) 
+    {
+      return AppUser.fromSnapshot(snapshot.docs.first);
+    } 
+    else 
+    {
+      return null;
+    }
+  }
+
   Stream<List<AppUser>> readAppUserFunctionInGDSCLeadsMembersListRepositoryFile(String id)
   {
     return FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: id).snapshots().map

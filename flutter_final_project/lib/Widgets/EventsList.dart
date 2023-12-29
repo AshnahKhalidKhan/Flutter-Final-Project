@@ -1,6 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/Blocs/EventsListBloc.dart';
+import 'package:flutter_final_project/Blocs/EventsListEvents.dart';
+import 'package:flutter_final_project/Blocs/EventsListStates.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCCampusesEvents.dart';
+import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListBloc.dart';
+import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListStates.dart';
+import 'package:flutter_final_project/Models/EventModel.dart';
 import 'package:flutter_final_project/Widgets/EventDetails.dart';
 
 class EventsList extends StatefulWidget 
@@ -14,6 +25,14 @@ class EventsList extends StatefulWidget
 class _EventsListState extends State<EventsList> 
 {
   final String x = '40characterslongemailofperson323436...';
+
+  @override
+  void initState() 
+  {
+    // BlocProvider.of<GDSCCampusesBloc>(context).add(ReadOneGDSCCampusEvent(FirebaseAuth.instance.currentUser!.uid));
+    // BlocProvider.of<EventsListBloc>(context).add(ReadEventEvent(FirebaseAuth.instance.currentUser!.uid));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) 
@@ -51,19 +70,111 @@ class _EventsListState extends State<EventsList>
       body: Padding
       (
         padding: EdgeInsets.all(10.0),
-        child: ListView.builder
+        // child: ListView.builder
+        // (
+        //   itemCount: 10,
+        //   itemBuilder: (context, i)
+        //   {
+        //     return EventListTile(context);
+        //   }
+        // ),
+        // child: BlocBuilder<EventsListBloc, EventsListState>
+        // (
+        //   builder: (context, state)
+        //   {
+        //     if (state is EventsListLoadingState)
+        //     {
+        //       return Center(child: CircularProgressIndicator());
+        //     }
+        //     else if (state is EventsListErrorState)
+        //     {
+        //       return Center(child: Text(state.error));
+        //     }
+        //     else if (state is EventsListSuccessOrLoadedState)
+        //     {
+        //       return StreamBuilder<List<Event>>
+        //       (
+        //         stream: state.event,
+        //         builder: (context, snapshot)
+        //         {
+        //           if (snapshot.hasError) 
+        //           {
+        //             return Text('Error: ${snapshot.error}');
+        //           } 
+        //           else if (snapshot.hasData)
+        //           {
+        //             List<Event>? events = snapshot.data;
+        //             return ListView.builder
+        //             (
+        //               itemCount: events!.length,
+        //               itemBuilder: (context, i)
+        //               {
+        //                 return EventListTile(context, events![i]);
+        //               }
+        //             );
+        //           }
+        //           else
+        //           {
+        //             return Center(child: Text('Snapshot has no data.'));
+        //           }
+        //         }
+        //       );
+        //     }
+        //     else
+        //     {
+        //       return Center(child: Text('Unable to load events list at the moment. Please try later.'));
+        //     }
+        //   },
+        //   // listener: (context, state) 
+        //   // {
+            
+        //   // },
+        // ),
+        child: BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
         (
-          itemCount: 10,
-          itemBuilder: (context, i)
+          builder: (context, state)
           {
-            return EventListTile(context);
+            if (state is GDSCLeadsMembersListLoadingState)
+            {
+              return Center(child: CircularProgressIndicator());
+            }
+            else if (state is GDSCLeadsMembersListErrorState)
+            {
+              return Center(child: Text(state.error));
+            }
+            else if (state is OneGDSCLeadsMembersListSuccessOrLoadedState)
+            {
+              return FutureBuilder
+              (
+                future: state.user, 
+                builder: (context, snapshot)
+                {
+                  if (snapshot.hasError)
+                  {
+                    return Text(snapshot.error.toString());
+                  }
+                  else if (snapshot.hasData)
+                  {
+                    return Text(snapshot.data.toString());
+                  }
+                  else
+                  {
+                    return Text('No snapshot??');
+                  }
+                }
+              );
+            }
+            else
+            {
+              return Text('No snapshot??');
+            }
           }
-        ),
+        )
       )
     );
   }
 
-  Padding EventListTile(BuildContext context) 
+  Padding EventListTile(BuildContext context, Event event) 
   {
     return Padding
     (
@@ -83,7 +194,7 @@ class _EventsListState extends State<EventsList>
         style: ListTileStyle.list,
         title: Text
         (
-          'Web Developmemt Bootcamp Session 2',
+          event.eventName,
           style: TextStyle
           (
             fontSize: 20.0
@@ -103,7 +214,7 @@ class _EventsListState extends State<EventsList>
               [
                 Text
                 (
-                  '12 Novemeber 2023'.characters.take(25).toString(),
+                  event.date.characters.take(25).toString(),
                   style: TextStyle
                   (
                     fontSize: 15.0
@@ -111,7 +222,7 @@ class _EventsListState extends State<EventsList>
                 ),
                 Text
                 (
-                  '12:00 PM to 9:00 PM'.characters.take(25).toString(),
+                  (event.startTime + ' to ' + event.endTime).characters.take(25).toString(),
                   style: TextStyle
                   (
                     fontSize: 15.0
@@ -140,13 +251,13 @@ class _EventsListState extends State<EventsList>
         ),
         onTap: () 
         {
-          EventTileBottomSheet(context);
+          // EventTileBottomSheet(context, event);
         },
       ),
     );
   }
 
-  Future<void> EventTileBottomSheet(BuildContext context) 
+  Future<void> EventTileBottomSheet(BuildContext context, Event event) 
   {
     return showModalBottomSheet<void>
     (
@@ -173,13 +284,13 @@ class _EventsListState extends State<EventsList>
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: 
                   [
-                    EventInfoField(icon: Icons.star, text: 'Event Name From Firebase'),
+                    EventInfoField(icon: Icons.star, text: event.eventName),
                     SizedBox(height: 10.0),
-                    EventInfoField(icon: Icons.calendar_month_rounded, text: 'Event Date From Firebase'),
+                    EventInfoField(icon: Icons.calendar_month_rounded, text: event.date),
                     SizedBox(height: 10.0),
-                    EventInfoField(icon: CupertinoIcons.time, text: 'Event Time From Firebase'),
+                    EventInfoField(icon: CupertinoIcons.time, text: event.startTime + ' to ' + event.endTime),
                     SizedBox(height: 10.0),
-                    EventInfoField(icon: Icons.location_pin, text: 'Event Venue From Firebase'),
+                    EventInfoField(icon: Icons.location_pin, text: event.location),
                     SizedBox(height: 10.0),
                     GestureDetector
                     (
@@ -202,7 +313,7 @@ class _EventsListState extends State<EventsList>
                         (
                           ClipboardData
                           (
-                            text: 'Event Registration Link From Firebase'
+                            text: event.registrationFormLink!
                           )
                         ).then((value)
                         {
@@ -212,15 +323,6 @@ class _EventsListState extends State<EventsList>
                       },
                     ),
                     SizedBox(height: 20.0),
-                    // Row
-                    // (
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: 
-                    //   [
-                    //     EventDeleteButton(),
-                    //     EventEditButton()
-                    //   ],
-                    // ),
                   ],
                 ),
               ),

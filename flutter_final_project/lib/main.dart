@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
+import 'package:flutter_final_project/Blocs/EventsListBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListBloc.dart';
 import 'package:flutter_final_project/Blocs/ThemeColorBloc.dart';
 import 'package:flutter_final_project/Blocs/ThemeColorEvents.dart';
 import 'package:flutter_final_project/Blocs/ThemeColorStates.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
+import 'package:flutter_final_project/Core/Repositories/EventsListRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
 import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
@@ -84,6 +86,13 @@ class MyApp extends StatelessWidget
             firebaseFirestore: _firebaseFirestore,
           ),
         ),
+        RepositoryProvider<EventsListRepository>
+        (
+          create: (context) => EventsListRepository
+          (
+            firebaseFirestore: _firebaseFirestore,
+          ),
+        ),
         // RepositoryProvider<UserRepository>
         // (
         //   create: (context) =>
@@ -120,6 +129,13 @@ class MyApp extends StatelessWidget
             create: (context) => ThemeColorBloc
             (
               //Nothing inside??????
+            ),
+          ),
+          BlocProvider<EventsListBloc>
+          (
+            create: (context) => EventsListBloc
+            (
+              eventListRepository: context.read<EventsListRepository>()
             ),
           ),
         ],

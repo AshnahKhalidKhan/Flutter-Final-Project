@@ -417,7 +417,8 @@ class _SignUpTabState extends State<SignUpTab>
                       }
                       else
                       {
-                        return Text('Connection error. Please sign up later.');
+                        // return Text('Connection error. Please sign up later.');
+                        return Center(child: CircularProgressIndicator());
                       }
                     }
                   );
@@ -570,7 +571,7 @@ class _SignUpTabState extends State<SignUpTab>
                 labelText: 'Password',
                 suffixIcon: GestureDetector
                 (
-                  child: passwordInvisible ? Icon(Icons.visibility_off_rounded) : Icon(Icons.visibility_rounded),
+                  child: passwordInvisible ? Icon(Icons.visibility_off_rounded, color: Colors.black54) : Icon(Icons.visibility_rounded, color: Colors.black54),
                   onTap:() 
                   {
                     setState(() 

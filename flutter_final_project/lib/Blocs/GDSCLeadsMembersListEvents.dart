@@ -19,11 +19,11 @@ class CreateGDSCLeadsMembersListEvent extends GDSCLeadsMembersListEvent
   List<Object> get props => [name, email, role];
 }
 
-class ReadGDSCLeadsMembersListEvent extends GDSCLeadsMembersListEvent 
+class ReadOneGDSCLeadsMembersListEvent extends GDSCLeadsMembersListEvent 
 {
   final String userId;
 
-  const ReadGDSCLeadsMembersListEvent(this.userId);
+  const ReadOneGDSCLeadsMembersListEvent(this.userId);
 
   @override
   List<Object> get props => [userId];
