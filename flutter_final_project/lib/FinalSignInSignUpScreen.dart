@@ -832,7 +832,7 @@ class _SignUpTabState extends State<SignUpTab>
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  onPressed: allInputFieldsCorrect! ? null : ()
+                  onPressed: !allInputFieldsCorrect ? null : ()
                   {
                     BlocProvider.of<AuthenticationBloc>(context).add
                     (
