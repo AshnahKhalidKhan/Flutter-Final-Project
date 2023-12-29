@@ -199,11 +199,19 @@ class _PendingLeadsState extends State<PendingLeads>
                               LeadInfoField(icon: Icons.email, text: users![i].email),
                               SizedBox(height: 10.0),
                               CampusNameField(campusId: users![i].campus),
+                              // SizedBox(height: 10.0),
+                              Row
+                              (
+                                children: 
+                                [
+                                  Spacer(),
+                                  ApprovalDecisionButton(user: users![i]),
+                                ],
+                              ),
                               SizedBox(height: 10.0),
-                              
                             ],
                           ),
-                          trailing: ApprovalDecisionButton(user: users![i]),
+                          // trailing: ApprovalDecisionButton(user: users![i]),
                         ),
                       );
                     }
@@ -336,16 +344,62 @@ class _ApprovedLeadsState extends State<ApprovedLeads>
                 else if (snapshot.hasData)
                 {
                   List<AppUser>? users = snapshot.data;
-                  return SizedBox(
-                    height: 200,
-                    child: ListView.builder
-                    (
-                      itemCount: users!.length,
-                      itemBuilder: (context, i)
-                      {
-                        return Text(users![i].name);
-                      }
-                    ),
+                  return ListView.builder
+                  (
+                    itemCount: users!.length,
+                    itemBuilder: (context, i)
+                    {
+                      return Padding
+                      (
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: ListTile
+                        (
+                          shape: RoundedRectangleBorder
+                          (
+                            side: BorderSide
+                            (
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 2.0
+                            ),
+                            borderRadius: BorderRadius.circular(20.0)
+                          ),
+                          tileColor: Colors.white,
+                          style: ListTileStyle.list,
+                          title: Text
+                          (
+                            users![i].name,
+                            style: TextStyle
+                            (
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          subtitle: Column
+                          (
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: 
+                            [
+                              LeadInfoField(icon: Icons.email, text: users![i].email),
+                              SizedBox(height: 10.0),
+                              CampusNameField(campusId: users![i].campus),
+                              // SizedBox(height: 10.0),
+                              Row
+                              (
+                                children: 
+                                [
+                                  Spacer(),
+                                  ApprovalDecisionButton(user: users![i]),
+                                ],
+                              ),
+                              SizedBox(height: 10.0),
+                            ],
+                          ),
+                          // trailing: ApprovalDecisionButton(user: users![i]),
+                        ),
+                      );
+                    }
                   );
                 }
                 else
@@ -410,33 +464,6 @@ class LeadInfoField extends StatelessWidget
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class ApprovalDecisionButton extends StatefulWidget 
 {
   final AppUser user;
@@ -457,92 +484,99 @@ class _ApprovalDecisionButtonState extends State<ApprovalDecisionButton> {
   @override
   Widget build(BuildContext context) 
   {
-    return ElevatedButton
+    return SizedBox
     (
-      style: ButtonStyle
+      width: 120,
+      height: 60,
+      child: OutlinedButton
       (
-        // backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-        // iconColor: MaterialStatePropertyAll(Colors.white),
-        // shape: MaterialStatePropertyAll
-        // (
-        // ),
-        padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
-        alignment: Alignment.centerRight,
-      ),
-      // padding: EdgeInsets.all(20.0),
-      // icon: Icon
-      // (
-      //   Icons.edit, 
-      //   size: 30.0
-      // ),
-      child: widget.user.approved! ? const Text('Remove') : const Text('Approve'),
-      onPressed: () async 
-      {
-        return showDialog<void>
+        style: ButtonStyle
         (
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) 
-          {
-            return AlertDialog
-            (
-              title: widget.user.approved! ? const Text('Remove Lead?') : const Text('Approve Lead?'),
-              actions: <Widget>
-              [
-                TextButton
-                (
-                  child: const Text('Cancel'),
-                  onPressed: () 
-                  {
-                    Navigator.pop(context, 'Cancel');
-                  },
-                ),
-                TextButton
-                (
-                  child: widget.user.approved! ? const Text('Remove') : const Text('Approve'),
-                  onPressed: () 
-                  {
-                    if (widget.user.approved! == true)
+          backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primaryContainer),
+          // iconColor: MaterialStatePropertyAll(Colors.white),
+          shape: MaterialStatePropertyAll
+          (
+            ContinuousRectangleBorder(borderRadius: BorderRadius.circular(25.0))
+          ),
+          padding: MaterialStatePropertyAll(EdgeInsets.all(20.0)),
+          side: MaterialStatePropertyAll(BorderSide(width: 2.0, style: BorderStyle.solid, color: Theme.of(context).colorScheme.primary)),
+          alignment: Alignment.center,
+        ),
+        // padding: EdgeInsets.all(20.0),
+        // icon: Icon
+        // (
+        //   Icons.edit, 
+        //   size: 30.0
+        // ),
+        child: widget.user.approved! ? const Text('Remove') : const Text('Approve'),
+        onPressed: () async 
+        {
+          return showDialog<void>
+          (
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) 
+            {
+              return AlertDialog
+              (
+                title: widget.user.approved! ? const Text('Remove Lead?') : const Text('Approve Lead?'),
+                actions: <Widget>
+                [
+                  TextButton
+                  (
+                    child: const Text('Cancel'),
+                    onPressed: () 
                     {
-                      BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
-                      (
-                        RemoveGDSCLeadEvent
-                        (
-                          widget.user
-                        )
-                      );
-                    }
-                    else
+                      Navigator.pop(context, 'Cancel');
+                    },
+                  ),
+                  TextButton
+                  (
+                    child: widget.user.approved! ? const Text('Remove') : const Text('Approve'),
+                    onPressed: () 
                     {
-                      BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
-                      (
-                        ApproveGDSCLeadEvent
+                      if (widget.user.approved! == true)
+                      {
+                        BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
                         (
-                          widget.user
-                        )
-                      );
-                    }
-                    Navigator.pop(context, 'Remove/Approve');
-                    final updateLeadStatusSnackBarMessage = SnackBar
-                    (
-                      content: Text
-                      (
-                        widget.user.approved! ? 'Lead removed.' : 'Lead approved.',
-                        style: TextStyle
+                          RemoveGDSCLeadEvent
+                          (
+                            widget.user
+                          )
+                        );
+                      }
+                      else
+                      {
+                        BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
                         (
-                          color: Colors.white,
-                          fontSize: 20.0
+                          ApproveGDSCLeadEvent
+                          (
+                            widget.user
+                          )
+                        );
+                      }
+                      Navigator.pop(context, 'Remove/Approve');
+                      final updateLeadStatusSnackBarMessage = SnackBar
+                      (
+                        content: Text
+                        (
+                          widget.user.approved! ? 'Lead removed.' : 'Lead approved.',
+                          style: TextStyle
+                          (
+                            color: Colors.white,
+                            fontSize: 20.0
+                          ),
                         ),
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(updateLeadStatusSnackBarMessage);
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }, 
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(updateLeadStatusSnackBarMessage);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }, 
+      ),
     );
   }
 }
