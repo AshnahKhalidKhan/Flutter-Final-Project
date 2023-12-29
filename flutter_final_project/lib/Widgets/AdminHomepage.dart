@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
 import 'package:flutter_final_project/NewSignUpScreen.dart';
+import 'package:flutter_final_project/Widgets/AdminsList.dart';
 import 'package:flutter_final_project/Widgets/GDSCCampusesList.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
@@ -117,7 +118,8 @@ class _AdminHomePageState extends State<AdminHomePage>
         GDSCLeadMembersPendingRequests(),
         // NewSignUpScreen(),
         // HomeScreen(),
-        FinalSignInSignUp(),
+        // FinalSignInSignUp(),
+        AdminsList(),
         Profile(),
       ][currentPageIndex],
     );

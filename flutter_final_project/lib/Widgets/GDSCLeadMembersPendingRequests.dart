@@ -396,7 +396,6 @@ class _ApprovedLeadsState extends State<ApprovedLeads>
                               SizedBox(height: 10.0),
                             ],
                           ),
-                          // trailing: ApprovalDecisionButton(user: users![i]),
                         ),
                       );
                     }

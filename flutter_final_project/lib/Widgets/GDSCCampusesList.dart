@@ -385,7 +385,8 @@ class GDSCCampusEditButton extends StatefulWidget
   State<GDSCCampusEditButton> createState() => _GDSCCampusEditButtonState();
 }
 
-class _GDSCCampusEditButtonState extends State<GDSCCampusEditButton> {
+class _GDSCCampusEditButtonState extends State<GDSCCampusEditButton> 
+{
   @override
   Widget build(BuildContext context) 
   {
