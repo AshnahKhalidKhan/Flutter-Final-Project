@@ -29,6 +29,16 @@ class ReadGDSCCampusEvent extends GDSCCampusesEvent
   List<Object> get props => [campusId];
 }
 
+class ReadOneGDSCCampusEvent extends GDSCCampusesEvent 
+{
+  final String campusId;
+
+  const ReadOneGDSCCampusEvent(this.campusId);
+
+  @override
+  List<Object> get props => [campusId];
+}
+
 class ReadAllGDSCCampusesEvent extends GDSCCampusesEvent 
 {
   const ReadAllGDSCCampusesEvent();

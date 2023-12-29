@@ -74,6 +74,20 @@ class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState>
       }
     });
 
+    on<ReadOneGDSCCampusEvent>((event, emit) 
+    {
+      try 
+      {
+        emit(GDSCCampusesLoadingState());
+        final campus = campussRepository.readOneGDSCCampusFunctionInGDSCCampusesRepositoryFile(event.campusId);
+        emit(OneGDSCCampusSuccessOrLoadedState(campus));
+      } 
+      catch(e) 
+      {
+        emit(const GDSCCampusesErrorState('OneGDSCCampus loading/reading failed.'));
+      }
+    });
+
     on<ReadAllGDSCCampusesEvent>((event, emit) 
     {
       try 

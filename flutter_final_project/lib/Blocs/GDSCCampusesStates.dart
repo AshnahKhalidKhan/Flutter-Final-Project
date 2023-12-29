@@ -32,6 +32,15 @@ class GDSCCampusesSuccessOrLoadedState extends GDSCCampusesState
   List<Object> get props => [campus];
 }
 
+class OneGDSCCampusSuccessOrLoadedState extends GDSCCampusesState
+{
+  final Future<GDSCCampus?> campus;
+  OneGDSCCampusSuccessOrLoadedState(this.campus);
+
+  @override
+  List<Object> get props => [campus];
+}
+
 class GDSCCampusesErrorState extends GDSCCampusesState
 {
   final String error;
