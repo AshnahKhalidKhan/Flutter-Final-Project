@@ -20,6 +20,7 @@ import 'package:flutter_final_project/Widgets/AdminHomepage.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/AdminPendingApproval.dart';
 import 'package:flutter_final_project/Widgets/AdminsList.dart';
+import 'package:flutter_final_project/Widgets/EventsList.dart';
 import 'package:flutter_final_project/Widgets/GDSCCampusesList.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadPendingApproval.dart';
@@ -182,15 +183,18 @@ class MyApp extends StatelessWidget
                   '/GDSCLeadsPendingApprovalsList': (context) => const GDSCLeadMembersPendingRequests(),
                   '/AdminsList': (context) => const AdminsList(),
                   '/Profile': (context) => const Profile(),
-                  // '/SignIn': (context) => const SignIn(),
-                  // '/AdminUsers': (context) => const AdminUsers(), //All Admin Users CRUD thingies
-                  // '/AddGDSCCampus': (context) => const AddGDSCCampus(),
-              
+                  // '/ActivityCalendar': (context) => const ActivityCalendar(),
+                  '/EventsList': (context) => const EventsList(),
+                  // '/TasksList': (context) => const TasksList(),
+                  // '/RegistrationsList': (context) => const RegistrationsList(),
+                  // '/AttendeesList': (context) => const AttendeesList(),
+                  // '/Assets': (context) => const Assets(),
+                  // '/DraftsList': (context) => const DraftsList(),
+                  // '/OnlyGDSCMembersPendingApprovalsList': (context) => const OnlyGDSCMembersPendingApprovalsList(),
+
                   
-                  // '/PageName': (context) => const PageName(),
-                  // '/PageName': (context) => const PageName(),
-                  // '/PageName': (context) => const PageName(),
                 }
+                // Experimentation!!!!!!!!
                 // home: TabBarExample(),
                 // home: const MyHomePage(title: 'Flutter Demo Home Page'),
                 // home: DatePickerExample(),

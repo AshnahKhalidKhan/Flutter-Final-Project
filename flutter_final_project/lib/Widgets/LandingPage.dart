@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
 import 'package:flutter_final_project/HomeScreen.dart';
 import 'package:flutter_final_project/NewSignUpScreen.dart';
+import 'package:flutter_final_project/Widgets/ActivityCalendar.dart';
 import 'package:flutter_final_project/Widgets/DiscussionsList.dart';
 import 'package:flutter_final_project/Widgets/EventsList.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
@@ -120,11 +121,13 @@ class _LandingPageState extends State<LandingPage>
         // EventsList(),
         // DiscussionsList(),
         // Profile(),
-        SignUp(),
+        // SignUp(),
+        ActivityCalendar(),
         EventsList(),
         // NewSignUpScreen(),
         // HomeScreen(),
-        FinalSignInSignUp(),
+        // FinalSignInSignUp(),
+        DiscussionsList(),
         Profile(),
       ][currentPageIndex],
     );

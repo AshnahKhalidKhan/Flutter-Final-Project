@@ -47,7 +47,7 @@ class _DiscussionsListState extends State<DiscussionsList>
           {
             return DiscussionsListNexteventChatWidgetTile
             (
-              eventName: 'Event ' + (i + 1).toString() + ' Name',
+              eventName: i == 0 ? 'Core Team Chat' : 'Event ' + (i + 1).toString() + ' Name',
               eventChatWidget: RegistrationsList(),
             );
           }
