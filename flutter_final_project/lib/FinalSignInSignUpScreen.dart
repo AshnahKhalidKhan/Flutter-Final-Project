@@ -215,7 +215,7 @@ class _LoginTabState extends State<LoginTab>
               {
                 if (state is AuthenticationSuccessOrLoadedState) 
                 {
-                  if (state.user.role.startsWith('Admin'))
+                  if (state.user.role.startsWith('Admin') && state.user.approved! == true)
                   {
                     Navigator.pushNamedAndRemoveUntil
                     (
@@ -224,12 +224,57 @@ class _LoginTabState extends State<LoginTab>
                       (route) => false,
                     );
                   }
-                  else
+                  else if (state.user.role.startsWith('Admin') && state.user.approved! == false)
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/AdminPendingRequest',
+                      (route) => false,
+                    );
+                  }
+                  else if (state.user.role.startsWith('Member') && state.user.approved! == true)
                   {
                     Navigator.pushNamedAndRemoveUntil
                     (
                       context,
                       '/HomePage',
+                      (route) => false,
+                    );
+                  }
+                  else if (state.user.role.startsWith('Member') && state.user.approved! == false)
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/GDSCMembersPendingRequest',
+                      (route) => false,
+                    );
+                  }
+                  else if (state.user.role.startsWith('Lead') && state.user.approved! == true)
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/HomePage',
+                      (route) => false,
+                    );
+                  }
+                  else if (state.user.role.startsWith('Lead') && state.user.approved! == false)
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/GDSCLeadPendingRequest',
+                      (route) => false,
+                    );
+                  }
+                  else
+                  {
+                    Navigator.pushNamedAndRemoveUntil
+                    (
+                      context,
+                      '/',
                       (route) => false,
                     );
                   }

@@ -18,6 +18,7 @@ import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepo
 import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
 import 'package:flutter_final_project/Widgets/AdminHomepage.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
+import 'package:flutter_final_project/Widgets/AdminPendingApproval.dart';
 import 'package:flutter_final_project/Widgets/AdminsList.dart';
 import 'package:flutter_final_project/Widgets/GDSCCampusesList.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
@@ -172,6 +173,7 @@ class MyApp extends StatelessWidget
                 {
                   '/': (context) => SplashScreen(),
                   '/LoginSignUp': (context) => const FinalSignInSignUp(),
+                  '/AdminPendingRequest': (context) => const AdminPendingRequest(),
                   '/GDSCMembersPendingRequest': (context) => const GDSCMembersPendingRequest(),
                   '/GDSCLeadPendingRequest': (context) => const GDSCLeadPendingRequest(),
                   '/HomePage': (context) => const LandingPage(),
