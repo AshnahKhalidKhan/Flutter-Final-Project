@@ -68,3 +68,24 @@ class DeleteEventEvent extends EventsListEvent
   @override
   List<Object> get props => [eventId];
 }
+
+
+
+
+
+class ReadAllEventsOfOneCampusUsingUserIdLoadedEvent extends EventsListEvent 
+{
+  final String userId;
+
+  const ReadAllEventsOfOneCampusUsingUserIdLoadedEvent(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+}
+
+// class AllEventsOfOneCampusUsingUserIdLoadedEvent extends EventsListEvent 
+// {
+//   const AllEventsOfOneCampusUsingUserIdLoadedEvent();
+//   @override
+//   List<Object> get props => [];
+// }

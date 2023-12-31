@@ -6,18 +6,17 @@ import 'package:flutter_final_project/Blocs/AuthenticationStates.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesEvents.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesStates.dart';
-import 'package:flutter_final_project/HomeScreen.dart';
 import 'package:flutter_final_project/Models/GDSCCampusModel.dart';
 
-class FinalSignInSignUp extends StatefulWidget 
+class SignInSignUp extends StatefulWidget 
 {
-  const FinalSignInSignUp({super.key});
+  const SignInSignUp({super.key});
 
   @override
-  State<FinalSignInSignUp> createState() => _FinalSignInSignUpState();
+  State<SignInSignUp> createState() => _SignInSignUpState();
 }
 
-class _FinalSignInSignUpState extends State<FinalSignInSignUp> with TickerProviderStateMixin 
+class _SignInSignUpState extends State<SignInSignUp> with TickerProviderStateMixin 
 {
   late final TabController _tabController;
 

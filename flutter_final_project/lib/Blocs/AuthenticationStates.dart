@@ -32,6 +32,12 @@ class AuthenticationSuccessOrLoadedState extends AuthenticationState
   List<Object> get props => [user];
 }
 
+class AuthenticationSuccessfulSignOutState extends AuthenticationState
+{
+  @override
+  List<Object> get props => [];
+}
+
 class AuthenticationErrorState extends AuthenticationState
 {
   final String error;

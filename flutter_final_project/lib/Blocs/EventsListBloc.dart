@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/Blocs/EventsListEvents.dart';
 import 'package:flutter_final_project/Blocs/EventsListStates.dart';
+import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/Core/Repositories/EventsListRepository.dart';
 import 'package:flutter_final_project/Models/EventModel.dart';
 
@@ -52,6 +53,21 @@ class EventsListBloc extends Bloc<EventsListEvent, EventsListState>
         emit(EventsListLoadingState());
         Stream<List<Event>> streamResponse = eventListRepository.readEventFunctionInEventRepositoryFile(event.campusId);
         emit(EventsListSuccessOrLoadedState(streamResponse));
+      } 
+      catch(e) 
+      {
+        emit(const EventsListErrorState('Event loading/reading failed.'));
+      }
+    });
+
+    on<ReadAllEventsOfOneCampusUsingUserIdLoadedEvent>((event, emit) 
+    {
+      try 
+      {
+        emit(EventsListLoadingState());
+        Future<Stream<List<Event>>> streamResponse = eventListRepository.readAllEventsOfOneCampusUsingUserIdOfMemberFunctionInRepositoryFile(event.userId);
+        // print(streamResponse.toString());
+        emit(AllEventsOfOneCampusUsingUserIdLoadedState(streamResponse));
       } 
       catch(e) 
       {

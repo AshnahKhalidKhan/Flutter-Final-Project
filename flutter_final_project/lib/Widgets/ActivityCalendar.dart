@@ -9,7 +9,8 @@ class ActivityCalendar extends StatefulWidget
   State<ActivityCalendar> createState() => _ActivityCalendarState();
 }
 
-class _ActivityCalendarState extends State<ActivityCalendar> {
+class _ActivityCalendarState extends State<ActivityCalendar> 
+{
   @override
   Widget build(BuildContext context) 
   {

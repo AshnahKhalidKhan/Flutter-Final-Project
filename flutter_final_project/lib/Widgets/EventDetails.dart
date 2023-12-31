@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_final_project/Models/EventModel.dart';
 import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
 
 class EventDetails extends StatefulWidget 
 {
-  const EventDetails({super.key});
+  EventDetails({super.key});
+
+  // final Event event;
 
   @override
   State<EventDetails> createState() => _EventDetailsState();

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
-import 'package:flutter_final_project/HomeScreen.dart';
-import 'package:flutter_final_project/NewSignUpScreen.dart';
+import 'package:flutter_final_project/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:flutter_final_project/Widgets/ActivityCalendar.dart';
 import 'package:flutter_final_project/Widgets/DiscussionsList.dart';
 import 'package:flutter_final_project/Widgets/EventsList.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
 import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
-import 'package:flutter_final_project/Widgets/SignUp.dart';
 import 'package:flutter_final_project/main.dart';
 
 class LandingPage extends StatefulWidget 
 {
   const LandingPage({super.key});
+  // static const routeName = '/extractArguments';
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -25,6 +23,8 @@ class _LandingPageState extends State<LandingPage>
   @override
   Widget build(BuildContext context) 
   {
+    // final args = ModalRoute.of(context)!.settings.arguments as ScreenArgumentsNeededToPass;
+    
     return Scaffold
     (
       bottomNavigationBar: BottomNavigationBar
@@ -117,16 +117,8 @@ class _LandingPageState extends State<LandingPage>
       ),
       body: <Widget>
       [
-        // RegistrationsList(),
-        // EventsList(),
-        // DiscussionsList(),
-        // Profile(),
-        // SignUp(),
         ActivityCalendar(),
         EventsList(),
-        // NewSignUpScreen(),
-        // HomeScreen(),
-        // FinalSignInSignUp(),
         DiscussionsList(),
         Profile(),
       ][currentPageIndex],

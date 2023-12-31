@@ -86,7 +86,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
         print(e.toString());
       } 
       emit(AuthenticationLoadingState(isLoading: false));
-      emit(AuthenticationInitialState());
+      emit(AuthenticationSuccessfulSignOutState());
     });
   }
 }

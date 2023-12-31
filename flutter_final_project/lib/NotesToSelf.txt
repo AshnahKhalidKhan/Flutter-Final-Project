@@ -20,3 +20,32 @@ Help with custom color themes: https://blog.logrocket.com/dynamic-theme-switcher
 
 https://www.freecodecamp.org/news/set-up-firebase-cloud-messaging-in-flutter/
 
+
+- File folders, bloc hatana hai states etc dekho, firebase connect, UI fix
+
+
+- dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  firebase_core: ^2.24.2
+  cloud_firestore: ^4.13.6
+  firebase_auth: ^4.15.3
+  flutter_bloc: ^8.1.3
+  # golden_toolkit: ^0.15.0
+  equatable: ^2.0.5
+  intl: ^0.19.0
+  google_sign_in: ^6.2.1
+  characters: ^1.3.0
+  # rxdart: ^0.27.7
+  # google_maps_flutter: ^2.5.0
+
+- Authentication Bloc:
+Events:
+Loading, Error, CreateUser, UpdateUser, DeleteUser,
+Sign in with Google,
+ForgotPassword,
+SignOut,
+Get one user,
+Get list of all users that are members of a specific campus (for lead),
+Get list of all admins,

@@ -50,3 +50,15 @@ class EventsListErrorState extends EventsListState
   @override
   List<Object> get props => [error];
 }
+
+
+
+
+class AllEventsOfOneCampusUsingUserIdLoadedState extends EventsListState
+{
+  final Future<Stream<List<Event>>> event;
+  AllEventsOfOneCampusUsingUserIdLoadedState(this.event);
+
+  @override
+  List<Object> get props => [event];
+}

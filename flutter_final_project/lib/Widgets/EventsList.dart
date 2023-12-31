@@ -24,13 +24,12 @@ class EventsList extends StatefulWidget
 
 class _EventsListState extends State<EventsList> 
 {
-  final String x = '40characterslongemailofperson323436...';
 
   @override
   void initState() 
   {
     // BlocProvider.of<GDSCCampusesBloc>(context).add(ReadOneGDSCCampusEvent(FirebaseAuth.instance.currentUser!.uid));
-    BlocProvider.of<EventsListBloc>(context).add(ReadEventEvent(FirebaseAuth.instance.currentUser!.uid));
+    BlocProvider.of<EventsListBloc>(context).add(ReadAllEventsOfOneCampusUsingUserIdLoadedEvent(FirebaseAuth.instance.currentUser!.uid));
     super.initState();
   }
 
@@ -70,14 +69,6 @@ class _EventsListState extends State<EventsList>
       body: Padding
       (
         padding: EdgeInsets.all(10.0),
-        // child: ListView.builder
-        // (
-        //   itemCount: 10,
-        //   itemBuilder: (context, i)
-        //   {
-        //     return EventListTile(context);
-        //   }
-        // ),
         child: Column
         (
           children: 
@@ -94,33 +85,76 @@ class _EventsListState extends State<EventsList>
                 {
                   return Center(child: Text(state.error));
                 }
-                else if (state is EventsListSuccessOrLoadedState)
+                // else if (state is EventsListSuccessOrLoadedState)
+                // {
+                //   return StreamBuilder<List<Event>>
+                //   (
+                //     stream: state.event,
+                //     builder: (context, snapshot)
+                //     {
+                //       if (snapshot.hasError) 
+                //       {
+                //         return Text('Error: ${snapshot.error}');
+                //       } 
+                //       else if (snapshot.hasData)
+                //       {
+                //         List<Event>? events = snapshot.data;
+                //         return ListView.builder
+                //         (
+                //           itemCount: events!.length,
+                //           itemBuilder: (context, i)
+                //           {
+                //             // return EventListTile(context, events![i]);
+                //             return Text(events![i].eventName);
+                //           }
+                //         );
+                //       }
+                //       else
+                //       {
+                //         return Center(child: Text('Snapshot has no data.'));
+                //       }
+                //     }
+                //   );
+                // }
+                else if (state is AllEventsOfOneCampusUsingUserIdLoadedState)
                 {
-                  return StreamBuilder<List<Event>>
+                  return FutureBuilder
                   (
-                    stream: state.event,
+                    future: state.event, 
                     builder: (context, snapshot)
                     {
-                      if (snapshot.hasError) 
+                      if (snapshot.hasData)
                       {
-                        return Text('Error: ${snapshot.error}');
-                      } 
-                      else if (snapshot.hasData)
-                      {
-                        List<Event>? events = snapshot.data;
-                        return ListView.builder
+                        return StreamBuilder
                         (
-                          itemCount: events!.length,
-                          itemBuilder: (context, i)
+                          stream: snapshot.data, 
+                          builder: (context, event)
                           {
-                            // return EventListTile(context, events![i]);
-                            return Text(events![i].eventName);
+                            if (event.hasData)
+                            {
+                              return Expanded
+                              (
+                                child: ListView.builder
+                                (
+                                  itemCount: event.data!.length,
+                                  itemBuilder: (context, index) 
+                                  {
+                                    // return Text(event.data![index].eventName);
+                                    return EventListTile(context, event.data![index]);
+                                  }
+                                ),
+                              );
+                            }
+                            else
+                            {
+                              return Text('evnet.hasdata mein uch nahin araha');
+                            }
                           }
                         );
                       }
                       else
                       {
-                        return Center(child: Text('Snapshot has no data.'));
+                        return Text('snapshot.hasdata mein kuch nahin');
                       }
                     }
                   );
@@ -130,226 +164,10 @@ class _EventsListState extends State<EventsList>
                   return Center(child: Text('Unable to load events list at the moment. Please try later.'));
                 }
               },
-              // listener: (context, state) 
-              // {
-                
-              // },
-            ),
-            Expanded
-            (
-              // height: double.infinity,
-              child: ListView.builder
-              (
-                itemCount: 10,
-                itemBuilder: (context, i)
-                {
-                  return EventListTileDummy(context);
-                }
-              ),
             ),
           ],
         ),
-        // child: BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
-        // (
-        //   builder: (context, state)
-        //   {
-        //     if (state is GDSCLeadsMembersListLoadingState)
-        //     {
-        //       return Center(child: CircularProgressIndicator());
-        //     }
-        //     else if (state is GDSCLeadsMembersListErrorState)
-        //     {
-        //       return Center(child: Text(state.error));
-        //     }
-        //     else if (state is OneGDSCLeadsMembersListSuccessOrLoadedState)
-        //     {
-        //       return FutureBuilder
-        //       (
-        //         future: state.user, 
-        //         builder: (context, snapshot)
-        //         {
-        //           if (snapshot.hasError)
-        //           {
-        //             return Text(snapshot.error.toString());
-        //           }
-        //           else if (snapshot.hasData)
-        //           {
-        //             return Text(snapshot.data.toString());
-        //           }
-        //           else
-        //           {
-        //             return Text('No snapshot??');
-        //           }
-        //         }
-        //       );
-        //     }
-        //     else
-        //     {
-        //       return Text('No snapshot??');
-        //     }
-        //   }
-        // )
-        
       )
-    );
-  }
-
-  Padding EventListTileDummy(BuildContext context) 
-  {
-    return Padding
-    (
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: ListTile
-      (
-        shape: RoundedRectangleBorder
-        (
-          side: BorderSide
-          (
-            color: Theme.of(context).colorScheme.primary,
-            width: 2.0
-          ),
-          borderRadius: BorderRadius.circular(20.0)
-        ),
-        tileColor: Colors.white,
-        style: ListTileStyle.list,
-        title: Text
-        (
-          'Web Development Bootcamp',
-          style: TextStyle
-          (
-            fontSize: 20.0
-          ),
-        ),
-        subtitle: Row
-        (
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: 
-          [
-            Column
-            (
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              children: 
-              [
-                Text
-                (
-                  'December 12, 2023'.characters.take(25).toString(),
-                  style: TextStyle
-                  (
-                    fontSize: 15.0
-                  ),
-                ),
-                Text
-                (
-                  ('4:00 PM to 6:00 PM').characters.take(25).toString(),
-                  style: TextStyle
-                  (
-                    fontSize: 15.0
-                  ),
-                ),
-              ],
-            ),
-            IconButton
-            (
-              icon: Icon
-              (
-                Icons.keyboard_arrow_right_outlined,
-                size: 40.0,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              onPressed: () 
-              {
-                Navigator.push
-                (
-                  context,
-                  MaterialPageRoute(builder: (context) => const EventDetails())
-                );
-              },
-            ),
-          ],
-        ),
-        onTap: () 
-        {
-          EventTileBottomSheetDummy(context);
-        },
-      ),
-    );
-  }
-
-  Future<void> EventTileBottomSheetDummy(BuildContext context) 
-  {
-    return showModalBottomSheet<void>
-    (
-      context: context, 
-      isScrollControlled: true,
-      builder: (BuildContext context)
-      {
-        return SizedBox
-        (
-          width: double.infinity,
-          child: Padding
-          (
-            padding: EdgeInsets.all(10.0),
-            child: ListTile
-            (
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-              tileColor: Colors.white,
-              subtitle: Padding
-              (
-                padding: EdgeInsets.only(top: 20.0),
-                child: Column
-                (
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: 
-                  [
-                    EventInfoField(icon: Icons.star, text: 'Web Dvelopment Bootcamp'),
-                    SizedBox(height: 10.0),
-                    EventInfoField(icon: Icons.calendar_month_rounded, text: 'December 12, 2023'),
-                    SizedBox(height: 10.0),
-                    EventInfoField(icon: CupertinoIcons.time, text: '4:00 PM to 6:00 PM'),
-                    SizedBox(height: 10.0),
-                    EventInfoField(icon: Icons.location_pin, text: 'IBA Main Campus, MTC-4'),
-                    SizedBox(height: 10.0),
-                    GestureDetector
-                    (
-                      child: EventInfoField(icon: Icons.link_rounded, text: 'Click to copy Event Registration Link From Firebase'),
-                      onTap: ()
-                      {
-                        final copiedEventLinkSnackBarMessage = SnackBar
-                        (
-                          content: Text
-                          (
-                            'Link copied.',
-                            style: TextStyle
-                            (
-                              color: Colors.white,
-                              fontSize: 20.0
-                            ),
-                          ),
-                        );
-                        Clipboard.setData
-                        (
-                          ClipboardData
-                          (
-                            text: 'formlinGooglelink'
-                          )
-                        ).then((value)
-                        {
-                          Navigator.pop(context, 'BottomSheet');
-                          ScaffoldMessenger.of(context).showSnackBar(copiedEventLinkSnackBarMessage);
-                        });
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      }
     );
   }
 
@@ -393,7 +211,7 @@ class _EventsListState extends State<EventsList>
               [
                 Text
                 (
-                  event.date.characters.take(25).toString(),
+                  event.date,
                   style: TextStyle
                   (
                     fontSize: 15.0
@@ -401,7 +219,7 @@ class _EventsListState extends State<EventsList>
                 ),
                 Text
                 (
-                  (event.startTime + ' to ' + event.endTime).characters.take(25).toString(),
+                  (event.startTime + ' to ' + event.endTime),
                   style: TextStyle
                   (
                     fontSize: 15.0
@@ -419,10 +237,18 @@ class _EventsListState extends State<EventsList>
               ),
               onPressed: () 
               {
-                Navigator.push
+                // Navigator.push
+                // (
+                //   context,
+                //   MaterialPageRoute(builder: (context) => EventDetails())
+                // );
+                print('IconButton');
+                Navigator.pushNamedAndRemoveUntil
                 (
                   context,
-                  MaterialPageRoute(builder: (context) => const EventDetails())
+                  '/Event', 
+                  (route) => false,
+                  // arguments: event
                 );
               },
             ),
@@ -430,7 +256,7 @@ class _EventsListState extends State<EventsList>
         ),
         onTap: () 
         {
-          // EventTileBottomSheet(context, event);
+          EventTileBottomSheet(context, event);
         },
       ),
     );

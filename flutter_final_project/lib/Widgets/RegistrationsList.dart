@@ -11,7 +11,6 @@ class RegistrationsList extends StatefulWidget
 
 class _RegistrationsListState extends State<RegistrationsList> 
 {
-  final String x = '40characterslongemailofperson323436...';
 
   @override
   Widget build(BuildContext context) 
@@ -79,7 +78,7 @@ class _RegistrationsListState extends State<RegistrationsList>
         style: ListTileStyle.list,
         title: Text
         (
-          'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.characters.take(18).toString() + '...', 
+          'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
           style: TextStyle
           (
             fontSize: 20.0
@@ -87,7 +86,7 @@ class _RegistrationsListState extends State<RegistrationsList>
         ),
         subtitle: Text
         (
-          x.length <= 2 ? x : 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.characters.take(25).toString() + '...',
+          'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
           style: TextStyle
           (
             fontSize: 15.0

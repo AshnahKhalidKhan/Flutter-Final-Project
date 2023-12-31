@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/AuthenticationFlowScreen.dart';
 import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
 import 'package:flutter_final_project/Blocs/EventsListBloc.dart';
 import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
@@ -15,7 +14,8 @@ import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository
 import 'package:flutter_final_project/Core/Repositories/EventsListRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
-import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
+import 'package:flutter_final_project/Widgets/EventDetails.dart';
+import 'package:flutter_final_project/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:flutter_final_project/Widgets/AdminHomepage.dart';
 import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
 import 'package:flutter_final_project/Widgets/AdminPendingApproval.dart';
@@ -29,8 +29,7 @@ import 'package:flutter_final_project/Widgets/Gallery.dart';
 import 'package:flutter_final_project/Widgets/LandingPage.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
 import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
-import 'package:flutter_final_project/Widgets/SignUp.dart';
-import 'package:flutter_final_project/Widgets/SplashScreen.dart';
+import 'package:flutter_final_project/splash_screen/splash_screen.dart';
 import 'package:flutter_final_project/firebase_options.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -172,8 +171,9 @@ class MyApp extends StatelessWidget
                 initialRoute: '/',
                 routes: 
                 {
+                  // LandingPage.routeName: (context) => LandingPage(),
                   '/': (context) => SplashScreen(),
-                  '/LoginSignUp': (context) => const FinalSignInSignUp(),
+                  '/LoginSignUp': (context) => const SignInSignUp(),
                   '/AdminPendingRequest': (context) => const AdminPendingRequest(),
                   '/GDSCMembersPendingRequest': (context) => const GDSCMembersPendingRequest(),
                   '/GDSCLeadPendingRequest': (context) => const GDSCLeadPendingRequest(),
@@ -185,6 +185,8 @@ class MyApp extends StatelessWidget
                   '/Profile': (context) => const Profile(),
                   // '/ActivityCalendar': (context) => const ActivityCalendar(),
                   '/EventsList': (context) => const EventsList(),
+                  '/Event': (context) => EventDetails(),
+                  // '/Event': (context) => const EventDetails(),
                   // '/TasksList': (context) => const TasksList(),
                   // '/RegistrationsList': (context) => const RegistrationsList(),
                   // '/AttendeesList': (context) => const AttendeesList(),
@@ -381,7 +383,7 @@ class MyApp extends StatelessWidget
                 routes: 
                 {
                   '/': (context) => SplashScreen(),
-                  '/LoginSignUp': (context) => const FinalSignInSignUp(),
+                  '/LoginSignUp': (context) => const SignInSignUp(),
                   '/GDSCMembersPendingRequest': (context) => const GDSCMembersPendingRequest(),
                   '/GDSCLeadPendingRequest': (context) => const GDSCLeadPendingRequest(),
                   '/HomePage': (context) => const LandingPage(),

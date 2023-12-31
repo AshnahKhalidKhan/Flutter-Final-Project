@@ -9,365 +9,251 @@ import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListStates.dart';
 import 'package:flutter_final_project/Models/UserModel.dart';
 
-class AdminsList extends StatefulWidget 
-{
+class AdminsList extends StatefulWidget {
   const AdminsList({super.key});
 
   @override
   State<AdminsList> createState() => _AdminsListState();
 }
 
-class _AdminsListState extends State<AdminsList> 
-{
-
+class _AdminsListState extends State<AdminsList> {
   @override
-  void initState() 
-  {
-    BlocProvider.of<GDSCLeadsMembersListBloc>(context).add(ReadAllAdminsListEvent());
+  void initState() {
+    BlocProvider.of<GDSCLeadsMembersListBloc>(context)
+        .add(ReadAllAdminsListEvent());
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) 
-  {
-    return Scaffold
-    (
-      backgroundColor: Colors.white,
-      appBar: AppBar
-      (
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: Builder
-        (
-          builder: (BuildContext context) 
-          {
-            return IconButton
-            (
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: Builder(builder: (BuildContext context) {
+            return IconButton(
               icon: Icon(Icons.menu_rounded),
               color: Colors.white,
-              onPressed: () 
-              {
+              onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
             );
-          }
-        ),
-        title: const Text
-        (
-          'Admins', 
-          style: TextStyle
-          (
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30.0,
+          }),
+          title: const Text(
+            'Admins',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 30.0,
+            ),
           ),
         ),
-      ),
-      drawer: Drawer
-      (
-        backgroundColor: Colors.white,
-        child: ListView
-        (
-          padding: EdgeInsets.all(0.0),
-          children: 
-          [
-            DrawerHeader
-            (
-              child: SizedBox(width: 20.0),
-              decoration: BoxDecoration
-              (
-                image: DecorationImage
-                (
-                  image: AssetImage
-                  (
-                    'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png'
+        drawer: Drawer(
+          backgroundColor: Colors.white,
+          child: ListView(
+            padding: EdgeInsets.all(0.0),
+            children: [
+              DrawerHeader(
+                child: SizedBox(width: 20.0),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png'),
+                    fit: BoxFit.fitHeight,
                   ),
-                  fit: BoxFit.fitHeight,
+                  // gradient: LinearGradient(colors: [GoogleBlue, GoogleGreen, GoogleRed, GoogleYellow].toList())
                 ),
-                // gradient: LinearGradient(colors: [GoogleBlue, GoogleGreen, GoogleRed, GoogleYellow].toList())
               ),
-            ),
-            BlocConsumer<AuthenticationBloc, AuthenticationState>
-            (
-              builder: (context, state)
-              {
-                return ListTile
-                (
-                  // shape: RoundedRectangleBorder
-                  // (
-                  //   side: BorderSide
-                  //   (
-                  //     color: Theme.of(context).colorScheme.primary,
-                  //     width: 2.0,
-                  //   ),
-                  //   borderRadius: BorderRadius.circular(0.0)
-                  // ),
-                  // tileColor: Colors.white,
-                  leading: Icon
-                  (
-                    Icons.logout_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 30.0
-                  ),
-                  title: Text
-                  (
-                    'Sign Out',
-                    style: TextStyle
-                    (
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold
+              BlocConsumer<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  return ListTile(
+                    // shape: RoundedRectangleBorder
+                    // (
+                    //   side: BorderSide
+                    //   (
+                    //     color: Theme.of(context).colorScheme.primary,
+                    //     width: 2.0,
+                    //   ),
+                    //   borderRadius: BorderRadius.circular(0.0)
+                    // ),
+                    // tileColor: Colors.white,
+                    leading: Icon(Icons.logout_rounded,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 30.0),
+                    title: Text(
+                      'Sign Out',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  onTap:() 
-                  {
-                    BlocProvider.of<AuthenticationBloc>(context).add
-                    (
-                      AuthenticationSignOutEvent()
-                    );
-                  },
-                );
-              },
-              listener: (context, state) 
-              {
-                if (state is AuthenticationInitialState) 
-                {
-                  Navigator.pushNamedAndRemoveUntil
-                  (
-                    context,
-                    '/LoginSignUp',
-                    (route) => false,
+                    onTap: () {
+                      BlocProvider.of<AuthenticationBloc>(context)
+                          .add(AuthenticationSignOutEvent());
+                    },
                   );
-                }
-                else if (state is AuthenticationErrorState) 
-                {
-                  final signOutErrorSnackBarMessage = SnackBar
-                  (
-                    content: Text
-                    (
-                      state.error,
-                      style: TextStyle
-                      (
-                        color: Colors.white,
-                        fontSize: 20.0
+                },
+                listener: (context, state) {
+                  if (state is AuthenticationInitialState) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/LoginSignUp',
+                      (route) => false,
+                    );
+                  } else if (state is AuthenticationErrorState) {
+                    final signOutErrorSnackBarMessage = SnackBar(
+                      content: Text(
+                        state.error,
+                        style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
-                    ),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(signOutErrorSnackBarMessage);
-                }
-              },
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.large
-      (
-        onPressed: () {},
-        shape: CircleBorder(),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: AdminAddButton()
-      ),
-      body: Padding
-      (
-        padding: EdgeInsets.all(10.0),
-        child: BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>
-        (
-          builder: (context, state)
-          {
-            if (state is GDSCLeadsMembersListLoadingState)
-            {
-              return Center(child: CircularProgressIndicator());
-            }
-            else if (state is GDSCLeadsMembersListErrorState)
-            {
-              return Center(child: Text(state.error));
-            }
-            else if (state is GDSCLeadsMembersListSuccessOrLoadedState)
-            {
-              return StreamBuilder<List<AppUser>>
-              (
-                stream: state.user,
-                builder: (context, snapshot)
-                {
-                  if (snapshot.hasError) 
-                  {
-                    return Text('Error: ${snapshot.error}');
-                  } 
-                  else if (snapshot.hasData)
-                  {
-                    List<AppUser>? admines = snapshot.data;
-                    return ListView.builder
-                    (
-                      itemCount: admines!.length,
-                      itemBuilder: (context, i)
-                      {
-                        return AdminTile(context, admines![i]);
-                      }
                     );
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(signOutErrorSnackBarMessage);
                   }
-                  else
-                  {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                }
-              );
-            }
-            else
-            {
-              return Center(child: Text('Unable to load admines list at the moment. Please try later.'));
-            }
-          }
+                },
+              )
+            ],
+          ),
         ),
-      )
-    );
+        floatingActionButton: FloatingActionButton.large(
+            onPressed: () {},
+            shape: CircleBorder(),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            child: AdminAddButton()),
+        body: Padding(
+          padding: EdgeInsets.all(10.0),
+          child:
+              BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>(
+                  builder: (context, state) {
+            if (state is GDSCLeadsMembersListLoadingState) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is GDSCLeadsMembersListErrorState) {
+              return Center(child: Text(state.error));
+            } else if (state is GDSCLeadsMembersListSuccessOrLoadedState) {
+              return StreamBuilder<List<AppUser>>(
+                  stream: state.user,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      List<AppUser>? admines = snapshot.data;
+                      return ListView.builder(
+                          itemCount: admines!.length,
+                          itemBuilder: (context, i) {
+                            return AdminTile(context, admines![i]);
+                          });
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  });
+            } else {
+              return Center(
+                  child: Text(
+                      'Unable to load admines list at the moment. Please try later.'));
+            }
+          }),
+        ));
   }
 }
 
-class AdminAddButton extends StatelessWidget 
-{
-  const AdminAddButton
-  (
-    {
-      super.key
-    }
-  );
+class AdminAddButton extends StatelessWidget {
+  const AdminAddButton({super.key});
 
   @override
-  Widget build(BuildContext context) 
-  {
-    return IconButton
-    (
-      style: ButtonStyle
-      (
-        backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+  Widget build(BuildContext context) {
+    return IconButton(
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
         iconColor: MaterialStatePropertyAll(Colors.white),
       ),
       padding: EdgeInsets.all(20.0),
-      icon: Icon
-      (
-        Icons.add, 
-        size: 40.0
-      ),
-      onPressed: () async 
-      {
-        return showDialog<void>
-        (
+      icon: Icon(Icons.add, size: 40.0),
+      onPressed: () async {
+        return showDialog<void>(
           context: context,
           barrierDismissible: false,
-          builder: (BuildContext context) 
-          {
+          builder: (BuildContext context) {
             final TextEditingController adminName = TextEditingController();
             final TextEditingController adminEmail = TextEditingController();
             final TextEditingController adminLead = TextEditingController();
             final TextEditingController adminPassword = TextEditingController();
 
-            return AlertDialog
-            (
+            return AlertDialog(
               title: const Text('Add Admin'),
-              content: Column
-              (
+              content: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: 
-                [
-                  TextField
-                  (
+                children: [
+                  TextField(
                     controller: adminName,
-                    decoration: InputDecoration
-                    (
+                    decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person_2_rounded),
                       labelText: 'Name',
                     ),
-                    onChanged: (value)
-                    {
-
-                    },
+                    onChanged: (value) {},
                   ),
-                  TextField
-                  (
+                  TextField(
                     controller: adminEmail,
-                    decoration: InputDecoration
-                    (
+                    decoration: InputDecoration(
                       prefixIcon: Icon(Icons.email_rounded),
                       labelText: 'Email',
                     ),
-                    onChanged: (value)
-                    {
+                    onChanged: (value) {
                       //
                     },
                   ),
-                  TextField
-                  (
+                  TextField(
                     controller: adminPassword,
-                    decoration: InputDecoration
-                    (
-                      prefixIcon: Icon(Icons.lock_rounded),
-                      labelText: 'Password',
-                      error: Expanded
-                      (
-                        child: Text('Password must be at least 6 characters long.'),
-                      )
-                    ),
-                    onChanged: (value)
-                    {
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock_rounded),
+                        labelText: 'Password',
+                        error: Expanded(
+                          child: Text(
+                              'Password must be at least 6 characters long.'),
+                        )),
+                    onChanged: (value) {
                       //
                     },
                   ),
                 ],
               ),
-              actions: <Widget>
-              [
-                TextButton
-                (
+              actions: <Widget>[
+                TextButton(
                   child: const Text('Cancel'),
-                  onPressed: () 
-                  {
+                  onPressed: () {
                     Navigator.pop(context, 'Cancel');
                   },
                 ),
-                TextButton
-                (
+                TextButton(
                   child: const Text('Save'),
-                  onPressed: () 
-                  {
-                    if (adminPassword.text.length >= 6)
-                    {
-                      BlocProvider.of<AuthenticationBloc>(context).add
-                      (
-                        AuthenticationSignUpWithEmailEvent
-                        (
-                          adminName.text, adminEmail.text, adminPassword.text, 'Admin', ''
-                        )
-                      );
+                  onPressed: () {
+                    if (adminPassword.text.length >= 6) {
+                      BlocProvider.of<AuthenticationBloc>(context).add(
+                          AuthenticationSignUpWithEmailEvent(
+                              adminName.text,
+                              adminEmail.text,
+                              adminPassword.text,
+                              'Admin',
+                              ''));
                       Navigator.pop(context, 'Save');
-                      final addAdminSnackBarMessage = SnackBar
-                      (
-                        content: Text
-                        (
+                      final addAdminSnackBarMessage = SnackBar(
+                        content: Text(
                           'Admin added.',
-                          style: TextStyle
-                          (
-                            color: Colors.white,
-                            fontSize: 20.0
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
                         ),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(addAdminSnackBarMessage);
-                    }
-                    else
-                    {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(addAdminSnackBarMessage);
+                    } else {
                       // Navigator.pop(context, 'Save');
-                      final addAdminSnackBarMessage = SnackBar
-                      (
-                        content: Text
-                        (
+                      final addAdminSnackBarMessage = SnackBar(
+                        content: Text(
                           'Admin not added. Make sure all fields are filled and valid.',
-                          style: TextStyle
-                          (
-                            color: Colors.white,
-                            fontSize: 20.0
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
                         ),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(addAdminSnackBarMessage);
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(addAdminSnackBarMessage);
                     }
                   },
                 ),
@@ -375,57 +261,42 @@ class AdminAddButton extends StatelessWidget
             );
           },
         );
-      }, 
+      },
     );
   }
 }
 
-Padding AdminTile(BuildContext context, AppUser admin) 
-{
-  return Padding
-  (
+Padding AdminTile(BuildContext context, AppUser admin) {
+  return Padding(
     padding: const EdgeInsets.only(bottom: 10.0),
-    child: ListTile
-    (
-      shape: RoundedRectangleBorder
-      (
-        side: BorderSide
-        (
-          color: Theme.of(context).colorScheme.primary,
-          width: 2.0
-        ),
-        borderRadius: BorderRadius.circular(20.0)
-      ),
+    child: ListTile(
+      shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: Theme.of(context).colorScheme.primary, width: 2.0),
+          borderRadius: BorderRadius.circular(20.0)),
       tileColor: Colors.white,
       style: ListTileStyle.list,
-      title: Text
-      (
+      title: Text(
         admin.name,
-        style: TextStyle
-        (
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold
-        ),
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
       ),
-      subtitle: Column
-      (
+      subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: 
-        [
+        children: [
           AdminInfoField(icon: Icons.person_2_rounded, text: admin.name),
           SizedBox(height: 10.0),
           AdminInfoField(icon: Icons.email, text: admin.email),
           SizedBox(height: 10.0),
-          AdminInfoField(icon: Icons.verified_user_rounded, text: admin.approved! ? 'Approved' : 'Not approved'),
+          AdminInfoField(
+              icon: Icons.verified_user_rounded,
+              text: admin.approved! ? 'Approved' : 'Not approved'),
           SizedBox(height: 20.0),
           // AdminInfoField(icon: Icons.star_rounded, text: admin.lead.isEmpty ? 'No Lead assigned' : admin.lead),
-          Row
-          (
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: 
-            [
+            children: [
               AdminDeleteButton(user: admin),
               AdminEditButton(user: admin)
             ],
@@ -442,288 +313,201 @@ Padding AdminTile(BuildContext context, AppUser admin)
   );
 }
 
-class AdminInfoField extends StatelessWidget 
-{  
-  const AdminInfoField
-  (
-    {
-      super.key,
-      required this.icon,
-      required this.text,
-    }
-  );
+class AdminInfoField extends StatelessWidget {
+  const AdminInfoField({
+    super.key,
+    required this.icon,
+    required this.text,
+  });
 
   final IconData icon;
   final String text;
 
   @override
-  Widget build(BuildContext context) 
-  {
-    return Row
-    (
+  Widget build(BuildContext context) {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      children: 
-      [
-        Icon
-        (
-          icon,
-          size: 20.0,
-          color: Theme.of(context).colorScheme.primary
-        ),
+      children: [
+        Icon(icon, size: 20.0, color: Theme.of(context).colorScheme.primary),
         SizedBox(width: 10.0),
-        Expanded
-        (
-          child: Text
-          (
-            text,
-            style: TextStyle
-            (
-              fontSize: 15.0,
-              // color: Colors.black
-            ),
-          )
-        )
+        Expanded(
+            child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 15.0,
+            // color: Colors.black
+          ),
+        ))
       ],
     );
   }
 }
 
-class AdminDeleteButton extends StatelessWidget 
-{
-  AdminDeleteButton
-  (
-    {
-      super.key,
-      required this.user
-    }
-  );
+class AdminDeleteButton extends StatelessWidget {
+  AdminDeleteButton({super.key, required this.user});
 
   final AppUser user;
 
   @override
-  Widget build(BuildContext context) 
-  {
-    return IconButton
-    (
-      style: const ButtonStyle
-      (
+  Widget build(BuildContext context) {
+    return IconButton(
+      style: const ButtonStyle(
         iconColor: MaterialStatePropertyAll(Colors.grey),
       ),
       padding: EdgeInsets.all(20.0),
-      icon: Icon
-      (
-        Icons.delete, 
-        size: 30.0
-      ),
-      onPressed: () async 
-      {
-        return showDialog<void>
-        (
+      icon: Icon(Icons.delete, size: 30.0),
+      onPressed: () async {
+        return showDialog<void>(
           context: context,
           barrierDismissible: false,
-          builder: (BuildContext context) 
-          {
-            return AlertDialog
-            (
+          builder: (BuildContext context) {
+            return AlertDialog(
               title: const Text('Delete admin?'),
-              actions: <Widget>
-              [
-                TextButton
-                (
+              actions: <Widget>[
+                TextButton(
                   child: const Text('Cancel'),
-                  onPressed: () 
-                  {
+                  onPressed: () {
                     Navigator.pop(context, 'Cancel');
                   },
                 ),
-                TextButton
-                (
+                TextButton(
                   child: const Text('OK'),
-                  onPressed: () 
-                  {
-                    BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
-                    (
-                      DeleteGDSCLeadsMembersListEvent
-                      (
-                        user.id,
-                      )
-                    );
+                  onPressed: () {
+                    BlocProvider.of<GDSCLeadsMembersListBloc>(context)
+                        .add(DeleteGDSCLeadsMembersListEvent(
+                      user.id,
+                    ));
                     Navigator.pop(context, 'OK');
-                    final deleteAdminSnackBarMessage = SnackBar
-                    (
-                      content: Text
-                      (
+                    final deleteAdminSnackBarMessage = SnackBar(
+                      content: Text(
                         'Admin deleted.',
-                        style: TextStyle
-                        (
-                          color: Colors.white,
-                          fontSize: 20.0
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(deleteAdminSnackBarMessage);
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(deleteAdminSnackBarMessage);
                   },
                 ),
               ],
             );
           },
         );
-      }, 
+      },
     );
   }
 }
 
-class AdminEditButton extends StatefulWidget 
-{
+class AdminEditButton extends StatefulWidget {
   final AppUser user;
 
-  const AdminEditButton
-  (
-    {
-      super.key,
-      required this.user
-    }
-  );
+  const AdminEditButton({super.key, required this.user});
 
   @override
   State<AdminEditButton> createState() => _AdminEditButtonState();
 }
 
-class _AdminEditButtonState extends State<AdminEditButton> 
-{
+class _AdminEditButtonState extends State<AdminEditButton> {
   @override
-  Widget build(BuildContext context) 
-  {
-    AppUser updatedAdmin = AppUser
-    (
-      id: widget.user.id, 
-      name: widget.user.name, 
-      email: widget.user.email, 
-      role: widget.user.role, 
-      campus: widget.user.campus,
-      approved: widget.user.approved
-    );
-    return IconButton
-    (
-      style: ButtonStyle
-      (
-        backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
+  Widget build(BuildContext context) {
+    AppUser updatedAdmin = AppUser(
+        id: widget.user.id,
+        name: widget.user.name,
+        email: widget.user.email,
+        role: widget.user.role,
+        campus: widget.user.campus,
+        approved: widget.user.approved);
+    return IconButton(
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
         iconColor: MaterialStatePropertyAll(Colors.white),
       ),
       padding: EdgeInsets.all(20.0),
-      icon: Icon
-      (
-        Icons.edit, 
-        size: 30.0
-      ),
-      onPressed: () async 
-      {
-        return showDialog<void>
-        (
+      icon: Icon(Icons.edit, size: 30.0),
+      onPressed: () async {
+        return showDialog<void>(
           context: context,
           barrierDismissible: false,
-          builder: (BuildContext context) 
-          {
-            final TextEditingController name = TextEditingController(text: widget.user.name);
-            final TextEditingController email = TextEditingController(text: widget.user.email);
-            final TextEditingController approved = TextEditingController(text: widget.user.approved.toString());
+          builder: (BuildContext context) {
+            final TextEditingController name =
+                TextEditingController(text: widget.user.name);
+            final TextEditingController email =
+                TextEditingController(text: widget.user.email);
+            final TextEditingController approved =
+                TextEditingController(text: widget.user.approved.toString());
 
-            return AlertDialog
-            (
+            return AlertDialog(
               title: const Text('Edit Admin'),
-              content: Column
-              (
+              content: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: 
-                [
-                  TextField
-                  (
+                children: [
+                  TextField(
                     controller: name,
-                    decoration: InputDecoration
-                    (
+                    decoration: InputDecoration(
                       prefixIcon: Icon(Icons.person_2_rounded),
                       labelText: 'Name',
                     ),
-                    onChanged: (value)
-                    {
+                    onChanged: (value) {
                       updatedAdmin = updatedAdmin.copyWith(name: name.text);
                     },
                   ),
-                  TextField
-                  (
+                  TextField(
                     controller: email,
-                    decoration: InputDecoration
-                    (
+                    decoration: InputDecoration(
                       prefixIcon: Icon(Icons.email_rounded),
                       labelText: 'Email',
                     ),
-                    onChanged: (value)
-                    {
+                    onChanged: (value) {
                       updatedAdmin = updatedAdmin.copyWith(email: email.text);
                     },
                   ),
-                  TextField
-                  (
+                  TextField(
                     controller: approved,
-                    decoration: InputDecoration
-                    (
+                    decoration: InputDecoration(
                       prefixIcon: Icon(Icons.verified_user_rounded),
                       labelText: 'Approved',
                     ),
-                    onChanged: (value)
-                    {
-                      setState(() 
-                      {
-                        updatedAdmin = updatedAdmin.copyWith(approved: approved.text.toLowerCase().startsWith('true') ? true : false);
+                    onChanged: (value) {
+                      setState(() {
+                        updatedAdmin = updatedAdmin.copyWith(
+                            approved:
+                                approved.text.toLowerCase().startsWith('true')
+                                    ? true
+                                    : false);
                         // print(updatedAdmin.toString());
                       });
                     },
                   ),
                 ],
               ),
-              actions: <Widget>
-              [
-                TextButton
-                (
+              actions: <Widget>[
+                TextButton(
                   child: const Text('Cancel'),
-                  onPressed: () 
-                  {
+                  onPressed: () {
                     Navigator.pop(context, 'Cancel');
                   },
                 ),
-                TextButton
-                (
+                TextButton(
                   child: const Text('Save'),
-                  onPressed: () 
-                  {
-                    BlocProvider.of<GDSCLeadsMembersListBloc>(context).add
-                    (
-                      UpdateGDSCLeadsMembersListEvent
-                      (
-                        updatedAdmin
-                      )
-                    );
+                  onPressed: () {
+                    BlocProvider.of<GDSCLeadsMembersListBloc>(context)
+                        .add(UpdateGDSCLeadsMembersListEvent(updatedAdmin));
                     Navigator.pop(context, 'Save');
-                    final updateAdminSnackBarMessage = SnackBar
-                    (
-                      content: Text
-                      (
+                    final updateAdminSnackBarMessage = SnackBar(
+                      content: Text(
                         'Admin information updated.',
-                        style: TextStyle
-                        (
-                          color: Colors.white,
-                          fontSize: 20.0
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(updateAdminSnackBarMessage);
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(updateAdminSnackBarMessage);
                   },
                 ),
               ],
             );
           },
         );
-      }, 
+      },
     );
   }
 }

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_final_project/FinalSignInSignUpScreen.dart';
-import 'package:flutter_final_project/NewSignUpScreen.dart';
+import 'package:flutter_final_project/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:flutter_final_project/Widgets/AdminsList.dart';
 import 'package:flutter_final_project/Widgets/GDSCCampusesList.dart';
 import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/Widgets/Profile.dart';
-import 'package:flutter_final_project/Widgets/SignUp.dart';
 
 class AdminHomePage extends StatefulWidget 
 {
