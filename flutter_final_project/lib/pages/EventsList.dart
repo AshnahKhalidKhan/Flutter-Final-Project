@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListBloc.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListEvents.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListStates.dart';
@@ -26,9 +26,9 @@ class _EventsListState extends State<EventsList>
   @override
   void initState() 
   {
-    // BlocProvider.of<GDSCCampusesBloc>(context).add(ReadOneGDSCCampusEvent(FirebaseAuth.instance.currentUser!.uid));
+    // BlocProvider.of<GDSCCampusesBloc>(context).add(ReadOneGDSCCampusEvent(FirebaseAuth.instance.signedInUser!.uid));
     final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    final ArahahaiUser = authenticationBloc.currentUser;
+    final ArahahaiUser = authenticationBloc.signedInUser;
     BlocProvider.of<EventsListBloc>(context).add(ReadAllEventsOfOneCampusUsingUserIdLoadedEvent(ArahahaiUser!.campus!));
     super.initState();
   }
@@ -37,7 +37,7 @@ class _EventsListState extends State<EventsList>
   Widget build(BuildContext context) 
   {
     final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    final ArahahaiUser = authenticationBloc.currentUser;
+    final ArahahaiUser = authenticationBloc.signedInUser;
     return Scaffold
     (
       backgroundColor: Colors.white,

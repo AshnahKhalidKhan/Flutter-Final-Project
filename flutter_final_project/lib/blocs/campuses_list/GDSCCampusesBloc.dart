@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesEvents.dart';
 import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesStates.dart';
-import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
+import 'package:flutter_final_project/core/repositories/GDSCCampusesRepository.dart';
 import 'package:flutter_final_project/models/GDSCCampusModel.dart';
 
 class GDSCCampusesBloc extends Bloc<GDSCCampusesEvent, GDSCCampusesState> 

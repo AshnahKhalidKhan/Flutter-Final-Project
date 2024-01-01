@@ -7,35 +7,24 @@ abstract class AuthenticationState extends Equatable
   List<Object> get props => [];
 }
 
-class AuthenticationEmptyState extends AuthenticationState
-{
-  //Ye empty rahay ga
-}
-
 class AuthenticationInitialState extends AuthenticationState
 {
-  //Ye bhi empty rahay ga
+  //Profile page initial load
 }
 
 class AuthenticationLoadingState extends AuthenticationState
 {
-  final bool isLoading;
-  const AuthenticationLoadingState({required this.isLoading});
+  @override
+  List<Object> get props => [];
 }
 
-class AuthenticationSuccessOrLoadedState extends AuthenticationState
+class AuthenticationSuccessState extends AuthenticationState
 {
   final AppUser user;
-  const AuthenticationSuccessOrLoadedState(this.user);
+  const AuthenticationSuccessState(this.user);
 
   @override
   List<Object> get props => [user];
-}
-
-class AuthenticationSuccessfulSignOutState extends AuthenticationState
-{
-  @override
-  List<Object> get props => [];
 }
 
 class AuthenticationErrorState extends AuthenticationState
@@ -45,4 +34,18 @@ class AuthenticationErrorState extends AuthenticationState
 
   @override
   List<Object> get props => [error];
+}
+
+class AuthenticationPasswordResettedState extends AuthenticationState
+{
+  final String message;
+  const AuthenticationPasswordResettedState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class AuthenticationSignedOutState extends AuthenticationState
+{
+  //Profile page initial load
 }

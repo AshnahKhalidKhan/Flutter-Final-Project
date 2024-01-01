@@ -9,20 +9,22 @@ import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListState
 import 'package:flutter_final_project/models/GDSCCampusModel.dart';
 import 'package:flutter_final_project/models/UserModel.dart';
 import 'package:flutter_final_project/main.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationEvents.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationStates.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
 
-class GDSCLeadMembersPendingRequests extends StatefulWidget {
-  const GDSCLeadMembersPendingRequests({super.key});
+class LeadsList extends StatefulWidget {
+  const LeadsList({super.key});
 
   @override
-  State<GDSCLeadMembersPendingRequests> createState() =>
-      _GDSCLeadMembersPendingRequestsState();
+  State<LeadsList> createState() =>
+      _LeadsListState();
 }
 
-class _GDSCLeadMembersPendingRequestsState
-    extends State<GDSCLeadMembersPendingRequests>
+class _LeadsListState
+    extends State<LeadsList>
     with TickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -89,72 +91,7 @@ class _GDSCLeadMembersPendingRequestsState
           ),
         ),
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: ListView(
-          padding: EdgeInsets.all(0.0),
-          children: [
-            DrawerHeader(
-              child: SizedBox(width: 20.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png'),
-                  fit: BoxFit.fitHeight,
-                ),
-                // gradient: LinearGradient(colors: [GoogleBlue, GoogleGreen, GoogleRed, GoogleYellow].toList())
-              ),
-            ),
-            BlocConsumer<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                return ListTile(
-                  // shape: RoundedRectangleBorder
-                  // (
-                  //   side: BorderSide
-                  //   (
-                  //     color: Theme.of(context).colorScheme.primary,
-                  //     width: 2.0,
-                  //   ),
-                  //   borderRadius: BorderRadius.circular(0.0)
-                  // ),
-                  // tileColor: Colors.white,
-                  leading: Icon(Icons.logout_rounded,
-                      color: Theme.of(context).colorScheme.primary, size: 30.0),
-                  title: Text(
-                    'Sign Out',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onTap: () {
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(AuthenticationSignOutEvent());
-                  },
-                );
-              },
-              listener: (context, state) {
-                if (state is AuthenticationInitialState) {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    '/LoginSignUp',
-                    (route) => false,
-                  );
-                } else if (state is AuthenticationErrorState) {
-                  final signOutErrorSnackBarMessage = SnackBar(
-                    content: Text(
-                      state.error,
-                      style: TextStyle(color: Colors.white, fontSize: 20.0),
-                    ),
-                  );
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(signOutErrorSnackBarMessage);
-                }
-              },
-            )
-          ],
-        ),
-      ),
+      drawer: const MyDrawer(),
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[PendingLeads(), ApprovedLeads()],
@@ -222,21 +159,21 @@ class _PendingLeadsState extends State<PendingLeads> {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                LeadInfoField(
-                                    icon: Icons.email, text: users![i].email),
+                                ListTileIconTextInfo(
+                                    icon: Icons.email, info: users![i].email),
                                 SizedBox(height: 10.0),
                                 CampusNameField(campusId: users![i].campus),
                                 // SizedBox(height: 10.0),
-                                Row(
-                                  children: [
-                                    Spacer(),
-                                    ApprovalDecisionButton(user: users![i]),
-                                  ],
-                                ),
-                                SizedBox(height: 10.0),
+                                // Row(
+                                //   children: [
+                                //     Spacer(),
+                                //     ApprovalDecisionButton(user: users![i]),
+                                //   ],
+                                // ),
+                                users![i].campus!.isEmpty ? SizedBox(height: 10.0) : SizedBox(height: 0.0),
                               ],
                             ),
-                            // trailing: ApprovalDecisionButton(user: users![i]),
+                            trailing: ApprovalDecisionButton(user: users![i]),
                           ),
                         );
                       });
@@ -286,7 +223,7 @@ class _CampusNameFieldState extends State<CampusNameField> {
               String campus = item.data == null
                   ? 'Campus details unavailable.'
                   : item.data!.campusName.toString();
-              return LeadInfoField(icon: Icons.location_pin, text: campus);
+              return ListTileIconTextInfo(icon: Icons.location_pin, info: campus);
             });
       } else {
         return Center(child: CircularProgressIndicator());
@@ -343,7 +280,7 @@ class _ApprovedLeadsState extends State<ApprovedLeads> {
                                     width: 2.0),
                                 borderRadius: BorderRadius.circular(20.0)),
                             tileColor: Colors.white,
-                            style: ListTileStyle.list,
+                            // style: ListTileStyle.list,
                             title: Text(
                               users![i].name,
                               style: TextStyle(
@@ -354,20 +291,14 @@ class _ApprovedLeadsState extends State<ApprovedLeads> {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                LeadInfoField(
-                                    icon: Icons.email, text: users![i].email),
+                                ListTileIconTextInfo(
+                                    icon: Icons.email, info: users![i].email),
                                 SizedBox(height: 10.0),
                                 CampusNameField(campusId: users![i].campus),
-                                // SizedBox(height: 10.0),
-                                Row(
-                                  children: [
-                                    Spacer(),
-                                    ApprovalDecisionButton(user: users![i]),
-                                  ],
-                                ),
-                                SizedBox(height: 10.0),
+                                users![i].campus!.isEmpty ? SizedBox(height: 10.0) : SizedBox(height: 0.0),
                               ],
                             ),
+                            trailing: ApprovalDecisionButton(user: users![i]),
                           ),
                         );
                       });

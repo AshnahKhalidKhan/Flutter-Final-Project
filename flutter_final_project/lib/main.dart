@@ -3,16 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListBloc.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
 import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorBloc.dart';
 import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorStates.dart';
-import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
-import 'package:flutter_final_project/Core/Repositories/EventsListRepository.dart';
-import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
-import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
+import 'package:flutter_final_project/core/repositories/authentication_repository.dart';
+import 'package:flutter_final_project/core/repositories/EventsListRepository.dart';
+import 'package:flutter_final_project/core/repositories/GDSCCampusesRepository.dart';
+import 'package:flutter_final_project/core/repositories/GDSCLeadsMembersListRepository.dart';
 import 'package:flutter_final_project/pages/EventDetails.dart';
 import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
 import 'package:flutter_final_project/pages/AdminHomepage.dart';
@@ -24,7 +24,6 @@ import 'package:flutter_final_project/pages/GDSCCampusesList.dart';
 import 'package:flutter_final_project/pages/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/pages/GDSCLeadPendingApproval.dart';
 import 'package:flutter_final_project/pages/GDSCMembersPendingApproval.dart';
-import 'package:flutter_final_project/pages/Gallery.dart';
 import 'package:flutter_final_project/pages/LandingPage.dart';
 import 'package:flutter_final_project/pages/Profile.dart';
 import 'package:flutter_final_project/pages/RegistrationsList.dart';
@@ -179,7 +178,7 @@ class MyApp extends StatelessWidget
                   '/HomePage': (context) => const LandingPage(),
                   '/AdminHomePage': (context) => const AdminHomePage(),
                   '/CampusesList': (context) => const GDSCCampusesList(),
-                  '/GDSCLeadsPendingApprovalsList': (context) => const GDSCLeadMembersPendingRequests(),
+                  '/LeadsList': (context) => const LeadsList(),
                   '/AdminsList': (context) => const AdminsList(),
                   '/Profile': (context) => const Profile(),
                   // '/ActivityCalendar': (context) => const ActivityCalendar(),

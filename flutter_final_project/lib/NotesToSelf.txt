@@ -49,3 +49,69 @@ SignOut,
 Get one user,
 Get list of all users that are members of a specific campus (for lead),
 Get list of all admins,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Google Sign-in code for later:
+Future<AppUser?> signInWithGoogle
+  (
+    {
+      // required String name,
+      // required String email,
+      // required String password,
+      required String role,
+      String? campus
+    }
+  )
+  async
+  {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount == null) 
+    {
+      print('Error in AuthenticationRepository, signInWithGoogle.... googleSignInAccount == nulll');
+    }
+    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+    final AuthCredential authCredential = GoogleAuthProvider.credential
+    (
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken
+    );
+    try 
+    {
+      final UserCredential userCredential = await firebaseAuth.signInWithCredential(authCredential);
+      final User? signedInUser = userCredential.user;
+      final appUserFromFirebase = await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).get();
+      if (appUserFromFirebase.exists == false)
+      {
+        AppUser user = AppUser
+        (
+          id: signedInUser.uid,
+          name: signedInUser.displayName ?? '',
+          email: signedInUser.email ?? '',
+          role: role,
+          campus: campus,
+          approved: false
+        );
+        await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).set(user.toJson());
+        return user;
+      }
+    }
+    catch (e) 
+    {
+      throw Exception('Error signing in with Google: $e');
+    }
+  }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationEvents.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationStates.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 
 class GDSCLeadPendingRequest extends StatefulWidget {
   const GDSCLeadPendingRequest({super.key});

@@ -36,12 +36,12 @@ class _EventDetailsState extends State<EventDetails>
             //   // arguments: event
             //   ModalRoute.withName('/Homepage')
             // );
-            // Navigator.of(context).pop();
-            Navigator.popUntil
-            (
-              context,
-              ModalRoute.withName('/HomePage'),
-            );
+            Navigator.of(context).pop();
+            // Navigator.popUntil
+            // (
+            //   context,
+            //   ModalRoute.withName('/HomePage'),
+            // );
           },
         ),
         title: const Text

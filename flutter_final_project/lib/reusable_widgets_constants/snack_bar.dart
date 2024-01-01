@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 
-class MySnackBar extends StatelessWidget
+SnackBar MySnackBar(String snackBarMessage)
 {
-  final String snackBarMessage;
-  const MySnackBar({Key? key, required this.snackBarMessage}) : super(key: key);
-
-
-  @override
-  Widget build(BuildContext context) 
-  {
-    return SnackBar
+  return SnackBar
+  (
+    content: Text
     (
-      content: Text
+      snackBarMessage,
+      style: const TextStyle
       (
-        snackBarMessage,
-        style: const TextStyle
-        (
-          color: Colors.white,
-          fontSize: 20.0
-        ),
+        color: Colors.white,
+        fontSize: 20.0
       ),
-    );
-  }
+    ),
+  );
 }

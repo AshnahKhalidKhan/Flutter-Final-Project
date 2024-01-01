@@ -113,7 +113,7 @@ class _AdminHomePageState extends State<AdminHomePage>
       body: <Widget>
       [
         GDSCCampusesList(),
-        GDSCLeadMembersPendingRequests(),
+        LeadsList(),
         AdminsList(),
         Profile(),
       ][currentPageIndex],

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/discussions_list/DiscussionsEvents.dart';
 import 'package:flutter_final_project/blocs/discussions_list/DiscussionsStates.dart';
-import 'package:flutter_final_project/Core/Repositories/DiscussionsRepository.dart';
+import 'package:flutter_final_project/core/repositories/DiscussionsRepository.dart';
 import 'package:flutter_final_project/models/DiscussionsModel.dart';
 
 class DiscussionsBloc extends Bloc<DiscussionsEvent, DiscussionsState> 

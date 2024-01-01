@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationEvents.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationStates.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListStates.dart';
 import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
 
 class AdminsList extends StatefulWidget {
   const AdminsList({super.key});
@@ -28,93 +31,8 @@ class _AdminsListState extends State<AdminsList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          leading: Builder(builder: (BuildContext context) {
-            return IconButton(
-              icon: Icon(Icons.menu_rounded),
-              color: Colors.white,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            );
-          }),
-          title: const Text(
-            'Admins',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 30.0,
-            ),
-          ),
-        ),
-        drawer: Drawer(
-          backgroundColor: Colors.white,
-          child: ListView(
-            padding: EdgeInsets.all(0.0),
-            children: [
-              DrawerHeader(
-                child: SizedBox(width: 20.0),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png'),
-                    fit: BoxFit.fitHeight,
-                  ),
-                  // gradient: LinearGradient(colors: [GoogleBlue, GoogleGreen, GoogleRed, GoogleYellow].toList())
-                ),
-              ),
-              BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                builder: (context, state) {
-                  return ListTile(
-                    // shape: RoundedRectangleBorder
-                    // (
-                    //   side: BorderSide
-                    //   (
-                    //     color: Theme.of(context).colorScheme.primary,
-                    //     width: 2.0,
-                    //   ),
-                    //   borderRadius: BorderRadius.circular(0.0)
-                    // ),
-                    // tileColor: Colors.white,
-                    leading: Icon(Icons.logout_rounded,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 30.0),
-                    title: Text(
-                      'Sign Out',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onTap: () {
-                      BlocProvider.of<AuthenticationBloc>(context)
-                          .add(AuthenticationSignOutEvent());
-                    },
-                  );
-                },
-                listener: (context, state) {
-                  if (state is AuthenticationInitialState) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/LoginSignUp',
-                      (route) => false,
-                    );
-                  } else if (state is AuthenticationErrorState) {
-                    final signOutErrorSnackBarMessage = SnackBar(
-                      content: Text(
-                        state.error,
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
-                      ),
-                    );
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(signOutErrorSnackBarMessage);
-                  }
-                },
-              )
-            ],
-          ),
-        ),
+        appBar: const MyAppBar(pagename: 'Admins'),
+      drawer: const MyDrawer(),
         floatingActionButton: FloatingActionButton.large(
             onPressed: () {},
             shape: CircleBorder(),
@@ -285,13 +203,13 @@ Padding AdminTile(BuildContext context, AppUser admin) {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          AdminInfoField(icon: Icons.person_2_rounded, text: admin.name),
+          ListTileIconTextInfo(icon: Icons.person_2_rounded, info: admin.name),
           SizedBox(height: 10.0),
-          AdminInfoField(icon: Icons.email, text: admin.email),
+          ListTileIconTextInfo(icon: Icons.email, info: admin.email),
           SizedBox(height: 10.0),
-          AdminInfoField(
+          ListTileIconTextInfo(
               icon: Icons.verified_user_rounded,
-              text: admin.approved! ? 'Approved' : 'Not approved'),
+              info: admin.approved! ? 'Approved' : 'Not approved'),
           SizedBox(height: 20.0),
           // AdminInfoField(icon: Icons.star_rounded, text: admin.lead.isEmpty ? 'No Lead assigned' : admin.lead),
           Row(

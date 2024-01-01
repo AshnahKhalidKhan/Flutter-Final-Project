@@ -1,12 +1,3 @@
-/*
-  NOTE-TO-SELF:
-  - Sign up email
-  - Sign up google (??)
-  - Sign in email
-  - Sign in google
-  - Ask Sir: phone number authentication for Whatsapp??
-*/
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_final_project/models/UserModel.dart';
@@ -66,10 +57,7 @@ class AuthenticationRepository
     }
     catch (e) 
     {
-      print('Error in AuthenticationRepository, signUpWithEmail: $e');
-      // throw e;
-      // throw ('Error in AuthenticationRepository, signUpWithEmail: $e');
-      // throw Error();
+      throw Exception('Sign up failed. Please fill all fields accurately and try again:\n $e');
     }
   }
 
@@ -110,59 +98,29 @@ class AuthenticationRepository
     }
     catch (e) 
     {
-      print('Error in AuthenticationRepository, signInWithEmail: $e');
-      // throw Error();
+      throw Exception('Login failed. Please enter valid credentials and try again:\n $e');
     }
   }
 
-  Future<AppUser?> signInWithGoogle
+  Future<String> forgotPassword
   (
     {
-      // required String name,
-      // required String email,
-      // required String password,
-      required String role,
-      String? campus
+      required String email
     }
   )
   async
   {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-    if (googleSignInAccount == null) 
-    {
-      print('Error in AuthenticationRepository, signInWithGoogle.... googleSignInAccount == nulll');
-    }
-    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
-    final AuthCredential authCredential = GoogleAuthProvider.credential
-    (
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken
-    );
     try 
     {
-      final UserCredential userCredential = await firebaseAuth.signInWithCredential(authCredential);
-      final User? signedInUser = userCredential.user;
-      final appUserFromFirebase = await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).get();
-      if (appUserFromFirebase.exists == false)
-      {
-        AppUser user = AppUser
-        (
-          id: signedInUser.uid,
-          name: signedInUser.displayName ?? '',
-          email: signedInUser.email ?? '',
-          role: role,
-          campus: campus,
-          approved: false
-        );
-        await FirebaseFirestore.instance.collection('Users').doc(signedInUser!.uid).set(user.toJson());
-        return user;
-      }
+      await firebaseAuth.sendPasswordResetEmail
+      (
+        email: email
+      );
+      return 'A password reset link has been sent to your email address. Please follow the instructions in the email to reset your password.';
     }
     catch (e) 
     {
-      print('Error in AuthenticationRepository, signInWithGoogle: $e');
-      // throw Error();
+      throw Exception('Reset password failed. Please enter valid email and try again:\n $e');
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationEvents.dart';
-import 'package:flutter_final_project/blocs/authentication/AuthenticationStates.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
+import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/circle_progress_indicator.dart';
 
 class MyDrawer extends StatefulWidget 
@@ -54,7 +54,7 @@ class _MyDrawerState extends State<MyDrawer>
                 );
                 ScaffoldMessenger.of(context).showSnackBar(signOutErrorSnackBarMessage);
               }
-              else if (state is AuthenticationSuccessfulSignOutState)
+              else if (state is AuthenticationSignedOutState)
               {
                 Navigator.pushNamedAndRemoveUntil
                 (
