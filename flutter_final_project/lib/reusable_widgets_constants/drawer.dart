@@ -65,20 +65,16 @@ class _MyDrawerState extends State<MyDrawer>
               }
               else
               {
-                // return const Text('Signout not available at this moment.');
+                // return do nothing
               }
             },
             builder: (context, state)
             {
-              if (state is AuthenticationLoadingState)
-              {
-                return const MyCircularProgressIndicator();
-              }
-              else if (state is AuthenticationErrorState)
+              if (state is AuthenticationErrorState)
               {
                 return Text(state.error);
               }
-              else 
+              else
               {
                 return ListTile
                 (

@@ -49,71 +49,71 @@ class EventsListRepository
     }
   }
 
-  // Stream<List<Event>> readEventFunctionInEventRepositoryFile(String campusId) 
-  // {
-  //   try 
-  //   {
-  //     return FirebaseFirestore.instance.collection('Events').where('campusId', isEqualTo: campusId).snapshots().map
-  //     (
-  //       (querySnapshot) =>
-  //       querySnapshot.docs.map((e) => Event.fromSnapshot(e)).toList()
-  //     );
-  //   } 
-  //   catch (e) 
-  //   {
-  //     print('Error in EventRepository, readEvent: $e');
-  //     return Stream<List<Event>>.empty();
-  //   }
-  // }
-
-  Stream<List<Event>> readEventFunctionInEventRepositoryFile(String userId) 
+  Stream<List<Event>> readEventFunctionInEventRepositoryFile(String campusId) 
   {
     try 
     {
-      return FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: userId).snapshots().asyncMap((userSnapshot) async* 
-      {
-        if (userSnapshot.size == 0) 
-        {
-          yield []; // No user found, yield an empty list of events
-          return;
-        }
-        final userData = userSnapshot.docs.first.data() as Map<String, dynamic>;
-        final AppUser user = AppUser
-        (
-          id: userData['id'],
-          name: userData['name'],
-          email: userData['email'],
-          role: userData['role'],
-          campus: userData['campus'],
-          approved: userData['approved'],
-        );
-        final eventsSnapshot = await FirebaseFirestore.instance.collection('EventsList').where('campusId', isEqualTo: user.campus).get();
-        yield eventsSnapshot.docs.map((eventDoc) 
-        {
-          final eventData = eventDoc.data() as Map<String, dynamic>;
-          return Event
-          (
-            campusId: eventData['campusId'],
-            eventId: eventData['eventId'],
-            eventName: eventData['eventName'],
-            date: eventData['date'],
-            startTime: eventData['startTime'],
-            endTime: eventData['endTime'],
-            location: eventData['location'],
-            hashtags: List<String>.from(eventData['hashtags']),
-            registrationFormLink: eventData['registrationFormLink'],
-            streamingLink: eventData['streamingLink'],
-            whatsappGroupLink: eventData['whatsappGroupLink'],
-          );
-        }).toList();
-      } as FutureOr<List<Event>> Function(QuerySnapshot<Map<String, dynamic>> event));
-    }
+      return FirebaseFirestore.instance.collection('Events').where('campusId', isEqualTo: campusId).snapshots().map
+      (
+        (querySnapshot) =>
+        querySnapshot.docs.map((e) => Event.fromSnapshot(e)).toList()
+      );
+    } 
     catch (e) 
     {
       print('Error in EventRepository, readEvent: $e');
       return Stream<List<Event>>.empty();
     }
   }
+
+  // Stream<List<Event>> readEventFunctionInEventRepositoryFile(String userId) 
+  // {
+  //   try 
+  //   {
+  //     return FirebaseFirestore.instance.collection('Users').where('id', isEqualTo: userId).snapshots().asyncMap((userSnapshot) async* 
+  //     {
+  //       if (userSnapshot.size == 0) 
+  //       {
+  //         yield []; // No user found, yield an empty list of events
+  //         return;
+  //       }
+  //       final userData = userSnapshot.docs.first.data() as Map<String, dynamic>;
+  //       final AppUser user = AppUser
+  //       (
+  //         id: userData['id'],
+  //         name: userData['name'],
+  //         email: userData['email'],
+  //         role: userData['role'],
+  //         campus: userData['campus'],
+  //         approved: userData['approved'],
+  //       );
+  //       final eventsSnapshot = await FirebaseFirestore.instance.collection('EventsList').where('campusId', isEqualTo: user.campus).get();
+  //       yield eventsSnapshot.docs.map((eventDoc) 
+  //       {
+  //         final eventData = eventDoc.data() as Map<String, dynamic>;
+  //         return Event
+  //         (
+  //           campusId: eventData['campusId'],
+  //           eventId: eventData['eventId'],
+  //           eventName: eventData['eventName'],
+  //           date: eventData['date'],
+  //           startTime: eventData['startTime'],
+  //           endTime: eventData['endTime'],
+  //           location: eventData['location'],
+  //           hashtags: List<String>.from(eventData['hashtags']),
+  //           registrationFormLink: eventData['registrationFormLink'],
+  //           streamingLink: eventData['streamingLink'],
+  //           whatsappGroupLink: eventData['whatsappGroupLink'],
+  //         );
+  //       }).toList();
+  //     } as FutureOr<List<Event>> Function(QuerySnapshot<Map<String, dynamic>> event));
+  //   }
+  //   catch (e) 
+  //   {
+  //     print('Error in EventRepository, readEvent: $e');
+  //     return Stream<List<Event>>.empty();
+  //   }
+  // }
 
   Future<Stream<List<Event>>> readAllEventsOfOneCampusUsingUserIdOfMemberFunctionInRepositoryFile(String userId) async
   {

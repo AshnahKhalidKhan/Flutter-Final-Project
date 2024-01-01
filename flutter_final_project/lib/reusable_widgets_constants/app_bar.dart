@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-class MyAppBar extends StatelessWidget 
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget
 {
   final String pagename;
   const MyAppBar({Key? key, required this.pagename}) : super(key: key);
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) 

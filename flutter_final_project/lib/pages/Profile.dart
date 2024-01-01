@@ -66,16 +66,6 @@ class _ProfileState extends State<Profile> {
             BlocConsumer<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 return ListTile(
-                  // shape: RoundedRectangleBorder
-                  // (
-                  //   side: BorderSide
-                  //   (
-                  //     color: Theme.of(context).colorScheme.primary,
-                  //     width: 2.0,
-                  //   ),
-                  //   borderRadius: BorderRadius.circular(0.0)
-                  // ),
-                  // tileColor: Colors.white,
                   leading: Icon(Icons.logout_rounded,
                       color: Theme.of(context).colorScheme.primary, size: 30.0),
                   title: Text(

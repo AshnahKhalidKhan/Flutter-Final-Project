@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationEvents.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationStates.dart';
 import 'package:flutter_final_project/pages/RegistrationsList.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 
 class DiscussionsList extends StatefulWidget 
@@ -13,26 +18,19 @@ class DiscussionsList extends StatefulWidget
 class _DiscussionsListState extends State<DiscussionsList> 
 {
   @override
+  void initState() 
+  {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) 
   {
     return Scaffold
     (
       backgroundColor: Colors.white,
-      appBar: AppBar
-      (
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text
-        (
-          'Discussions', 
-          style: TextStyle
-          (
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30.0,
-          ),
-        ),
-      ),
-      drawer: MyDrawer(),
+      appBar: const MyAppBar(pagename: 'Discussions'),
+      drawer: const MyDrawer(),
       body: Padding
       (
         padding: EdgeInsets.all(10.0),

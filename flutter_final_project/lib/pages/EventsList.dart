@@ -10,6 +10,7 @@ import 'package:flutter_final_project/blocs/events_list/EventsListEvents.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListStates.dart';
 import 'package:flutter_final_project/models/EventModel.dart';
 import 'package:flutter_final_project/pages/EventDetails.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/snack_bar.dart';
 
 class EventsList extends StatefulWidget 
 {
@@ -26,7 +27,9 @@ class _EventsListState extends State<EventsList>
   void initState() 
   {
     // BlocProvider.of<GDSCCampusesBloc>(context).add(ReadOneGDSCCampusEvent(FirebaseAuth.instance.currentUser!.uid));
-    BlocProvider.of<EventsListBloc>(context).add(ReadAllEventsOfOneCampusUsingUserIdLoadedEvent(FirebaseAuth.instance.currentUser!.uid));
+    final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    final ArahahaiUser = authenticationBloc.currentUser;
+    BlocProvider.of<EventsListBloc>(context).add(ReadAllEventsOfOneCampusUsingUserIdLoadedEvent(ArahahaiUser!.campus!));
     super.initState();
   }
 
@@ -90,86 +93,92 @@ class _EventsListState extends State<EventsList>
                 {
                   return Center(child: Text(state.error));
                 }
-                // else if (state is EventsListSuccessOrLoadedState)
-                // {
-                //   return StreamBuilder<List<Event>>
-                //   (
-                //     stream: state.event,
-                //     builder: (context, snapshot)
-                //     {
-                //       if (snapshot.hasError) 
-                //       {
-                //         return Text('Error: ${snapshot.error}');
-                //       } 
-                //       else if (snapshot.hasData)
-                //       {
-                //         List<Event>? events = snapshot.data;
-                //         return ListView.builder
-                //         (
-                //           itemCount: events!.length,
-                //           itemBuilder: (context, i)
-                //           {
-                //             // return EventListTile(context, events![i]);
-                //             return Text(events![i].eventName);
-                //           }
-                //         );
-                //       }
-                //       else
-                //       {
-                //         return Center(child: Text('Snapshot has no data.'));
-                //       }
-                //     }
-                //   );
-                // }
                 else if (state is AllEventsOfOneCampusUsingUserIdLoadedState)
                 {
-                  return FutureBuilder
+                  return StreamBuilder<List<Event>>
                   (
-                    future: state.event, 
+                    stream: state.event,
                     builder: (context, snapshot)
                     {
-                      if (snapshot.hasData)
+                      if (snapshot.hasError) 
                       {
-                        return StreamBuilder
+                        return Text('Error: ${snapshot.error}');
+                      } 
+                      else if (snapshot.hasData)
+                      {
+                        return Expanded
                         (
-                          stream: snapshot.data, 
-                          builder: (context, event)
-                          {
-                            if (event.hasData)
+                          child: ListView.builder
+                          (
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) 
                             {
-                              return Expanded
-                              (
-                                child: ListView.builder
-                                (
-                                  itemCount: event.data!.length,
-                                  itemBuilder: (context, index) 
-                                  {
-                                    // return Text(event.data![index].eventName);
-                                    return EventListTile(context, event.data![index]);
-                                  }
-                                ),
-                              );
+                              return EventListTile(context, snapshot.data![index]);
                             }
-                            else
-                            {
-                              return Text('evnet.hasdata mein uch nahin araha');
-                            }
-                          }
+                          ),
                         );
                       }
                       else
                       {
-                        return Text('snapshot.hasdata mein kuch nahin');
+                        return Center(child: Text('Snapshot has no data.'));
                       }
                     }
                   );
                 }
                 else
                 {
-                  return Center(child: Text('Unable to load events list at the moment. Please try later.'));
+                  return Text('Not working');
                 }
+            //     else if (state is AllEventsOfOneCampusUsingUserIdLoadedState)
+            //     {
+            //       return FutureBuilder
+            //       (
+            //         future: state.event, 
+            //         builder: (context, snapshot)
+            //         {
+            //           if (snapshot.hasData)
+            //           {
+            //             return StreamBuilder
+            //             (
+            //               stream: snapshot.data, 
+            //               builder: (context, event)
+            //               {
+            //                 if (event.hasData)
+            //                 {
+            //                   return Expanded
+            //                   (
+            //                     child: ListView.builder
+            //                     (
+            //                       itemCount: event.data!.length,
+            //                       itemBuilder: (context, index) 
+            //                       {
+            //                         // return Text(event.data![index].eventName);
+            //                         return EventListTile(context, event.data![index]);
+            //                       }
+            //                     ),
+            //                   );
+            //                 }
+            //                 else
+            //                 {
+            //                   return Text('evnet.hasdata mein uch nahin araha');
+            //                 }
+            //               }
+            //             );
+            //           }
+            //           else
+            //           {
+            //             return Text('snapshot.hasdata mein kuch nahin');
+            //           }
+            //         }
+            //       );
+            //     }
+            //     else
+            //     {
+            //       return Center(child: Text('Unable to load events list at the moment. Please try later.'));
+            //     }
               },
             ),
+            
           ],
         ),
       )
@@ -682,7 +691,8 @@ class EventDeleteButton extends StatelessWidget
                         ),
                       ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(deleteEventSnackBarMessage);
+                    // final deleteEventSnackBarMessage = MySnackBar(snackBarMessage: 'Event deleted');
+                    ScaffoldMessenger.of(context).showSnackBar(deleteEventSnackBarMessage as SnackBar);
                   },
                 ),
               ],

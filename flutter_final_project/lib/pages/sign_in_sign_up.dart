@@ -7,6 +7,7 @@ import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart'
 import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesEvents.dart';
 import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesStates.dart';
 import 'package:flutter_final_project/models/GDSCCampusModel.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/snack_bar.dart';
 
 class SignInSignUp extends StatefulWidget 
 {
@@ -280,19 +281,20 @@ class _LoginTabState extends State<LoginTab>
                 }
                 else if (state is AuthenticationErrorState) 
                 {
-                  final signInErrorSnackBarMessage = SnackBar
-                  (
-                    content: Text
-                    (
-                      state.error,
-                      style: TextStyle
-                      (
-                        color: Colors.white,
-                        fontSize: 20.0
-                      ),
-                    ),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(signInErrorSnackBarMessage);
+                  // final signInErrorSnackBarMessage = SnackBar
+                  // (
+                  //   content: Text
+                  //   (
+                  //     state.error,
+                  //     style: TextStyle
+                  //     (
+                  //       color: Colors.white,
+                  //       fontSize: 20.0
+                  //     ),
+                  //   ),
+                  // );
+                  final signInErrorSnackBarMessage = MySnackBar(snackBarMessage: state.error);
+                  ScaffoldMessenger.of(context).showSnackBar(signInErrorSnackBarMessage as SnackBar);
                 }
               }
             ),

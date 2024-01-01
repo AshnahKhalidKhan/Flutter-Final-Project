@@ -59,12 +59,27 @@ class EventsListBloc extends Bloc<EventsListEvent, EventsListState>
       }
     });
 
+    // on<ReadAllEventsOfOneCampusUsingUserIdLoadedEvent>((event, emit) 
+    // {
+    //   try 
+    //   {
+    //     emit(EventsListLoadingState());
+    //     Future<Stream<List<Event>>> streamResponse = eventListRepository.readAllEventsOfOneCampusUsingUserIdOfMemberFunctionInRepositoryFile(event.userId);
+    //     // print(streamResponse.toString());
+    //     emit(AllEventsOfOneCampusUsingUserIdLoadedState(streamResponse));
+    //   } 
+    //   catch(e) 
+    //   {
+    //     emit(const EventsListErrorState('Event loading/reading failed.'));
+    //   }
+    // });
+
     on<ReadAllEventsOfOneCampusUsingUserIdLoadedEvent>((event, emit) 
     {
       try 
       {
         emit(EventsListLoadingState());
-        Future<Stream<List<Event>>> streamResponse = eventListRepository.readAllEventsOfOneCampusUsingUserIdOfMemberFunctionInRepositoryFile(event.userId);
+        Stream<List<Event>> streamResponse = eventListRepository.readEventFunctionInEventRepositoryFile(event.userId);
         // print(streamResponse.toString());
         emit(AllEventsOfOneCampusUsingUserIdLoadedState(streamResponse));
       } 

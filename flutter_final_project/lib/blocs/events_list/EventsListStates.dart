@@ -56,8 +56,8 @@ class EventsListErrorState extends EventsListState
 
 class AllEventsOfOneCampusUsingUserIdLoadedState extends EventsListState
 {
-  final Future<Stream<List<Event>>> event;
-  AllEventsOfOneCampusUsingUserIdLoadedState(this.event);
+  final Stream<List<Event>> event;
+  const AllEventsOfOneCampusUsingUserIdLoadedState(this.event);
 
   @override
   List<Object> get props => [event];
