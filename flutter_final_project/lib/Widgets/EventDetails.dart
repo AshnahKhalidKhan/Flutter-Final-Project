@@ -28,7 +28,20 @@ class _EventDetailsState extends State<EventDetails>
           color: Colors.white,
           onPressed: ()
           {
-            Navigator.pop(context);
+            // Navigator.popUntil
+            // (
+            //   context,
+            //   // '/EventsList', 
+            //   // (route) => false,
+            //   // arguments: event
+            //   ModalRoute.withName('/Homepage')
+            // );
+            // Navigator.of(context).pop();
+            Navigator.popUntil
+            (
+              context,
+              ModalRoute.withName('/HomePage'),
+            );
           },
         ),
         title: const Text
