@@ -18,9 +18,6 @@ class _GDSCLeadPendingRequestState extends State<GDSCLeadPendingRequest> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          leading: BackButton(
-            color: Colors.white,
-          ),
           title: const Text(
             'Pending Approval',
             style: TextStyle(

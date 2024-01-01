@@ -7,10 +7,6 @@ import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListStates.dart';
 import 'package:flutter_final_project/models/user_model.dart';
-import 'package:flutter_final_project/main.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
 
@@ -159,13 +155,6 @@ class _PendingLeadsState extends State<PendingLeads> {
                                     icon: Icons.email, info: users![i].email),
                                 SizedBox(height: 10.0),
                                 CampusNameField(campusId: users![i].campus),
-                                // SizedBox(height: 10.0),
-                                // Row(
-                                //   children: [
-                                //     Spacer(),
-                                //     ApprovalDecisionButton(user: users![i]),
-                                //   ],
-                                // ),
                                 users![i].campus!.isEmpty
                                     ? SizedBox(height: 10.0)
                                     : SizedBox(height: 0.0),

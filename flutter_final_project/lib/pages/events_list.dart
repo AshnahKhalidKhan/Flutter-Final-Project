@@ -9,7 +9,7 @@ import 'package:flutter_final_project/blocs/events_list/EventsListBloc.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListEvents.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListStates.dart';
 import 'package:flutter_final_project/models/event_model.dart';
-import 'package:flutter_final_project/pages/EventDetails.dart';
+import 'package:flutter_final_project/pages/event_details.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/snack_bar.dart';
 
 class EventsList extends StatefulWidget {
@@ -22,7 +22,6 @@ class EventsList extends StatefulWidget {
 class _EventsListState extends State<EventsList> {
   @override
   void initState() {
-    // BlocProvider.of<CampusesBloc>(context).add(ReadOneCampusEvent(FirebaseAuth.instance.signedInUser!.uid));
     final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
     final ArahahaiUser = authenticationBloc.signedInUser;
     BlocProvider.of<EventsListBloc>(context).add(

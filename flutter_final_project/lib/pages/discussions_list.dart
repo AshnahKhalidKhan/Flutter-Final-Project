@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
-import 'package:flutter_final_project/pages/RegistrationsList.dart';
+import 'package:flutter_final_project/pages/registrations_list.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 

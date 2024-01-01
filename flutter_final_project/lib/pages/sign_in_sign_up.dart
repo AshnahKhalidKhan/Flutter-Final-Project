@@ -41,7 +41,7 @@ class _SignInSignUpState extends State<SignInSignUp>
         title: SizedBox(
           height: 150,
           child: Image.asset(
-            'lib/Assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png',
+            'lib/assets/Google_Pocket_App_Logo_-_Edited-removebg-preview.png',
             width: 150,
             height: 150,
           ),
@@ -164,8 +164,7 @@ class _LoginTabState extends State<LoginTab> {
                   },
                 ),
                 SizedBox(height: 200.0),
-                GestureDetector
-                (
+                GestureDetector(
                   child: Text(
                     'Forgot Password?',
                     style: TextStyle(
@@ -173,12 +172,9 @@ class _LoginTabState extends State<LoginTab> {
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold),
                   ),
-                  onTap: () 
-                  {
+                  onTap: () {
                     BlocProvider.of<AuthenticationBloc>(context).add(
-                      AuthenticationForgotPasswordEvent(
-                        emailInput.text.trim()
-                      ),
+                      AuthenticationForgotPasswordEvent(emailInput.text.trim()),
                     );
                   },
                 )
@@ -236,25 +232,17 @@ class _LoginTabState extends State<LoginTab> {
                 );
               }
             } else if (state is AuthenticationErrorState) {
-              final signInErrorSnackBarMessage = SnackBar
-              (
-                content: Text
-                (
+              final signInErrorSnackBarMessage = SnackBar(
+                content: Text(
                   state.error,
-                  style: TextStyle
-                  (
-                    color: Colors.white,
-                    fontSize: 20.0
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
                 ),
               );
               // final signInErrorSnackBarMessage =
               //     MySnackBar(snackBarMessage: state.error);
               ScaffoldMessenger.of(context)
                   .showSnackBar(signInErrorSnackBarMessage as SnackBar);
-            }
-            else if (state is AuthenticationPasswordResettedState)
-            {
+            } else if (state is AuthenticationPasswordResettedState) {
               final SnackBar passwordResetMessageSnackBarMessage =
                   MySnackBar(state.message);
               ScaffoldMessenger.of(context)
@@ -324,8 +312,7 @@ class _SignUpTabState extends State<SignUpTab> {
       padding: EdgeInsets.all(20.0),
       child: SingleChildScrollView(
         child: Column(children: [
-          BlocBuilder<CampusesBloc, CampusesState>(
-              builder: (context, state) {
+          BlocBuilder<CampusesBloc, CampusesState>(builder: (context, state) {
             if (state is CampusesLoadingState) {
               return Center(child: CircularProgressIndicator());
             } else if (state is CampusesErrorState) {

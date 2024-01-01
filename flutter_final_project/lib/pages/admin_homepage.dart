@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
 import 'package:flutter_final_project/pages/admins_list.dart';
 import 'package:flutter_final_project/pages/campuses_list.dart';
-import 'package:flutter_final_project/pages/GDSCLeadMembersPendingRequests.dart';
+import 'package:flutter_final_project/pages/leads_list.dart';
 import 'package:flutter_final_project/pages/profile.dart';
 
 class AdminHomePage extends StatefulWidget {

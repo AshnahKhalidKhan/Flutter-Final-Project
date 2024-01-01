@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/models/event_model.dart';
-import 'package:flutter_final_project/pages/RegistrationsList.dart';
+import 'package:flutter_final_project/pages/registrations_list.dart';
 
 class EventDetails extends StatefulWidget 
 {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_final_project/pages/ActivityCalendar.dart';
-import 'package:flutter_final_project/pages/DiscussionsList.dart';
-import 'package:flutter_final_project/pages/EventsList.dart';
+import 'package:flutter_final_project/pages/activity_calendar.dart';
+import 'package:flutter_final_project/pages/discussions_list.dart';
+import 'package:flutter_final_project/pages/events_list.dart';
 import 'package:flutter_final_project/pages/profile.dart';
 
 class LandingPage extends StatefulWidget 
