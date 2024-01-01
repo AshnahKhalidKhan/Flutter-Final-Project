@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_final_project/core/repositories/GDSCLeadsMembersListRepository.dart';
-import 'package:flutter_final_project/models/EventModel.dart';
-import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/models/event_model.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 
 class EventsListRepository {
   final FirebaseFirestore firebaseFirestore;

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class GDSCCampus 
+class Campus 
 {
   final String campusId;
   final String campusName;
@@ -14,7 +14,7 @@ class GDSCCampus
   // final String? linkedInEmail;
   // final String? linkedInPassword;
 
-  const GDSCCampus
+  const Campus
   (
     {
       required this.campusId,
@@ -46,9 +46,9 @@ class GDSCCampus
     // 'linkedInPassword': linkedInPassword
   };
 
-  static GDSCCampus fromJson(Map<String, dynamic> json) 
+  static Campus fromJson(Map<String, dynamic> json) 
   {
-    return GDSCCampus
+    return Campus
     (
       campusId: json['campusId'],
       campusName: json['campusName'], 
@@ -64,28 +64,28 @@ class GDSCCampus
     );
   }
 
-  factory GDSCCampus.fromDoc(DocumentSnapshot GDSCCampusDoc)
+  factory Campus.fromDoc(DocumentSnapshot CampusDoc)
   {
-    final GDSCCampusData = GDSCCampusDoc.data() as Map<String, dynamic>?;
-    return GDSCCampus
+    final CampusData = CampusDoc.data() as Map<String, dynamic>?;
+    return Campus
     (
-      campusId: GDSCCampusData!['campusId'],
-      campusName: GDSCCampusData!['campusName'], 
-      email: GDSCCampusData!['email'], 
-      location: GDSCCampusData!['location'],
-      lead: GDSCCampusData!['lead'], 
-      // facebookEmail: GDSCCampusData!['facebookEmail'],
-      // facebookPassword: GDSCCampusData!['facebookPassword'],
-      // instagramEmail: GDSCCampusData!['instagramEmail'],
-      // instagramPassword: GDSCCampusData!['instagramPassword'],
-      // linkedInEmail: GDSCCampusData!['linkedInEmail'],
-      // linkedInPassword: GDSCCampusData!['linkedInPassword']
+      campusId: CampusData!['campusId'],
+      campusName: CampusData!['campusName'], 
+      email: CampusData!['email'], 
+      location: CampusData!['location'],
+      lead: CampusData!['lead'], 
+      // facebookEmail: CampusData!['facebookEmail'],
+      // facebookPassword: CampusData!['facebookPassword'],
+      // instagramEmail: CampusData!['instagramEmail'],
+      // instagramPassword: CampusData!['instagramPassword'],
+      // linkedInEmail: CampusData!['linkedInEmail'],
+      // linkedInPassword: CampusData!['linkedInPassword']
     );
   }
 
-  factory GDSCCampus.initial()
+  factory Campus.initial()
   {
-    return const GDSCCampus
+    return const Campus
     (
       campusId: '',
       campusName: '', 
@@ -112,7 +112,7 @@ class GDSCCampus
     return [campusId, campusName, email, location, lead];
   }
   
-  GDSCCampus copyWith
+  Campus copyWith
   (
     {
       String? campusId,
@@ -129,7 +129,7 @@ class GDSCCampus
     }
   )
   {
-    return GDSCCampus
+    return Campus
     (
       campusId: campusId ?? this.campusId,
       campusName: campusName ?? this.campusName,
@@ -145,9 +145,9 @@ class GDSCCampus
     );
   }
 
-  static GDSCCampus fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) 
+  static Campus fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) 
   {
-    return GDSCCampus
+    return Campus
     (
       campusId: snapshot['campusId'],
       campusName: snapshot['campusName'], 

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListEvents.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListStates.dart';
 import 'package:flutter_final_project/core/repositories/EventsListRepository.dart';
-import 'package:flutter_final_project/models/EventModel.dart';
+import 'package:flutter_final_project/models/event_model.dart';
 
 class EventsListBloc extends Bloc<EventsListEvent, EventsListState> {
   final EventsListRepository eventListRepository;

@@ -4,7 +4,7 @@ import 'package:flutter_final_project/blocs/authentication/authentication_bloc.d
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 import 'package:flutter_final_project/core/repositories/authentication_repository.dart';
-import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 import 'package:mockito/mockito.dart';
 
 // class MockAuthenticationRepository extends Mock implements AuthenticationRepository {}

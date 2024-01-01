@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
 import 'package:flutter_final_project/pages/ActivityCalendar.dart';
 import 'package:flutter_final_project/pages/DiscussionsList.dart';
 import 'package:flutter_final_project/pages/EventsList.dart';
 import 'package:flutter_final_project/pages/profile.dart';
-import 'package:flutter_final_project/pages/RegistrationsList.dart';
-import 'package:flutter_final_project/main.dart';
 
 class LandingPage extends StatefulWidget 
 {
   const LandingPage({super.key});
-  // static const routeName = '/extractArguments';
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -22,9 +18,7 @@ class _LandingPageState extends State<LandingPage>
 
   @override
   Widget build(BuildContext context) 
-  {
-    // final args = ModalRoute.of(context)!.settings.arguments as ScreenArgumentsNeededToPass;
-    
+  {   
     return Scaffold
     (
       bottomNavigationBar: BottomNavigationBar
@@ -33,27 +27,25 @@ class _LandingPageState extends State<LandingPage>
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        selectedIconTheme: IconThemeData
+        selectedIconTheme: const IconThemeData
         (
-          // color: Theme.of(context).colorScheme.primary,
           color: Colors.white
         ),
-        selectedLabelStyle: TextStyle
+        selectedLabelStyle: const TextStyle
         (
-          // color: Theme.of(context).colorScheme.primary,
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 15.0
         ),
-        unselectedIconTheme: IconThemeData
+        unselectedIconTheme: const IconThemeData
         (
           color: Colors.white
         ),
-        unselectedLabelStyle: TextStyle
+        unselectedLabelStyle: const TextStyle
         (
           color: Colors.white,
         ),
-        items: <BottomNavigationBarItem>
+        items: const <BottomNavigationBarItem>
         [
           BottomNavigationBarItem
           (
@@ -64,7 +56,6 @@ class _LandingPageState extends State<LandingPage>
               child: Icon
               (
                 Icons.calendar_month_rounded,
-                // color: Colors.white,
               ),
             ),
           ),
@@ -89,7 +80,6 @@ class _LandingPageState extends State<LandingPage>
               child: Icon
               (
                 Icons.message_rounded,
-                // color: Colors.white,
               ),
             ),
           ),
@@ -115,7 +105,7 @@ class _LandingPageState extends State<LandingPage>
           });
         },
       ),
-      body: <Widget>
+      body: const <Widget>
       [
         ActivityCalendar(),
         EventsList(),

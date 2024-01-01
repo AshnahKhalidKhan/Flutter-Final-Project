@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 import 'package:flutter_final_project/core/repositories/authentication_repository.dart';
-import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 {

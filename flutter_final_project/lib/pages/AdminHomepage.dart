@@ -1,118 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
-import 'package:flutter_final_project/pages/AdminsList.dart';
-import 'package:flutter_final_project/pages/GDSCCampusesList.dart';
+import 'package:flutter_final_project/pages/admins_list.dart';
+import 'package:flutter_final_project/pages/campuses_list.dart';
 import 'package:flutter_final_project/pages/GDSCLeadMembersPendingRequests.dart';
 import 'package:flutter_final_project/pages/profile.dart';
 
-class AdminHomePage extends StatefulWidget 
-{
+class AdminHomePage extends StatefulWidget {
   const AdminHomePage({super.key});
 
   @override
   State<AdminHomePage> createState() => _AdminHomePageState();
 }
 
-class _AdminHomePageState extends State<AdminHomePage> 
-{
+class _AdminHomePageState extends State<AdminHomePage> {
   int currentPageIndex = 0;
 
   @override
-  Widget build(BuildContext context) 
-  {
-    return Scaffold
-    (
-      bottomNavigationBar: BottomNavigationBar
-      (
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
         useLegacyColorScheme: false,
         type: BottomNavigationBarType.fixed,
         showUnselectedLabels: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
-        selectedIconTheme: IconThemeData
-        (
-          // color: Theme.of(context).colorScheme.primary,
-          color: Colors.white
-        ),
-        selectedLabelStyle: TextStyle
-        (
-          // color: Theme.of(context).colorScheme.primary,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 15.0
-        ),
-        unselectedIconTheme: IconThemeData
-        (
-          color: Colors.white
-        ),
-        unselectedLabelStyle: TextStyle
-        (
+        selectedIconTheme: IconThemeData(
+            // color: Theme.of(context).colorScheme.primary,
+            color: Colors.white),
+        selectedLabelStyle: TextStyle(
+            // color: Theme.of(context).colorScheme.primary,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 15.0),
+        unselectedIconTheme: IconThemeData(color: Colors.white),
+        unselectedLabelStyle: TextStyle(
           color: Colors.white,
         ),
-        items: <BottomNavigationBarItem>
-        [
-          BottomNavigationBarItem
-          (
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
             label: 'Campuses',
-            icon: Badge
-            (
+            icon: Badge(
               isLabelVisible: false,
-              child: Icon
-              (
+              child: Icon(
                 Icons.school_rounded,
                 // color: Colors.white,
               ),
             ),
           ),
-          BottomNavigationBarItem
-          (
+          BottomNavigationBarItem(
             label: 'Leads',
-            icon: Badge
-            (
+            icon: Badge(
               isLabelVisible: false,
-              child: Icon
-              (
+              child: Icon(
                 Icons.star_rounded,
               ),
             ),
           ),
-          BottomNavigationBarItem
-          (
+          BottomNavigationBarItem(
             label: 'Admins',
-            icon: Badge
-            (
+            icon: Badge(
               isLabelVisible: false,
-              child: Icon
-              (
+              child: Icon(
                 Icons.admin_panel_settings_rounded,
                 // color: Colors.white,
               ),
             ),
           ),
-          BottomNavigationBarItem
-          (
+          BottomNavigationBarItem(
             label: 'Profile',
-            icon: Badge
-            (
+            icon: Badge(
               isLabelVisible: false,
-              child: Icon
-              (
+              child: Icon(
                 Icons.person_2_rounded,
               ),
             ),
           ),
         ],
         currentIndex: currentPageIndex,
-        onTap: (index)
-        {
-          setState(() 
-          {
+        onTap: (index) {
+          setState(() {
             currentPageIndex = index;
           });
         },
       ),
-      body: <Widget>
-      [
-        GDSCCampusesList(),
+      body: <Widget>[
+        CampusesList(),
         LeadsList(),
         AdminsList(),
         Profile(),

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesEvents.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesStates.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_bloc.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_events.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_states.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListStates.dart';
-import 'package:flutter_final_project/models/GDSCCampusModel.dart';
-import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 import 'package:flutter_final_project/main.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
@@ -19,13 +18,10 @@ class LeadsList extends StatefulWidget {
   const LeadsList({super.key});
 
   @override
-  State<LeadsList> createState() =>
-      _LeadsListState();
+  State<LeadsList> createState() => _LeadsListState();
 }
 
-class _LeadsListState
-    extends State<LeadsList>
-    with TickerProviderStateMixin {
+class _LeadsListState extends State<LeadsList> with TickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
@@ -170,7 +166,9 @@ class _PendingLeadsState extends State<PendingLeads> {
                                 //     ApprovalDecisionButton(user: users![i]),
                                 //   ],
                                 // ),
-                                users![i].campus!.isEmpty ? SizedBox(height: 10.0) : SizedBox(height: 0.0),
+                                users![i].campus!.isEmpty
+                                    ? SizedBox(height: 10.0)
+                                    : SizedBox(height: 0.0),
                               ],
                             ),
                             trailing: ApprovalDecisionButton(user: users![i]),
@@ -203,27 +201,27 @@ class CampusNameField extends StatefulWidget {
 class _CampusNameFieldState extends State<CampusNameField> {
   @override
   void initState() {
-    BlocProvider.of<GDSCCampusesBloc>(context)
-        .add(ReadOneGDSCCampusEvent(widget.campusId));
+    BlocProvider.of<CampusesBloc>(context)
+        .add(ReadOneCampusEvent(widget.campusId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GDSCCampusesBloc, GDSCCampusesState>(
-        builder: (context, state) {
-      if (state is GDSCCampusesLoadingState) {
+    return BlocBuilder<CampusesBloc, CampusesState>(builder: (context, state) {
+      if (state is CampusesLoadingState) {
         return Center(child: CircularProgressIndicator());
-      } else if (state is GDSCCampusesErrorState) {
+      } else if (state is CampusesErrorState) {
         return Center(child: Text(state.error));
-      } else if (state is OneGDSCCampusSuccessOrLoadedState) {
+      } else if (state is OneCampusSuccessOrLoadedState) {
         return FutureBuilder(
             future: state.campus,
             builder: (context, item) {
               String campus = item.data == null
                   ? 'Campus details unavailable.'
                   : item.data!.campusName.toString();
-              return ListTileIconTextInfo(icon: Icons.location_pin, info: campus);
+              return ListTileIconTextInfo(
+                  icon: Icons.location_pin, info: campus);
             });
       } else {
         return Center(child: CircularProgressIndicator());
@@ -295,7 +293,9 @@ class _ApprovedLeadsState extends State<ApprovedLeads> {
                                     icon: Icons.email, info: users![i].email),
                                 SizedBox(height: 10.0),
                                 CampusNameField(campusId: users![i].campus),
-                                users![i].campus!.isEmpty ? SizedBox(height: 10.0) : SizedBox(height: 0.0),
+                                users![i].campus!.isEmpty
+                                    ? SizedBox(height: 10.0)
+                                    : SizedBox(height: 0.0),
                               ],
                             ),
                             trailing: ApprovalDecisionButton(user: users![i]),

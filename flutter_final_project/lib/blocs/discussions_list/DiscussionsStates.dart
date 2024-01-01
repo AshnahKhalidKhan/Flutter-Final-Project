@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_final_project/models/DiscussionsModel.dart';
+import 'package:flutter_final_project/models/discussion_model.dart';
 
 abstract class DiscussionsState extends Equatable
 {

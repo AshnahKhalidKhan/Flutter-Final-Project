@@ -5,7 +5,7 @@ import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListEvent
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListStates.dart';
 
 import 'package:flutter_final_project/core/repositories/GDSCLeadsMembersListRepository.dart';
-import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 
 class GDSCLeadsMembersListBloc
     extends Bloc<GDSCLeadsMembersListEvent, GDSCLeadsMembersListState> {

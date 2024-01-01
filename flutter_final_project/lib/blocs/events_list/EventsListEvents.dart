@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_final_project/models/EventModel.dart';
+import 'package:flutter_final_project/models/event_model.dart';
 
 abstract class EventsListEvent extends Equatable
 {

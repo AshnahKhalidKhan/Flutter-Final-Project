@@ -1,30 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesEvents.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesStates.dart';
-import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
-import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListStates.dart';
-import 'package:flutter_final_project/models/GDSCCampusModel.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_bloc.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_events.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_states.dart';
+import 'package:flutter_final_project/models/campus_model.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
 
-class GDSCCampusesList extends StatefulWidget {
-  const GDSCCampusesList({super.key});
+class CampusesList extends StatefulWidget {
+  const CampusesList({super.key});
 
   @override
-  State<GDSCCampusesList> createState() => _GDSCCampusesListState();
+  State<CampusesList> createState() => _CampusesListState();
 }
 
-class _GDSCCampusesListState extends State<GDSCCampusesList> {
+class _CampusesListState extends State<CampusesList> {
   @override
   void initState() {
-    BlocProvider.of<GDSCCampusesBloc>(context).add(ReadAllGDSCCampusesEvent());
+    BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
     super.initState();
   }
 
@@ -33,32 +28,32 @@ class _GDSCCampusesListState extends State<GDSCCampusesList> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: const MyAppBar(pagename: 'Campuses'),
-      drawer: const MyDrawer(),
+        drawer: const MyDrawer(),
         floatingActionButton: FloatingActionButton.large(
             onPressed: () {},
             shape: CircleBorder(),
             backgroundColor: Theme.of(context).colorScheme.primary,
-            child: GDSCCampusAddButton()),
+            child: CampusAddButton()),
         body: Padding(
           padding: EdgeInsets.all(10.0),
-          child: BlocBuilder<GDSCCampusesBloc, GDSCCampusesState>(
+          child: BlocBuilder<CampusesBloc, CampusesState>(
               builder: (context, state) {
-            if (state is GDSCCampusesLoadingState) {
+            if (state is CampusesLoadingState) {
               return Center(child: CircularProgressIndicator());
-            } else if (state is GDSCCampusesErrorState) {
+            } else if (state is CampusesErrorState) {
               return Center(child: Text(state.error));
-            } else if (state is GDSCCampusesSuccessOrLoadedState) {
-              return StreamBuilder<List<GDSCCampus>>(
+            } else if (state is CampusesSuccessOrLoadedState) {
+              return StreamBuilder<List<Campus>>(
                   stream: state.campus,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else if (snapshot.hasData) {
-                      List<GDSCCampus>? campuses = snapshot.data;
+                      List<Campus>? campuses = snapshot.data;
                       return ListView.builder(
                           itemCount: campuses!.length,
                           itemBuilder: (context, i) {
-                            return GDSCCampusListTile(context, campuses![i]);
+                            return CampusListTile(context, campuses![i]);
                           });
                     } else {
                       return Center(child: CircularProgressIndicator());
@@ -73,7 +68,7 @@ class _GDSCCampusesListState extends State<GDSCCampusesList> {
         ));
   }
 
-  Padding GDSCCampusListTile(BuildContext context, GDSCCampus campus) {
+  Padding CampusListTile(BuildContext context, Campus campus) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: ListTile(
@@ -110,14 +105,14 @@ class _GDSCCampusesListState extends State<GDSCCampusesList> {
           color: Theme.of(context).colorScheme.primary,
         ),
         onTap: () {
-          GDSCCampusTileBottomSheet(context, campus);
+          CampusTileBottomSheet(context, campus);
         },
       ),
     );
   }
 
-  Future<void> GDSCCampusTileBottomSheet(
-      BuildContext context, GDSCCampus campus) {
+  Future<void> CampusTileBottomSheet(
+      BuildContext context, Campus campus) {
     return showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
@@ -136,17 +131,18 @@ class _GDSCCampusesListState extends State<GDSCCampusesList> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ListTileIconTextInfo(icon: Icons.school_rounded, info: campus.campusName),
-                      GDSCCampusInfoField(
+                      ListTileIconTextInfo(
+                          icon: Icons.school_rounded, info: campus.campusName),
+                      CampusInfoField(
                           icon: Icons.school_rounded, text: campus.campusName),
                       SizedBox(height: 10.0),
-                      GDSCCampusInfoField(
+                      CampusInfoField(
                           icon: Icons.email, text: campus.email),
                       SizedBox(height: 10.0),
-                      GDSCCampusInfoField(
+                      CampusInfoField(
                           icon: Icons.location_pin, text: campus.location),
                       SizedBox(height: 10.0),
-                      GDSCCampusInfoField(
+                      CampusInfoField(
                           icon: Icons.star_rounded,
                           text: campus.lead.isEmpty
                               ? 'No Lead assigned'
@@ -155,8 +151,8 @@ class _GDSCCampusesListState extends State<GDSCCampusesList> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GDSCCampusDeleteButton(campus: campus),
-                          GDSCCampusEditButton(campus: campus)
+                          CampusDeleteButton(campus: campus),
+                          CampusEditButton(campus: campus)
                         ],
                       ),
                     ],
@@ -169,8 +165,8 @@ class _GDSCCampusesListState extends State<GDSCCampusesList> {
   }
 }
 
-class GDSCCampusAddButton extends StatelessWidget {
-  const GDSCCampusAddButton({super.key});
+class CampusAddButton extends StatelessWidget {
+  const CampusAddButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -251,18 +247,18 @@ class GDSCCampusAddButton extends StatelessWidget {
                 TextButton(
                   child: const Text('Save'),
                   onPressed: () {
-                    BlocProvider.of<GDSCCampusesBloc>(context).add(
-                        CreateGDSCCampusEvent(campusName.text, campusEmail.text,
+                    BlocProvider.of<CampusesBloc>(context).add(
+                        CreateCampusEvent(campusName.text, campusEmail.text,
                             campusLocation.text));
                     Navigator.pop(context, 'Save');
-                    final updateGDSCCampusSnackBarMessage = SnackBar(
+                    final updateCampusSnackBarMessage = SnackBar(
                       content: Text(
-                        'GDSCCampus added.',
+                        'Campus added.',
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     );
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(updateGDSCCampusSnackBarMessage);
+                        .showSnackBar(updateCampusSnackBarMessage);
                   },
                 ),
               ],
@@ -274,19 +270,19 @@ class GDSCCampusAddButton extends StatelessWidget {
   }
 }
 
-class GDSCCampusEditButton extends StatefulWidget {
-  final GDSCCampus campus;
+class CampusEditButton extends StatefulWidget {
+  final Campus campus;
 
-  const GDSCCampusEditButton({super.key, required this.campus});
+  const CampusEditButton({super.key, required this.campus});
 
   @override
-  State<GDSCCampusEditButton> createState() => _GDSCCampusEditButtonState();
+  State<CampusEditButton> createState() => _CampusEditButtonState();
 }
 
-class _GDSCCampusEditButtonState extends State<GDSCCampusEditButton> {
+class _CampusEditButtonState extends State<CampusEditButton> {
   @override
   Widget build(BuildContext context) {
-    GDSCCampus updatedCampus = GDSCCampus(
+    Campus updatedCampus = Campus(
         campusId: widget.campus.campusId,
         campusName: widget.campus.campusName,
         email: widget.campus.email,
@@ -378,18 +374,18 @@ class _GDSCCampusEditButtonState extends State<GDSCCampusEditButton> {
                 TextButton(
                   child: const Text('Save'),
                   onPressed: () {
-                    BlocProvider.of<GDSCCampusesBloc>(context)
-                        .add(UpdateGDSCCampusEvent(updatedCampus));
+                    BlocProvider.of<CampusesBloc>(context)
+                        .add(UpdateCampusEvent(updatedCampus));
                     Navigator.pop(context, 'Save');
                     Navigator.pop(context, 'BottomSheet');
-                    final updateGDSCCampusSnackBarMessage = SnackBar(
+                    final updateCampusSnackBarMessage = SnackBar(
                       content: Text(
-                        'GDSCCampus information updated.',
+                        'Campus information updated.',
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     );
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(updateGDSCCampusSnackBarMessage);
+                        .showSnackBar(updateCampusSnackBarMessage);
                   },
                 ),
               ],
@@ -401,10 +397,10 @@ class _GDSCCampusEditButtonState extends State<GDSCCampusEditButton> {
   }
 }
 
-class GDSCCampusDeleteButton extends StatelessWidget {
-  GDSCCampusDeleteButton({super.key, required this.campus});
+class CampusDeleteButton extends StatelessWidget {
+  CampusDeleteButton({super.key, required this.campus});
 
-  final GDSCCampus campus;
+  final Campus campus;
 
   @override
   Widget build(BuildContext context) {
@@ -431,20 +427,20 @@ class GDSCCampusDeleteButton extends StatelessWidget {
                 TextButton(
                   child: const Text('OK'),
                   onPressed: () {
-                    BlocProvider.of<GDSCCampusesBloc>(context)
-                        .add(DeleteGDSCCampusEvent(
+                    BlocProvider.of<CampusesBloc>(context)
+                        .add(DeleteCampusEvent(
                       campus.campusId,
                     ));
                     Navigator.pop(context, 'OK');
                     Navigator.pop(context, 'BottomSheet');
-                    final deleteGDSCCampusSnackBarMessage = SnackBar(
+                    final deleteCampusSnackBarMessage = SnackBar(
                       content: Text(
-                        'GDSCCampus deleted.',
+                        'Campus deleted.',
                         style: TextStyle(color: Colors.white, fontSize: 20.0),
                       ),
                     );
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(deleteGDSCCampusSnackBarMessage);
+                        .showSnackBar(deleteCampusSnackBarMessage);
                   },
                 ),
               ],
@@ -456,8 +452,8 @@ class GDSCCampusDeleteButton extends StatelessWidget {
   }
 }
 
-class GDSCCampusInfoField extends StatelessWidget {
-  const GDSCCampusInfoField({
+class CampusInfoField extends StatelessWidget {
+  const CampusInfoField({
     super.key,
     required this.icon,
     required this.text,
@@ -486,32 +482,32 @@ class GDSCCampusInfoField extends StatelessWidget {
   }
 }
 
-class CampusInfoField extends StatelessWidget {
-  const CampusInfoField({
-    super.key,
-    required this.icon,
-    required this.text,
-  });
+// class CampusInfoField extends StatelessWidget {
+//   const CampusInfoField({
+//     super.key,
+//     required this.icon,
+//     required this.text,
+//   });
 
-  final IconData icon;
-  final String text;
+//   final IconData icon;
+//   final String text;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Icon(icon, size: 20.0, color: Theme.of(context).colorScheme.primary),
-        SizedBox(width: 10.0),
-        Expanded(
-            child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 15.0,
-            // color: Colors.black
-          ),
-        ))
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       children: [
+//         Icon(icon, size: 20.0, color: Theme.of(context).colorScheme.primary),
+//         SizedBox(width: 10.0),
+//         Expanded(
+//             child: Text(
+//           text,
+//           style: TextStyle(
+//             fontSize: 15.0,
+//             // color: Colors.black
+//           ),
+//         ))
+//       ],
+//     );
+//   }
+// }

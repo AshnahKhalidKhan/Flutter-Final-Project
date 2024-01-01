@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesEvents.dart';
-import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesStates.dart';
-import 'package:flutter_final_project/models/GDSCCampusModel.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_bloc.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_events.dart';
+import 'package:flutter_final_project/blocs/campuses_list/campuses_list_states.dart';
+import 'package:flutter_final_project/models/campus_model.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/snack_bar.dart';
 
 class SignInSignUp extends StatefulWidget {
@@ -311,7 +311,7 @@ class _SignUpTabState extends State<SignUpTab> {
 
   @override
   void initState() {
-    BlocProvider.of<GDSCCampusesBloc>(context).add(ReadAllGDSCCampusesEvent());
+    BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
     super.initState();
   }
 
@@ -324,20 +324,20 @@ class _SignUpTabState extends State<SignUpTab> {
       padding: EdgeInsets.all(20.0),
       child: SingleChildScrollView(
         child: Column(children: [
-          BlocBuilder<GDSCCampusesBloc, GDSCCampusesState>(
+          BlocBuilder<CampusesBloc, CampusesState>(
               builder: (context, state) {
-            if (state is GDSCCampusesLoadingState) {
+            if (state is CampusesLoadingState) {
               return Center(child: CircularProgressIndicator());
-            } else if (state is GDSCCampusesErrorState) {
+            } else if (state is CampusesErrorState) {
               return Center(child: Text(state.error));
-            } else if (state is GDSCCampusesSuccessOrLoadedState) {
-              return StreamBuilder<List<GDSCCampus>>(
+            } else if (state is CampusesSuccessOrLoadedState) {
+              return StreamBuilder<List<Campus>>(
                   stream: state.campus,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else if (snapshot.hasData) {
-                      List<GDSCCampus>? campuses = snapshot.data;
+                      List<Campus>? campuses = snapshot.data;
                       campusEntries = campuses!
                           .map<DropdownMenuEntry<String>>(
                             (campus) => DropdownMenuEntry<String>(

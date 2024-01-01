@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
-import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListEvents.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListStates.dart';
-import 'package:flutter_final_project/models/UserModel.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/circle_progress_indicator.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
 
@@ -44,7 +44,7 @@ class _AdminsListState extends State<AdminsList> {
               BlocBuilder<GDSCLeadsMembersListBloc, GDSCLeadsMembersListState>(
                   builder: (context, state) {
             if (state is GDSCLeadsMembersListLoadingState) {
-              return Center(child: CircularProgressIndicator());
+              return const MyCircularProgressIndicator();
             } else if (state is GDSCLeadsMembersListErrorState) {
               return Center(child: Text(state.error));
             } else if (state is GDSCLeadsMembersListSuccessOrLoadedState) {
