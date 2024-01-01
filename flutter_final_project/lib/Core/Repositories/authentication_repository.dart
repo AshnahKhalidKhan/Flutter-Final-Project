@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_final_project/models/UserModel.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository 
 {
@@ -20,7 +19,14 @@ class AuthenticationRepository
   
   Future<void> signOut() async 
   {
-    await firebaseAuth.signOut();
+    try 
+    {
+      await firebaseAuth.signOut();
+    }
+    catch (e) 
+    {
+      throw Exception('Unable to signout. Please try again.\n $e');
+    }
   }
 
   Future<AppUser?> signUpWithEmail
@@ -57,7 +63,7 @@ class AuthenticationRepository
     }
     catch (e) 
     {
-      throw Exception('Sign up failed. Please fill all fields accurately and try again:\n $e');
+      throw Exception('Sign up failed. Please fill all fields accurately and try again.\n $e');
     }
   }
 
@@ -98,7 +104,7 @@ class AuthenticationRepository
     }
     catch (e) 
     {
-      throw Exception('Login failed. Please enter valid credentials and try again:\n $e');
+      throw Exception('Login failed. Please enter valid credentials and try again.\n $e');
     }
   }
 
@@ -120,7 +126,7 @@ class AuthenticationRepository
     }
     catch (e) 
     {
-      throw Exception('Reset password failed. Please enter valid email and try again:\n $e');
+      throw Exception('Reset password failed. Please enter valid email and try again.\n $e');
     }
   }
 }

@@ -45,7 +45,4 @@ class AuthenticationPasswordResettedState extends AuthenticationState
   List<Object> get props => [message];
 }
 
-class AuthenticationSignedOutState extends AuthenticationState
-{
-  //Profile page initial load
-}
+class AuthenticationSignedOutState extends AuthenticationState{}
