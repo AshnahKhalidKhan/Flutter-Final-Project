@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
-import 'package:flutter_final_project/Blocs/AuthenticationEvents.dart';
-import 'package:flutter_final_project/Blocs/AuthenticationStates.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationEvents.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationStates.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/circle_progress_indicator.dart';
 
 class MyDrawer extends StatefulWidget 

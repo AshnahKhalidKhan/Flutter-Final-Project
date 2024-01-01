@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_final_project/Models/DraftModel.dart';
+import 'package:flutter_final_project/models/DraftModel.dart';
 
 class DraftsRepository
 {

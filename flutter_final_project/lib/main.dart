@@ -3,33 +3,32 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/Blocs/AuthenticationBloc.dart';
-import 'package:flutter_final_project/Blocs/EventsListBloc.dart';
-import 'package:flutter_final_project/Blocs/GDSCCampusesBloc.dart';
-import 'package:flutter_final_project/Blocs/GDSCLeadsMembersListBloc.dart';
-import 'package:flutter_final_project/Blocs/ThemeColorBloc.dart';
-import 'package:flutter_final_project/Blocs/ThemeColorEvents.dart';
-import 'package:flutter_final_project/Blocs/ThemeColorStates.dart';
+import 'package:flutter_final_project/blocs/authentication/AuthenticationBloc.dart';
+import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart';
+import 'package:flutter_final_project/blocs/events_list/EventsListBloc.dart';
+import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
+import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorBloc.dart';
+import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorStates.dart';
 import 'package:flutter_final_project/Core/Repositories/AuthenticationRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/EventsListRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCCampusesRepository.dart';
 import 'package:flutter_final_project/Core/Repositories/GDSCLeadsMembersListRepository.dart';
-import 'package:flutter_final_project/Widgets/EventDetails.dart';
-import 'package:flutter_final_project/sign_in_sign_up/sign_in_sign_up.dart';
-import 'package:flutter_final_project/Widgets/AdminHomepage.dart';
-import 'package:flutter_final_project/Widgets/AdminLeadsApproval.dart';
-import 'package:flutter_final_project/Widgets/AdminPendingApproval.dart';
-import 'package:flutter_final_project/Widgets/AdminsList.dart';
-import 'package:flutter_final_project/Widgets/EventsList.dart';
-import 'package:flutter_final_project/Widgets/GDSCCampusesList.dart';
-import 'package:flutter_final_project/Widgets/GDSCLeadMembersPendingRequests.dart';
-import 'package:flutter_final_project/Widgets/GDSCLeadPendingApproval.dart';
-import 'package:flutter_final_project/Widgets/GDSCMembersPendingApproval.dart';
-import 'package:flutter_final_project/Widgets/Gallery.dart';
-import 'package:flutter_final_project/Widgets/LandingPage.dart';
-import 'package:flutter_final_project/Widgets/Profile.dart';
-import 'package:flutter_final_project/Widgets/RegistrationsList.dart';
-import 'package:flutter_final_project/splash_screen/splash_screen.dart';
+import 'package:flutter_final_project/pages/EventDetails.dart';
+import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
+import 'package:flutter_final_project/pages/AdminHomepage.dart';
+import 'package:flutter_final_project/pages/AdminLeadsApproval.dart';
+import 'package:flutter_final_project/pages/AdminPendingApproval.dart';
+import 'package:flutter_final_project/pages/AdminsList.dart';
+import 'package:flutter_final_project/pages/EventsList.dart';
+import 'package:flutter_final_project/pages/GDSCCampusesList.dart';
+import 'package:flutter_final_project/pages/GDSCLeadMembersPendingRequests.dart';
+import 'package:flutter_final_project/pages/GDSCLeadPendingApproval.dart';
+import 'package:flutter_final_project/pages/GDSCMembersPendingApproval.dart';
+import 'package:flutter_final_project/pages/Gallery.dart';
+import 'package:flutter_final_project/pages/LandingPage.dart';
+import 'package:flutter_final_project/pages/Profile.dart';
+import 'package:flutter_final_project/pages/RegistrationsList.dart';
+import 'package:flutter_final_project/pages/splash_screen.dart';
 import 'package:flutter_final_project/firebase_options.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -193,233 +192,14 @@ class MyApp extends StatelessWidget
                   // '/Assets': (context) => const Assets(),
                   // '/DraftsList': (context) => const DraftsList(),
                   // '/OnlyGDSCMembersPendingApprovalsList': (context) => const OnlyGDSCMembersPendingApprovalsList(),
-
-                  
                 }
-                // Experimentation!!!!!!!!
-                // home: TabBarExample(),
-                // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-                // home: DatePickerExample(),
-                // home: PopupMenuExample(),
-                // home: RadioExample(),
-                // home: SliderExample(),
-                // home: SwitchExample(),
-                // home: ShowTimePickerApp(),
-                // home: TimePickerOptions(),
-                // home: SignUp(),
-                // home: Gallery(),
-                // home: Profile()
-                // home: GDSCLeadsApproval()
-                // home: const AuthenticationFlowScreen()
-                // home: MyHomePage(title: 'Hellow?')
-                // home: RegistrationsList()
-                // home: LandingPage()
-                // home: GDSCMembersPendingRequest()
-                // home: GDSCLeadPendingRequest()
               );
             }
             else
             {
-              return MaterialApp
+              return const MaterialApp
               (
-                title: 'Experimenting With Themes',
-                theme: ThemeData
-                (
-                  useMaterial3: true,
-                  brightness: Brightness.light,
-                  textTheme: const TextTheme
-                  (
-                    // TextStyle? displayLarge,
-                    // TextStyle? displayMedium,
-                    // TextStyle? displaySmall,
-                    // TextStyle? headlineLarge,
-                    // TextStyle? headlineMedium,
-                    // TextStyle? headlineSmall,
-                    // TextStyle? titleLarge,
-                    // TextStyle? titleMedium,
-                    // TextStyle? titleSmall,
-                    // TextStyle? bodyLarge,
-                    // TextStyle? bodyMedium,
-                    // TextStyle? bodySmall,
-                    // TextStyle? labelLarge,
-                    // TextStyle? labelMedium,
-                    // TextStyle? labelSmall,
-                    // TextStyle? headline1,
-                    // TextStyle? headline2,
-                    // TextStyle? headline3,
-                    // TextStyle? headline4,
-                    // TextStyle? headline5,
-                    // TextStyle? headline6,
-                    // TextStyle? subtitle1,
-                    // TextStyle? subtitle2,
-                    // TextStyle? bodyText1,
-                    // TextStyle? bodyText2,
-                    // TextStyle? caption,
-                    // TextStyle? button,
-                    // TextStyle? overline,
-                  ),
-                  appBarTheme: const AppBarTheme
-                  (
-                    // Color? color,
-                    // Color? backgroundColor,
-                    // Color? foregroundColor,
-                    // double? elevation,
-                    // double? scrolledUnderElevation,
-                    // Color? shadowColor,
-                    // Color? surfaceTintColor,
-                    // ShapeBorder? shape,
-                    // IconThemeData? iconTheme,
-                    // IconThemeData? actionsIconTheme,
-                    // bool? centerTitle,
-                    // double? titleSpacing,
-                    // double? toolbarHeight,
-                    // TextStyle? toolbarTextStyle,
-                    // TextStyle? titleTextStyle,
-                    // SystemUiOverlayStyle? systemOverlayStyle,
-                  ),
-                  colorScheme: ColorScheme.fromSeed(seedColor: GoogleRed),
-                  // bool? applyElevationOverlayColor,
-                  // NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
-                  // Iterable<ThemeExtension<dynamic>>? extensions,
-                  // InputDecorationTheme? inputDecorationTheme,
-                  // MaterialTapTargetSize? materialTapTargetSize,
-                  // PageTransitionsTheme? pageTransitionsTheme,
-                  // TargetPlatform? platform,
-                  // ScrollbarThemeData? scrollbarTheme,
-                  // InteractiveInkFeatureFactory? splashFactory,
-                  // bool? useMaterial3,
-                  // VisualDensity? visualDensity,
-                  // Brightness? brightness,
-                  // Color? canvasColor,
-                  // Color? cardColor,
-                  // ColorScheme? colorScheme,
-                  // Color? colorSchemeSeed,
-                  // Color? dialogBackgroundColor,
-                  // Color? disabledColor,
-                  // Color? dividerColor,
-                  // Color? focusColor,
-                  // Color? highlightColor,
-                  // Color? hintColor,
-                  // Color? hoverColor,
-                  // Color? indicatorColor,
-                  // Color? primaryColor,
-                  // Color? primaryColorDark,
-                  // Color? primaryColorLight,
-                  // MaterialColor? primarySwatch,
-                  // Color? scaffoldBackgroundColor,
-                  // Color? secondaryHeaderColor,
-                  // Color? shadowColor,
-                  // Color? splashColor,
-                  // Color? unselectedWidgetColor,
-                  // String? fontFamily,
-                  // List<String>? fontFamilyFallback,
-                  // String? package,
-                  // IconThemeData? iconTheme,
-                  // IconThemeData? primaryIconTheme,
-                  // TextTheme? primaryTextTheme,
-                  // TextTheme? textTheme,
-                  // Typography? typography,
-                  // ActionIconThemeData? actionIconTheme,
-                  // AppBarTheme? appBarTheme,
-                  // BadgeThemeData? badgeTheme,
-                  // MaterialBannerThemeData? bannerTheme,
-                  // BottomAppBarTheme? bottomAppBarTheme,
-                  // BottomNavigationBarThemeData? bottomNavigationBarTheme,
-                  // BottomSheetThemeData? bottomSheetTheme,
-                  // ButtonBarThemeData? buttonBarTheme,
-                  // ButtonThemeData? buttonTheme,
-                  // CardTheme? cardTheme,
-                  // CheckboxThemeData? checkboxTheme,
-                  // ChipThemeData? chipTheme,
-                  // DataTableThemeData? dataTableTheme,
-                  // DatePickerThemeData? datePickerTheme,
-                  // DialogTheme? dialogTheme,
-                  // DividerThemeData? dividerTheme,
-                  // DrawerThemeData? drawerTheme,
-                  // DropdownMenuThemeData? dropdownMenuTheme,
-                  // ElevatedButtonThemeData? elevatedButtonTheme,
-                  // ExpansionTileThemeData? expansionTileTheme,
-                  // FilledButtonThemeData? filledButtonTheme,
-                  // FloatingActionButtonThemeData? floatingActionButtonTheme,
-                  // IconButtonThemeData? iconButtonTheme,
-                  iconButtonTheme: const IconButtonThemeData
-                  (
-                    style: ButtonStyle
-                    (
-                      iconSize: MaterialStatePropertyAll(30.0)
-                    )
-                  ),
-                  // ListTileThemeData? listTileTheme,
-                  // MenuBarThemeData? menuBarTheme,
-                  // MenuButtonThemeData? menuButtonTheme,
-                  // MenuThemeData? menuTheme,
-                  // NavigationBarThemeData? navigationBarTheme,
-                  // NavigationDrawerThemeData? navigationDrawerTheme,
-                  // NavigationRailThemeData? navigationRailTheme,
-                  // OutlinedButtonThemeData? outlinedButtonTheme,
-                  // PopupMenuThemeData? popupMenuTheme,
-                  // ProgressIndicatorThemeData? progressIndicatorTheme,
-                  // RadioThemeData? radioTheme,
-                  // SearchBarThemeData? searchBarTheme,
-                  // SearchViewThemeData? searchViewTheme,
-                  // SegmentedButtonThemeData? segmentedButtonTheme,
-                  // SliderThemeData? sliderTheme,
-                  // SnackBarThemeData? snackBarTheme,
-                  // SwitchThemeData? switchTheme,
-                  // TabBarTheme? tabBarTheme,
-                  // TextButtonThemeData? textButtonTheme,
-                  // TextSelectionThemeData? textSelectionTheme,
-                  // TimePickerThemeData? timePickerTheme,
-                  // ToggleButtonsThemeData? toggleButtonsTheme,
-                  // TooltipThemeData? tooltipTheme,
-                  // AndroidOverscrollIndicator? androidOverscrollIndicator,
-                  // Color? toggleableActiveColor,
-                  // Color? selectedRowColor,
-                  // Color? errorColor,
-                  // Color? backgroundColor,
-                  // Color? bottomAppBarColor,
-                ),
-                initialRoute: '/',
-                routes: 
-                {
-                  '/': (context) => SplashScreen(),
-                  '/LoginSignUp': (context) => const SignInSignUp(),
-                  '/GDSCMembersPendingRequest': (context) => const GDSCMembersPendingRequest(),
-                  '/GDSCLeadPendingRequest': (context) => const GDSCLeadPendingRequest(),
-                  '/HomePage': (context) => const LandingPage(),
-                  '/AdminHomePage': (context) => const AdminHomePage(),
-                  '/CampusesList': (context) => const GDSCCampusesList(),
-                  '/GDSCLeadsPendingApprovalsList': (context) => const GDSCLeadMembersPendingRequests(),
-                  '/AdminsList': (context) => const AdminsList(),
-                  '/Profile': (context) => const Profile(),
-                  // '/SignIn': (context) => const SignIn(),
-                  // '/AdminUsers': (context) => const AdminUsers(), //All Admin Users CRUD thingies
-                  // '/AddGDSCCampus': (context) => const AddGDSCCampus(),
-              
-                  
-                  // '/PageName': (context) => const PageName(),
-                  // '/PageName': (context) => const PageName(),
-                  // '/PageName': (context) => const PageName(),
-                }
-                // home: TabBarExample(),
-                // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-                // home: DatePickerExample(),
-                // home: PopupMenuExample(),
-                // home: RadioExample(),
-                // home: SliderExample(),
-                // home: SwitchExample(),
-                // home: ShowTimePickerApp(),
-                // home: TimePickerOptions(),
-                // home: SignUp(),
-                // home: Gallery(),
-                // home: Profile()
-                // home: GDSCLeadsApproval()
-                // home: const AuthenticationFlowScreen()
-                // home: MyHomePage(title: 'Hellow?')
-                // home: RegistrationsList()
-                // home: LandingPage()
-                // home: GDSCMembersPendingRequest()
-                // home: GDSCLeadPendingRequest()
+                title: 'Unable to load app',
               );
             }
           }
@@ -428,6 +208,13 @@ class MyApp extends StatelessWidget
     );
   }
 }
+
+
+
+
+
+
+
 
 
 
