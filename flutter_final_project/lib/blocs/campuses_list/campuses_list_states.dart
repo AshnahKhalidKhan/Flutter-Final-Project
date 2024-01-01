@@ -7,11 +7,6 @@ abstract class CampusesState extends Equatable
   List<Object> get props => [];
 }
 
-class CampusesEmptyState extends CampusesState
-{
-  //Ye empty rahay ga
-}
-
 class CampusesInitialState extends CampusesState
 {
   //Ye bhi empty rahay ga
@@ -23,10 +18,16 @@ class CampusesLoadingState extends CampusesState
   List<Object> get props => [];
 }
 
-class CampusesSuccessOrLoadedState extends CampusesState
+class CampusesSuccessState extends CampusesState
+{
+  @override
+  List<Object> get props => [];
+}
+
+class CampusesLoadedState extends CampusesState
 {
   final Stream<List<Campus>> campus;
-  CampusesSuccessOrLoadedState(this.campus);
+  CampusesLoadedState(this.campus);
 
   @override
   List<Object> get props => [campus];

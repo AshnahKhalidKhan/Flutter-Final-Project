@@ -317,7 +317,7 @@ class _SignUpTabState extends State<SignUpTab> {
               return Center(child: CircularProgressIndicator());
             } else if (state is CampusesErrorState) {
               return Center(child: Text(state.error));
-            } else if (state is CampusesSuccessOrLoadedState) {
+            } else if (state is CampusesLoadedState) {
               return StreamBuilder<List<Campus>>(
                   stream: state.campus,
                   builder: (context, snapshot) {

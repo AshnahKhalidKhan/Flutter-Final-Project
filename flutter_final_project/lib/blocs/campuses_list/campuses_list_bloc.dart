@@ -23,7 +23,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
           email: event.email, 
           location: event.location
         );
-        emit(CampusesLoadingState());
+        emit(CampusesSuccessState());
       } 
       catch (e) 
       {
@@ -51,7 +51,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       try 
       {
         Stream<List<Campus>> streamResponse = campussRepository.allCampusesFunctionInCampusesRepositoryFile();
-        emit(CampusesSuccessOrLoadedState(streamResponse));
+        emit(CampusesLoadedState(streamResponse));
       } 
       catch(e) 
       {
@@ -63,7 +63,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
     {
       try 
       {
-        if (state is CampusesSuccessOrLoadedState)
+        if (state is CampusesLoadedState)
         {
           await campussRepository.updateCampusFunctionInCampusesRepositoryFile(event.campus);
         }
@@ -78,7 +78,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
     {
       try 
       {
-        if (state is CampusesSuccessOrLoadedState)
+        if (state is CampusesLoadedState)
         {
           await campussRepository.deleteCampusFunctionInCampusesRepositoryFile(event.campusId);
         }

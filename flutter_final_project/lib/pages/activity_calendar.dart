@@ -37,13 +37,6 @@ class _ActivityCalendarState extends State<ActivityCalendar>
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton.large
-      // (
-      //   onPressed: () {},
-      //   shape: CircleBorder(),
-      //   backgroundColor: Theme.of(context).colorScheme.primary,
-      //   child: EventAddButton()
-      // ),
       body: Padding
       (
         padding: EdgeInsets.all(10.0),

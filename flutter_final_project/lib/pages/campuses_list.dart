@@ -42,7 +42,7 @@ class _CampusesListState extends State<CampusesList> {
               return Center(child: CircularProgressIndicator());
             } else if (state is CampusesErrorState) {
               return Center(child: Text(state.error));
-            } else if (state is CampusesSuccessOrLoadedState) {
+            } else if (state is CampusesLoadedState) {
               return StreamBuilder<List<Campus>>(
                   stream: state.campus,
                   builder: (context, snapshot) {
@@ -111,8 +111,7 @@ class _CampusesListState extends State<CampusesList> {
     );
   }
 
-  Future<void> CampusTileBottomSheet(
-      BuildContext context, Campus campus) {
+  Future<void> CampusTileBottomSheet(BuildContext context, Campus campus) {
     return showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
@@ -136,8 +135,7 @@ class _CampusesListState extends State<CampusesList> {
                       CampusInfoField(
                           icon: Icons.school_rounded, text: campus.campusName),
                       SizedBox(height: 10.0),
-                      CampusInfoField(
-                          icon: Icons.email, text: campus.email),
+                      CampusInfoField(icon: Icons.email, text: campus.email),
                       SizedBox(height: 10.0),
                       CampusInfoField(
                           icon: Icons.location_pin, text: campus.location),
