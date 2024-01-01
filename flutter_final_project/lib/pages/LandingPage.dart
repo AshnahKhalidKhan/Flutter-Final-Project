@@ -3,7 +3,7 @@ import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
 import 'package:flutter_final_project/pages/ActivityCalendar.dart';
 import 'package:flutter_final_project/pages/DiscussionsList.dart';
 import 'package:flutter_final_project/pages/EventsList.dart';
-import 'package:flutter_final_project/pages/Profile.dart';
+import 'package:flutter_final_project/pages/profile.dart';
 import 'package:flutter_final_project/pages/RegistrationsList.dart';
 import 'package:flutter_final_project/main.dart';
 

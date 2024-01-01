@@ -7,8 +7,8 @@ import 'package:flutter_final_project/blocs/authentication/authentication_bloc.d
 import 'package:flutter_final_project/blocs/campuses_list/GDSCCampusesBloc.dart';
 import 'package:flutter_final_project/blocs/events_list/EventsListBloc.dart';
 import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.dart';
-import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorBloc.dart';
-import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorStates.dart';
+import 'package:flutter_final_project/blocs/theme_color_picker/theme_color_bloc.dart';
+import 'package:flutter_final_project/blocs/theme_color_picker/theme_color_states.dart';
 import 'package:flutter_final_project/core/repositories/authentication_repository.dart';
 import 'package:flutter_final_project/core/repositories/EventsListRepository.dart';
 import 'package:flutter_final_project/core/repositories/GDSCCampusesRepository.dart';
@@ -25,7 +25,7 @@ import 'package:flutter_final_project/pages/GDSCLeadMembersPendingRequests.dart'
 import 'package:flutter_final_project/pages/GDSCLeadPendingApproval.dart';
 import 'package:flutter_final_project/pages/GDSCMembersPendingApproval.dart';
 import 'package:flutter_final_project/pages/LandingPage.dart';
-import 'package:flutter_final_project/pages/Profile.dart';
+import 'package:flutter_final_project/pages/profile.dart';
 import 'package:flutter_final_project/pages/RegistrationsList.dart';
 import 'package:flutter_final_project/pages/splash_screen.dart';
 import 'package:flutter_final_project/firebase_options.dart';

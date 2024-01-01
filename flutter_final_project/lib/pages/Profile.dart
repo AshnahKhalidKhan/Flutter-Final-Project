@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_bloc.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_events.dart';
 import 'package:flutter_final_project/blocs/authentication/authentication_states.dart';
-import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorBloc.dart';
-import 'package:flutter_final_project/blocs/theme_color_picker/ThemeColorEvents.dart';
+import 'package:flutter_final_project/blocs/theme_color_picker/theme_color_bloc.dart';
+import 'package:flutter_final_project/blocs/theme_color_picker/theme_color_events.dart';
 import 'package:flutter_final_project/main.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 

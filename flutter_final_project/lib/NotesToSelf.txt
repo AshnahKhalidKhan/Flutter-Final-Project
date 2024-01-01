@@ -1,3 +1,7 @@
+Unit tetsing kay liyay:
+https://medium.com/flutter-community/unit-testing-with-bloc-b94de9655d86
+
+
 GDSC Member:
 - Splash Screen > Sign Up or Sign in
 - Sign In > Landing Page
