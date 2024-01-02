@@ -41,7 +41,7 @@ class _SignInSignUpState extends State<SignInSignUp>
         title: SizedBox(
           height: 150,
           child: Image.asset(
-            'lib/Assets/Google_Pocket_App_Logo_Without_Background.png',
+            'lib/assets/Google_Pocket_App_Logo_Without_Background.png',
             width: 150,
             height: 150,
           ),

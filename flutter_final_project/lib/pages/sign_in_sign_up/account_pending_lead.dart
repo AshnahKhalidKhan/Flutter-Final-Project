@@ -35,7 +35,7 @@ class _GDSCLeadPendingRequestState extends State<GDSCLeadPendingRequest> {
             children: [
               Spacer(),
               Image.asset(
-                'lib/Assets/Pending_Approval.png',
+                'lib/assets/Pending_Approval.png',
                 fit: BoxFit.fitWidth,
               ),
               SizedBox(height: 30.0),

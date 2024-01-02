@@ -19,7 +19,8 @@ class EventsList extends StatefulWidget {
   State<EventsList> createState() => _EventsListState();
 }
 
-class _EventsListState extends State<EventsList> {
+class _EventsListState extends State<EventsList> 
+{
   @override
   void initState() {
     final authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
@@ -189,7 +190,7 @@ class _EventsListState extends State<EventsList> {
                 (
                   context,
                   '/Event',
-                  arguments: {event.eventName},
+                  arguments: event.eventName,
                 );
               },
             ),

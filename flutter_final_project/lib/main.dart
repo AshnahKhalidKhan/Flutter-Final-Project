@@ -145,7 +145,7 @@ class MyApp extends StatelessWidget {
                     // '/TasksList': (context) => const TasksList(),
                     // '/RegistrationsList': (context) => const RegistrationsList(),
                     // '/AttendeesList': (context) => const AttendeesList(),
-                    // '/Assets': (context) => const Assets(),
+                    // '/assets': (context) => const Assets(),
                     // '/DraftsList': (context) => const DraftsList(),
                     // '/OnlyGDSCMembersPendingApprovalsList': (context) => const OnlyGDSCMembersPendingApprovalsList(),
                   });

@@ -24,7 +24,7 @@ class _MyDrawerState extends State<MyDrawer> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                      'lib/Assets/Google_Pocket_App_Logo_Without_Background.png'),
+                      'lib/assets/Google_Pocket_App_Logo_Without_Background.png'),
                   fit: BoxFit.fitHeight,
                 ),
               ),

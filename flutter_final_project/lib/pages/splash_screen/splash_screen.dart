@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Image.asset(
-            'lib/Assets/Google_Pocket_App_Logo_Without_Background.png'),
+            'lib/assets/Google_Pocket_App_Logo_Without_Background.png'),
       ),
     );
   }
