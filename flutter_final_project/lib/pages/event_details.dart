@@ -17,6 +17,7 @@ class _EventDetailsState extends State<EventDetails>
   @override
   Widget build(BuildContext context) 
   {
+    final String dynamicArgument = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold
     (
       backgroundColor: Colors.white,
@@ -64,7 +65,8 @@ class _EventDetailsState extends State<EventDetails>
           (
             children: 
             [
-              EventDetailsInfoTile(sectionName: 'Web Development Bootcamp Session 2',),
+              Text('Received dynamic argument: $dynamicArgument'),
+              // EventDetailsInfoTile(sectionName: 'Web Development Bootcamp Session 2',),
               
               EventDetailsNextSectionTile
               (

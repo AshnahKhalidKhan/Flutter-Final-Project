@@ -35,7 +35,7 @@ class _AdminPendingRequestState extends State<AdminPendingRequest> {
             children: [
               Spacer(),
               Image.asset(
-                'lib/assets/Pending_Approval.png',
+                'lib/Assets/Pending_Approval.png',
                 fit: BoxFit.fitWidth,
               ),
               SizedBox(height: 30.0),

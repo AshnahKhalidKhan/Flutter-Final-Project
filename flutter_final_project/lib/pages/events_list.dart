@@ -185,10 +185,11 @@ class _EventsListState extends State<EventsList> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
-                print('IconButton');
-                Navigator.pushNamed(
+                Navigator.pushNamed
+                (
                   context,
                   '/Event',
+                  arguments: {event.eventName},
                 );
               },
             ),

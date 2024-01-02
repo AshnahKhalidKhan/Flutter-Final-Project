@@ -16,18 +16,16 @@ import 'package:flutter_final_project/core/repositories/GDSCLeadsMembersListRepo
 import 'package:flutter_final_project/pages/event_details.dart';
 import 'package:flutter_final_project/pages/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:flutter_final_project/pages/admin_homepage.dart';
-import 'package:flutter_final_project/pages/pending_member_requests.dart';
-import 'package:flutter_final_project/pages/account_pending_admin.dart';
+import 'package:flutter_final_project/pages/sign_in_sign_up/account_pending_admin.dart';
 import 'package:flutter_final_project/pages/admins_list.dart';
 import 'package:flutter_final_project/pages/events_list.dart';
 import 'package:flutter_final_project/pages/campuses_list.dart';
 import 'package:flutter_final_project/pages/leads_list.dart';
-import 'package:flutter_final_project/pages/account_pending_lead.dart';
-import 'package:flutter_final_project/pages/account_pending_member.dart';
+import 'package:flutter_final_project/pages/sign_in_sign_up/account_pending_lead.dart';
+import 'package:flutter_final_project/pages/sign_in_sign_up/account_pending_member.dart';
 import 'package:flutter_final_project/pages/homepage.dart';
 import 'package:flutter_final_project/pages/profile.dart';
-import 'package:flutter_final_project/pages/registrations_list.dart';
-import 'package:flutter_final_project/pages/splash_screen.dart';
+import 'package:flutter_final_project/pages/splash_screen/splash_screen.dart';
 import 'package:flutter_final_project/firebase_options.dart';
 
 final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -147,7 +145,7 @@ class MyApp extends StatelessWidget {
                     // '/TasksList': (context) => const TasksList(),
                     // '/RegistrationsList': (context) => const RegistrationsList(),
                     // '/AttendeesList': (context) => const AttendeesList(),
-                    // '/assets': (context) => const Assets(),
+                    // '/Assets': (context) => const Assets(),
                     // '/DraftsList': (context) => const DraftsList(),
                     // '/OnlyGDSCMembersPendingApprovalsList': (context) => const OnlyGDSCMembersPendingApprovalsList(),
                   });

@@ -39,7 +39,7 @@ class _GDSCMembersPendingRequestState extends State<GDSCMembersPendingRequest> {
             children: [
               Spacer(),
               Image.asset(
-                'lib/assets/Pending_Approval.png',
+                'lib/Assets/Pending_Approval.png',
                 fit: BoxFit.fitWidth,
               ),
               SizedBox(height: 30.0),
