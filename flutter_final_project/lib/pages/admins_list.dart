@@ -11,6 +11,7 @@ import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/circle_progress_indicator.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/snack_bar.dart';
 
 class AdminsList extends StatefulWidget {
   const AdminsList({super.key});
@@ -97,6 +98,8 @@ class AdminAddButton extends StatelessWidget {
                       TextEditingController();
                   final TextEditingController adminEmail =
                       TextEditingController();
+                  final TextEditingController adminPassword =
+                      TextEditingController();
 
                   return AlertDialog(
                     title: const Text('Add Admin'),
@@ -122,28 +125,16 @@ class AdminAddButton extends StatelessWidget {
                           },
                         ),
                         TextField(
-                          controller: campusLocation,
+                          controller: adminPassword,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.location_pin),
-                            labelText: 'Location',
+                            prefixIcon: Icon(Icons.lock_rounded),
+                            labelText: 'Password',
+                            error: Expanded(child: Text('Password must be at least 6 characters long.'),)
                           ),
                           onChanged: (value) {
                             //
                           },
                         ),
-                        // TextField
-                        // (
-                        //   controller: campusLead,
-                        //   decoration: InputDecoration
-                        //   (
-                        //     prefixIcon: Icon(Icons.star_rounded),
-                        //     labelText: 'Lead',
-                        //   ),
-                        //   onChanged: (value)
-                        //   {
-                        //     //
-                        //   },
-                        // ),
                       ],
                     ),
                     actions: <Widget>[
@@ -156,10 +147,13 @@ class AdminAddButton extends StatelessWidget {
                       TextButton(
                           child: const Text('Save'),
                           onPressed: () {
-                            BlocProvider.of<AdminsBloc>(context).add(
-                                CreateAdminEvent(adminName.text,
-                                    adminEmail.text, campusLocation.text));
-                            Navigator.pop(context, 'Save');
+                            if (adminPassword.text.length >= 6)
+                            {
+                              BlocProvider.of<AdminsBloc>(context).add(
+                                  CreateAdminEvent(adminName.text,
+                                      adminEmail.text, adminPassword.text));
+                              Navigator.pop(context, 'Save');
+                            }
                           }),
                     ],
                   );
@@ -186,52 +180,45 @@ class AdminAddButton extends StatelessWidget {
   }
 }
 
-// Padding AdminTile(BuildContext context, AppUser admin) {
-//   return Padding(
-//     padding: const EdgeInsets.only(bottom: 10.0),
-//     child: ListTile(
-//       shape: RoundedRectangleBorder(
-//           side: BorderSide(
-//               color: Theme.of(context).colorScheme.primary, width: 2.0),
-//           borderRadius: BorderRadius.circular(20.0)),
-//       tileColor: Colors.white,
-//       style: ListTileStyle.list,
-//       title: Text(
-//         admin.name,
-//         style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-//       ),
-//       subtitle: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisSize: MainAxisSize.min,
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         children: [
-//           ListTileIconTextInfo(icon: Icons.person_2_rounded, info: admin.name),
-//           SizedBox(height: 10.0),
-//           ListTileIconTextInfo(icon: Icons.email, info: admin.email),
-//           SizedBox(height: 10.0),
-//           ListTileIconTextInfo(
-//               icon: Icons.verified_user_rounded,
-//               info: admin.approved! ? 'Approved' : 'Not approved'),
-//           SizedBox(height: 20.0),
-//           // AdminInfoField(icon: Icons.star_rounded, text: admin.lead.isEmpty ? 'No Lead assigned' : admin.lead),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               AdminDeleteButton(user: admin),
-//               AdminEditButton(user: admin)
-//             ],
-//           ),
-//         ],
-//       ),
-//       // trailing: Icon
-//       // (
-//       //   Icons.expand_more,
-//       //   size: 40.0,
-//       //   color: Theme.of(context).colorScheme.primary,
-//       // ),
-//     ),
-//   );
-// }
+Padding AdminTile(BuildContext context, AppUser admin) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10.0),
+    child: ListTile(
+      shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: Theme.of(context).colorScheme.primary, width: 2.0),
+          borderRadius: BorderRadius.circular(20.0)),
+      tileColor: Colors.white,
+      style: ListTileStyle.list,
+      title: Text(
+        admin.name,
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ListTileIconTextInfo(icon: Icons.person_2_rounded, info: admin.name),
+          SizedBox(height: 10.0),
+          ListTileIconTextInfo(icon: Icons.email, info: admin.email),
+          SizedBox(height: 10.0),
+          ListTileIconTextInfo(
+              icon: Icons.verified_user_rounded,
+              info: admin.approved! ? 'Approved' : 'Not approved'),
+          SizedBox(height: 20.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // AdminDeleteButton(user: admin),
+              // AdminEditButton(user: admin)
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
 // class AdminInfoField extends StatelessWidget {
 //   const AdminInfoField({

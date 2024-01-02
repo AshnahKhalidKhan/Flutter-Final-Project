@@ -24,6 +24,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
           location: event.location
         );
         emit(CampusAddedState());
+        add(ReadAllCampusesEvent());
       } 
       catch (e) 
       {
@@ -66,6 +67,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       {
         await campussRepository.updateCampusFunctionInCampusesRepositoryFile(event.campus);
         emit(CampusUpdatedState());
+        add(ReadAllCampusesEvent());
       } 
       catch (e) 
       {
@@ -80,6 +82,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       {
         await campussRepository.deleteCampusFunctionInCampusesRepositoryFile(event.campusId);
         emit(CampusDeletedState());
+        add(ReadAllCampusesEvent());
       } 
       catch (e) 
       {

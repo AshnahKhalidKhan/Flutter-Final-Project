@@ -40,34 +40,35 @@ class _CampusesListState extends State<CampusesList> {
         body: Padding(
           padding: EdgeInsets.all(10.0),
           child: BlocBuilder<CampusesBloc, CampusesState>(
-              builder: (context, state) {
-            if (state is CampusesLoadingState) {
-              return const MyCircularProgressIndicator();
-            } else if (state is CampusesErrorState) {
-              return Center(child: Text(state.error));
-            } else if (state is CampusesLoadedState) {
-              return StreamBuilder<List<Campus>>(
-                  stream: state.campus,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else if (snapshot.hasData) {
-                      List<Campus>? campuses = snapshot.data;
-                      return ListView.builder(
-                          itemCount: campuses!.length,
-                          itemBuilder: (context, i) {
-                            return CampusListTile(context, campuses![i]);
-                          });
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  });
-            } else {
-              return Center(
-                  child: Text(
-                      'Unable to load campuses list at the moment. Please try later.'));
-            }
-          }),
+            builder: (context, state) {
+              if (state is CampusesLoadingState /*|| state is CampusAddedState || state is CampusDeletedState || state is CampusUpdatedState*/) {
+                return const MyCircularProgressIndicator();
+              } else if (state is CampusesErrorState) {
+                return Center(child: Text(state.error));
+              } else if (state is CampusesLoadedState) {
+                return StreamBuilder<List<Campus>>(
+                    stream: state.campus,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (snapshot.hasData) {
+                        List<Campus>? campuses = snapshot.data;
+                        return ListView.builder(
+                            itemCount: campuses!.length,
+                            itemBuilder: (context, i) {
+                              return CampusListTile(context, campuses![i]);
+                            });
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    });
+              } else {
+                return Center(
+                    child: Text(
+                        'Unable to load campuses list at the moment. Please try later.'));
+              }
+            },
+          ),
         ));
   }
 
@@ -257,8 +258,7 @@ class CampusAddButton extends StatelessWidget {
                             BlocProvider.of<CampusesBloc>(context).add(
                                 CreateCampusEvent(campusName.text,
                                     campusEmail.text, campusLocation.text));
-                                    Navigator.pop(context, 'Save');
-                            
+                            Navigator.pop(context, 'Save');
                           }),
                     ],
                   );
@@ -276,11 +276,9 @@ class CampusAddButton extends StatelessWidget {
           ScaffoldMessenger.of(context)
               .showSnackBar(errorAddingCampusSnackBarMessage);
         } else if (state is CampusAddedState) {
-          
           final addedCampusSnackBarMessage = MySnackBar('Campus added.');
           ScaffoldMessenger.of(context)
               .showSnackBar(addedCampusSnackBarMessage);
-          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
         }
       },
     );
@@ -396,8 +394,8 @@ class _CampusEditButtonState extends State<CampusEditButton> {
                         onPressed: () {
                           BlocProvider.of<CampusesBloc>(context)
                               .add(UpdateCampusEvent(updatedCampus));
-                              Navigator.pop(context, 'Save');
-          Navigator.pop(context, 'BottomSheet');
+                          Navigator.pop(context, 'Save');
+                          Navigator.pop(context, 'BottomSheet');
                         },
                       ),
                     ],
@@ -416,12 +414,10 @@ class _CampusEditButtonState extends State<CampusEditButton> {
           ScaffoldMessenger.of(context)
               .showSnackBar(errorUpdatingCampusSnackBarMessage);
         } else if (state is CampusUpdatedState) {
-          
           final updatedCampusSnackBarMessage =
               MySnackBar('Campus information updated.');
           ScaffoldMessenger.of(context)
               .showSnackBar(updatedCampusSnackBarMessage);
-          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
         }
       },
     );
@@ -435,46 +431,46 @@ class CampusDeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-return BlocConsumer<CampusesBloc, CampusesState>(
+    return BlocConsumer<CampusesBloc, CampusesState>(
       builder: (context, state) {
         if (state is CampusesLoadedState) {
-         return IconButton(
-      style: const ButtonStyle(
-        iconColor: MaterialStatePropertyAll(Colors.grey),
-      ),
-      padding: EdgeInsets.all(20.0),
-      icon: Icon(Icons.delete, size: 30.0),
-      onPressed: () async {
-        return showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Delete campus?'),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Cancel'),
-                  onPressed: () {
-                    Navigator.pop(context, 'Cancel');
-                  },
-                ),
-                TextButton(
-                  child: const Text('OK'),
-                  onPressed: () {
-                    BlocProvider.of<CampusesBloc>(context)
-                        .add(DeleteCampusEvent(
-                      campus.campusId,
-                    ));      
-               Navigator.pop(context, 'OK');
-          Navigator.pop(context, 'BottomSheet');              
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
+          return IconButton(
+            style: const ButtonStyle(
+              iconColor: MaterialStatePropertyAll(Colors.grey),
+            ),
+            padding: EdgeInsets.all(20.0),
+            icon: Icon(Icons.delete, size: 30.0),
+            onPressed: () async {
+              return showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Delete campus?'),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.pop(context, 'Cancel');
+                        },
+                      ),
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          BlocProvider.of<CampusesBloc>(context)
+                              .add(DeleteCampusEvent(
+                            campus.campusId,
+                          ));
+                          Navigator.pop(context, 'OK');
+                          Navigator.pop(context, 'BottomSheet');
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          );
         } else {
           return MyCircularProgressIndicator();
         }
@@ -485,12 +481,10 @@ return BlocConsumer<CampusesBloc, CampusesState>(
           ScaffoldMessenger.of(context)
               .showSnackBar(errorUpdatingCampusSnackBarMessage);
         } else if (state is CampusDeletedState) {
-          final deleteCampusSnackBarMessage =
-              MySnackBar('Campus deleted.');
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(deleteCampusSnackBarMessage);
+          final deleteCampusSnackBarMessage = MySnackBar('Campus deleted.');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(deleteCampusSnackBarMessage);
         }
-          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
       },
     );
   }
