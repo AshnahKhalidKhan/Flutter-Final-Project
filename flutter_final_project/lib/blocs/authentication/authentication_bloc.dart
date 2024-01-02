@@ -24,6 +24,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
           role: event.role,
           campus: event.campus ?? event.campus
         );
+        signedInUser = user;
         emit(AuthenticationSuccessState(user!));
       } 
       catch (e) 
@@ -42,6 +43,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>
           email: event.email,
           password: event.password
         );
+        signedInUser = user;
         emit(AuthenticationSuccessState(user!));
       } 
       catch (e) 
