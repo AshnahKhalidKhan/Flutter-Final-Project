@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_final_project/blocs/events_list/EventsListBloc.dart';
+import 'package:flutter_final_project/blocs/events_list/EventsListEvents.dart';
+import 'package:flutter_final_project/blocs/events_list/EventsListStates.dart';
 import 'package:flutter_final_project/models/event_model.dart';
 import 'package:flutter_final_project/pages/registrations_list.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/circle_progress_indicator.dart';
 
 class EventDetails extends StatefulWidget 
 {
@@ -17,7 +22,16 @@ class _EventDetailsState extends State<EventDetails>
   @override
   Widget build(BuildContext context) 
   {
-    final String dynamicArgument = ModalRoute.of(context)?.settings.arguments as String;
+    @override
+    void initState() 
+    {
+      BlocProvider.of<EventsListBloc>(context).add(
+        ReadOneEventEvent(ModalRoute.of(context)?.settings.arguments as String));
+      super.initState();
+      
+    }
+
+    // final String eventId = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold
     (
       backgroundColor: Colors.white,
@@ -65,9 +79,40 @@ class _EventDetailsState extends State<EventDetails>
           (
             children: 
             [
-              Text('Received dynamic argument: $dynamicArgument'),
+              // Text('Received dynamic argument: $eventId'),
               // EventDetailsInfoTile(sectionName: 'Web Development Bootcamp Session 2',),
-              
+              BlocBuilder<EventsListBloc, EventsListState>
+              (
+                builder: (context, state)
+                {
+                  if (state is EventsListLoadingState)
+                  {
+                    return MyCircularProgressIndicator();
+                  }
+                  else if (state is OneEventSuccessOrLoadedState)
+                  {
+                    return FutureBuilder
+                    (
+                      future: state.event,
+                      builder: (context, snapshot)
+                      {
+                        if (snapshot.hasData)
+                        {
+                          return Text(snapshot.data!.eventName);
+                        }
+                        else
+                        {
+                          return Text('Nahin aaya event bhai');
+                        }
+                      }
+                    );
+                  }
+                  else
+                  {
+                    return Text(state.props.toString());
+                  }
+                },
+              ),
               EventDetailsNextSectionTile
               (
                 icon: Icons.message,

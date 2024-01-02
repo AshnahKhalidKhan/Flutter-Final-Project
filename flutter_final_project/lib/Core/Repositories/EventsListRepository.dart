@@ -130,20 +130,43 @@ class EventsListRepository {
     }
   }
 
-  Future<Event?> readOneEventFunctionInEventRepositoryFile(
-      String eventId) async {
-    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+  Future<Event?> readOneEventFunctionInEventRepositoryFile(String eventId) async {
+  try {
+    final userFromFirebase = await FirebaseFirestore
         .instance
         .collection('Events')
         .where('eventId', isEqualTo: eventId)
         .limit(1)
         .get();
-    if (snapshot.docs.isNotEmpty) {
-      return Event.fromSnapshot(snapshot.docs.first);
-    } else {
-      return null;
-    }
+    // QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+    //     .instance
+    //     .collection('Events')
+    //     .where('eventId', isEqualTo: eventId)
+    //     .limit(1)
+    //     .get();
+
+    // if (snapshot.docs.isNotEmpty) {
+    //   final Event e = Event.fromSnapshot(snapshot.docs.first);
+    //   return e;
+    // } else {
+    //   // Return an empty Event object if the document is not found
+    //   return Event.initial(); // Assuming Event class has a default constructor
+    // }
+    if (userFromFirebase.exists) 
+          {
+            final Map<String, dynamic>? userData = userFromFirebase.data();
+            if (userData != null) 
+            {
+              AppUser user = AppUser.fromJson(userData);
+              return user;
+            }
+          }
+  } catch (e) {
+    // Handle exceptions here if needed
+    print('Error fetching event: $e');
+    rethrow; // Rethrow the exception for higher-level handling
   }
+}
 
   Future<void> updateEventFunctionInEventRepositoryFile(Event event) async {
     try {

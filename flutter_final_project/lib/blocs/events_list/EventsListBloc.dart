@@ -77,7 +77,7 @@ class EventsListBloc extends Bloc<EventsListEvent, EventsListState> {
     on<ReadOneEventEvent>((event, emit) {
       try {
         emit(EventsListLoadingState());
-        final eventInstance = eventListRepository
+        final Event? eventInstance = eventListRepository
             .readOneEventFunctionInEventRepositoryFile(event.eventId);
         emit(OneEventSuccessOrLoadedState(eventInstance));
       } catch (e) {

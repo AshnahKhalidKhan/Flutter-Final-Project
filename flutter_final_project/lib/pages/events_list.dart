@@ -190,7 +190,7 @@ class _EventsListState extends State<EventsList>
                 (
                   context,
                   '/Event',
-                  arguments: event.eventName,
+                  arguments: event.eventId,
                 );
               },
             ),
