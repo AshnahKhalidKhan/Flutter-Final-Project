@@ -1,69 +1,69 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_final_project/models/user_model.dart';
+import 'package:flutter_final_project/models/campus_model.dart';
 
-abstract class AdminsState extends Equatable
+abstract class CampusesState extends Equatable
 {
-  const AdminsState();
+  const CampusesState();
   List<Object> get props => [];
 }
 
-class AdminsInitialState extends AdminsState
+class CampusesInitialState extends CampusesState
 {
   //Ye bhi empty rahay ga
 }
 
-class AdminsLoadingState extends AdminsState
+class CampusesLoadingState extends CampusesState
 {
   @override
   List<Object> get props => [];
 }
 
-class AdminsSuccessState extends AdminsState
+class CampusesSuccessState extends CampusesState
 {
   @override
   List<Object> get props => [];
 }
 
-class AppUserAddedState extends AdminsState
+class CampusAddedState extends CampusesState
 {
   @override
   List<Object> get props => [];
 }
 
-class AppUserUpdatedState extends AdminsState
+class CampusUpdatedState extends CampusesState
 {
   @override
   List<Object> get props => [];
 }
 
-class AppUserDeletedState extends AdminsState
+class CampusDeletedState extends CampusesState
 {
   @override
   List<Object> get props => [];
 }
 
-class AdminsLoadedState extends AdminsState
+class CampusesLoadedState extends CampusesState
 {
-  final Stream<List<AppUser>> campus;
-  AdminsLoadedState(this.campus);
+  final Stream<List<Campus>> campus;
+  CampusesLoadedState(this.campus);
 
   @override
   List<Object> get props => [campus];
 }
 
-class OneAppUserLoadedState extends AdminsState
+class OneCampusLoadedState extends CampusesState
 {
-  final AppUser campus;
-  OneAppUserLoadedState(this.campus);
+  final Campus campus;
+  OneCampusLoadedState(this.campus);
 
   @override
   List<Object> get props => [campus];
 }
 
-class AdminsErrorState extends AdminsState
+class CampusesErrorState extends CampusesState
 {
   final String error;
-  const AdminsErrorState(this.error);
+  const CampusesErrorState(this.error);
 
   @override
   List<Object> get props => [error];

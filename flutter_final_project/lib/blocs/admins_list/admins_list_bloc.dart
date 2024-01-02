@@ -1,89 +1,90 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_final_project/blocs/campuses_list/campuses_list_events.dart';
-import 'package:flutter_final_project/blocs/campuses_list/campuses_list_states.dart';
-import 'package:flutter_final_project/core/repositories/campus_repository.dart';
-import 'package:flutter_final_project/models/campus_model.dart';
+import 'package:flutter_final_project/blocs/admins_list/admins_list_events.dart';
+import 'package:flutter_final_project/blocs/admins_list/admins_list_states.dart';
+import 'package:flutter_final_project/core/repositories/admins_repository.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 
-class CampusesBloc extends Bloc<CampusesEvent, CampusesState> 
+
+class AdminsBloc extends Bloc<AdminsEvent, AdminsState> 
 {
-  final CampusesRepository campussRepository;
+  final AdminsRepository adminsRepository;
   
-  CampusesBloc({required this.campussRepository}) : super(CampusesInitialState()) 
+  AdminsBloc({required this.adminsRepository}) : super(AdminsInitialState()) 
   {
-    on<CreateCampusEvent>((event, emit) async 
+    on<CreateAdminEvent>((event, emit) async 
     {
-      emit(CampusesLoadingState());
+      emit(AdminsLoadingState());
       try 
       {
-        await campussRepository.createCampusFunctionInCampusesRepositoryFile
+        await adminsRepository.createAdminFunctionInAdminsRepositoryFile
         (
-          campusName: event.campusName, 
+          name: event.name, 
           email: event.email, 
-          location: event.location
+          role: event.role
         );
-        emit(CampusAddedState());
+        emit(AdminAddedState());
       } 
       catch (e) 
       {
-        emit(CampusesErrorState(e.toString()));
+        emit(AdminsErrorState(e.toString()));
       }
     });
 
-    on<ReadOneCampusEvent>((event, emit) async
+    on<ReadOneAdminEvent>((event, emit) async
     {
-      emit(CampusesLoadingState());
+      emit(AdminsLoadingState());
       try 
       {
-        final Campus? campus = await campussRepository.readOneCampusFunctionInCampusesRepositoryFile(event.campusId);
-        emit(OneCampusLoadedState(campus!));
+        final AppUser? admin = await adminsRepository.readOneAdminFunctionInAdminsRepositoryFile(event.userId);
+        emit(OneAdminLoadedState(admin!));
       } 
       catch(e) 
       {
-        emit(CampusesErrorState(e.toString()));
+        emit(AdminsErrorState(e.toString()));
       }
     });
 
-    on<ReadAllCampusesEvent>((event, emit) 
+    on<ReadAllAdminsEvent>((event, emit) 
     {
-      emit(CampusesLoadingState());
+      emit(AdminsLoadingState());
       try 
       {
-        Stream<List<Campus>> streamResponse = campussRepository.readAllCampusesFunctionInCampusesRepositoryFile();
-        emit(CampusesLoadedState(streamResponse));
+        Stream<List<AppUser>> streamResponse = adminsRepository.readAllAdminsFunctionInAdminsRepositoryFile();
+        emit(AdminsLoadedState(streamResponse));
       } 
       catch(e) 
       {
-        emit(CampusesErrorState(e.toString()));
+        emit(AdminsErrorState(e.toString()));
       }
     });
 
-    on<UpdateCampusEvent>((event, emit) async 
+    on<UpdateAdminEvent>((event, emit) async 
     {
-      emit(CampusesLoadingState());
+      emit(AdminsLoadingState());
       try 
       {
-        await campussRepository.updateCampusFunctionInCampusesRepositoryFile(event.campus);
-        emit(CampusUpdatedState());
+        await adminsRepository.updateAdminFunctionInAdminsRepositoryFile(event.user);
+        emit(AdminUpdatedState());
       } 
       catch (e) 
       {
-        emit(CampusesErrorState(e.toString()));
+        emit(AdminsErrorState(e.toString()));
       }
     });
 
-    on<DeleteCampusEvent>((event, emit) async 
+    on<DeleteAdminEvent>((event, emit) async 
     {
-      emit(CampusesLoadingState());
+      emit(AdminsLoadingState());
       try 
       {
-        await campussRepository.deleteCampusFunctionInCampusesRepositoryFile(event.campusId);
-        emit(CampusDeletedState());
+        await adminsRepository.deleteAdminFunctionInAdminsRepositoryFile(event.userId);
+        emit(AdminDeletedState());
       } 
       catch (e) 
       {
-        emit(CampusesErrorState(e.toString()));
+        emit(AdminsErrorState(e.toString()));
       }
     });
   }

@@ -1,67 +1,57 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_final_project/models/campus_model.dart';
+import 'package:flutter_final_project/models/user_model.dart';
 
-abstract class CampusesEvent extends Equatable
+abstract class AdminsEvent extends Equatable
 {
-  const CampusesEvent();
+  const AdminsEvent();
   List<Object> get props => [];
 }
 
-class CreateCampusEvent extends CampusesEvent 
+class CreateAdminEvent extends AdminsEvent 
 {
-  final String campusName;
+  final String name;
   final String email;
-  final String location;
+  final String role;
   
-  const CreateCampusEvent(this.campusName, this.email, this.location);
+  const CreateAdminEvent(this.name, this.email, this.role);
 
   @override
-  List<Object> get props => [campusName, email, location];
+  List<Object> get props => [name, email, role];
 }
 
-class ReadCampusEvent extends CampusesEvent 
+class ReadOneAdminEvent extends AdminsEvent 
 {
-  final String campusId;
+  final String userId;
 
-  const ReadCampusEvent(this.campusId);
+  const ReadOneAdminEvent(this.userId);
 
   @override
-  List<Object> get props => [campusId];
+  List<Object> get props => [userId];
 }
 
-class ReadOneCampusEvent extends CampusesEvent 
+class ReadAllAdminsEvent extends AdminsEvent 
 {
-  final String campusId;
-
-  const ReadOneCampusEvent(this.campusId);
-
-  @override
-  List<Object> get props => [campusId];
-}
-
-class ReadAllCampusesEvent extends CampusesEvent 
-{
-  const ReadAllCampusesEvent();
+  const ReadAllAdminsEvent();
   @override
   List<Object> get props => [];
 }
 
-class UpdateCampusEvent extends CampusesEvent
+class UpdateAdminEvent extends AdminsEvent
 {
-  final Campus campus;
+  final AppUser user;
 
-  const UpdateCampusEvent(this.campus);
+  const UpdateAdminEvent(this.user);
   
   @override
-  List<Object> get props => [campus];
+  List<Object> get props => [user];
 }
 
-class DeleteCampusEvent extends CampusesEvent
+class DeleteAdminEvent extends AdminsEvent
 {
-  final String campusId;
+  final String userId;
 
-  const DeleteCampusEvent(this.campusId);
+  const DeleteAdminEvent(this.userId);
   
   @override
-  List<Object> get props => [campusId];
+  List<Object> get props => [userId];
 }

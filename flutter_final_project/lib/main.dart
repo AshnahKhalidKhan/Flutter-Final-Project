@@ -10,7 +10,7 @@ import 'package:flutter_final_project/blocs/leads_list/GDSCLeadsMembersListBloc.
 import 'package:flutter_final_project/blocs/theme_color_picker/theme_color_bloc.dart';
 import 'package:flutter_final_project/blocs/theme_color_picker/theme_color_states.dart';
 import 'package:flutter_final_project/core/repositories/authentication_repository.dart';
-import 'package:flutter_final_project/core/repositories/EventsListRepository.dart';
+import 'package:flutter_final_project/core/repositories/events_repository.dart';
 import 'package:flutter_final_project/core/repositories/campus_repository.dart';
 import 'package:flutter_final_project/core/repositories/GDSCLeadsMembersListRepository.dart';
 import 'package:flutter_final_project/pages/event_details.dart';
