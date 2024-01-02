@@ -36,6 +36,12 @@ class CampusUpdatedState extends CampusesState
   List<Object> get props => [];
 }
 
+class CampusDeletedState extends CampusesState
+{
+  @override
+  List<Object> get props => [];
+}
+
 class CampusesLoadedState extends CampusesState
 {
   final Stream<List<Campus>> campus;

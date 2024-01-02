@@ -79,7 +79,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       try 
       {
         await campussRepository.deleteCampusFunctionInCampusesRepositoryFile(event.campusId);
-        emit(CampusesSuccessState());
+        emit(CampusDeletedState());
       } 
       catch (e) 
       {

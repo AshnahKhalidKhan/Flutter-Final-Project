@@ -257,6 +257,7 @@ class CampusAddButton extends StatelessWidget {
                             BlocProvider.of<CampusesBloc>(context).add(
                                 CreateCampusEvent(campusName.text,
                                     campusEmail.text, campusLocation.text));
+                                    Navigator.pop(context, 'Save');
                             
                           }),
                     ],
@@ -275,7 +276,7 @@ class CampusAddButton extends StatelessWidget {
           ScaffoldMessenger.of(context)
               .showSnackBar(errorAddingCampusSnackBarMessage);
         } else if (state is CampusAddedState) {
-          Navigator.pop(context, 'Save');
+          
           final addedCampusSnackBarMessage = MySnackBar('Campus added.');
           ScaffoldMessenger.of(context)
               .showSnackBar(addedCampusSnackBarMessage);
@@ -360,7 +361,7 @@ class _CampusEditButtonState extends State<CampusEditButton> {
                           controller: campusLocation,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.location_pin),
-                            labelText: widget.campus.campusId, //'Location',
+                            labelText: 'Location',
                           ),
                           onChanged: (value) {
                             updatedCampus = updatedCampus.copyWith(
@@ -395,6 +396,8 @@ class _CampusEditButtonState extends State<CampusEditButton> {
                         onPressed: () {
                           BlocProvider.of<CampusesBloc>(context)
                               .add(UpdateCampusEvent(updatedCampus));
+                              Navigator.pop(context, 'Save');
+          Navigator.pop(context, 'BottomSheet');
                         },
                       ),
                     ],
@@ -413,8 +416,7 @@ class _CampusEditButtonState extends State<CampusEditButton> {
           ScaffoldMessenger.of(context)
               .showSnackBar(errorUpdatingCampusSnackBarMessage);
         } else if (state is CampusUpdatedState) {
-          Navigator.pop(context, 'Save');
-          Navigator.pop(context, 'BottomSheet');
+          
           final updatedCampusSnackBarMessage =
               MySnackBar('Campus information updated.');
           ScaffoldMessenger.of(context)
@@ -462,8 +464,9 @@ return BlocConsumer<CampusesBloc, CampusesState>(
                     BlocProvider.of<CampusesBloc>(context)
                         .add(DeleteCampusEvent(
                       campus.campusId,
-                    ));
-                    
+                    ));      
+               Navigator.pop(context, 'OK');
+          Navigator.pop(context, 'BottomSheet');              
                   },
                 ),
               ],
@@ -481,15 +484,13 @@ return BlocConsumer<CampusesBloc, CampusesState>(
           final errorUpdatingCampusSnackBarMessage = MySnackBar(state.error);
           ScaffoldMessenger.of(context)
               .showSnackBar(errorUpdatingCampusSnackBarMessage);
-        } else if (state is CampusUpdatedState) {
-          Navigator.pop(context, 'OK');
-                    Navigator.pop(context, 'BottomSheet');
+        } else if (state is CampusDeletedState) {
           final deleteCampusSnackBarMessage =
               MySnackBar('Campus deleted.');
                     ScaffoldMessenger.of(context)
                         .showSnackBar(deleteCampusSnackBarMessage);
-          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
         }
+          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
       },
     );
   }
