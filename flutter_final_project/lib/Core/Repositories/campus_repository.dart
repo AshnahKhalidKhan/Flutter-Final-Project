@@ -36,29 +36,23 @@ class CampusesRepository
     }
   }
 
-  Stream<List<Campus>> readCampusFunctionInCampusesRepositoryFile(String campusId)
-  {
-    return FirebaseFirestore.instance.collection('Campus').where('campusId', isEqualTo: campusId).snapshots().map
-    (
-      (querySnapshot) =>
-      querySnapshot.docs.map((e) => Campus.fromSnapshot(e)).toList()
-    );
-  }
-
   Future<Campus?> readOneCampusFunctionInCampusesRepositoryFile(String campusId) async 
   {
-    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('Campus').where('campusId', isEqualTo: campusId).limit(1).get();
-    if (snapshot.docs.isNotEmpty) 
+    try 
     {
-      return Campus.fromSnapshot(snapshot.docs.first);
+      QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('Campus').where('campusId', isEqualTo: campusId).limit(1).get();
+      if (snapshot.docs.isNotEmpty) 
+      {
+        return Campus.fromSnapshot(snapshot.docs.first);
+      }
     } 
-    else 
+    catch (e) 
     {
-      return null;
+      throw Exception('Unable to load campus details. Please try again.\n $e');
     }
   }
 
-  Stream<List<Campus>> allCampusesFunctionInCampusesRepositoryFile() 
+  Stream<List<Campus>> readAllCampusesFunctionInCampusesRepositoryFile() 
   {
     try 
     {
@@ -70,7 +64,7 @@ class CampusesRepository
     } 
     catch (e) 
     {
-      throw Exception('Unable to create campus. Please try again.\n $e');
+      throw Exception('Unable to load campuses list. Please try again.\n $e');
     }
   }
 

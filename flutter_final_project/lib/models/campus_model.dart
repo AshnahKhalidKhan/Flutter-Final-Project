@@ -6,7 +6,7 @@ class Campus
   final String campusName;
   final String email;
   final String location;
-  final String lead;
+  final String? lead;
   // final String? facebookEmail;
   // final String? facebookPassword;
   // final String? instagramEmail;

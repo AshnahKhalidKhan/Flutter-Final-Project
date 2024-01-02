@@ -96,7 +96,7 @@ class _CampusesListState extends State<CampusesList> {
             SizedBox(height: 10.0),
             CampusInfoField(
                 icon: Icons.star_rounded,
-                text: campus.lead.isEmpty ? 'No Lead assigned' : campus.lead),
+                text: campus.lead!.isEmpty ? 'No Lead assigned' : campus.lead!),
           ],
         ),
         trailing: Icon(
@@ -142,9 +142,9 @@ class _CampusesListState extends State<CampusesList> {
                       SizedBox(height: 10.0),
                       CampusInfoField(
                           icon: Icons.star_rounded,
-                          text: campus.lead.isEmpty
+                          text: campus.lead!.isEmpty
                               ? 'No Lead assigned'
-                              : campus.lead),
+                              : campus.lead!),
                       SizedBox(height: 20.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -465,47 +465,16 @@ class CampusInfoField extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon, size: 40.0, color: Theme.of(context).colorScheme.primary),
+        Icon(icon, size: 20.0, color: Theme.of(context).colorScheme.primary),
         SizedBox(width: 10.0),
         Expanded(
             child: Text(
           text,
           style: TextStyle(
-            fontSize: 20.0,
-            // color: Colors.black
+            fontSize: 15.0,
           ),
         ))
       ],
     );
   }
 }
-
-// class CampusInfoField extends StatelessWidget {
-//   const CampusInfoField({
-//     super.key,
-//     required this.icon,
-//     required this.text,
-//   });
-
-//   final IconData icon;
-//   final String text;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: [
-//         Icon(icon, size: 20.0, color: Theme.of(context).colorScheme.primary),
-//         SizedBox(width: 10.0),
-//         Expanded(
-//             child: Text(
-//           text,
-//           style: TextStyle(
-//             fontSize: 15.0,
-//             // color: Colors.black
-//           ),
-//         ))
-//       ],
-//     );
-//   }
-// }

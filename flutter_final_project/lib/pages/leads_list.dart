@@ -202,7 +202,7 @@ class _CampusNameFieldState extends State<CampusNameField> {
         return Center(child: CircularProgressIndicator());
       } else if (state is CampusesErrorState) {
         return Center(child: Text(state.error));
-      } else if (state is OneCampusSuccessOrLoadedState) {
+      } else if (state is OneCampusLoadedState) {
         return FutureBuilder(
             future: state.campus,
             builder: (context, item) {

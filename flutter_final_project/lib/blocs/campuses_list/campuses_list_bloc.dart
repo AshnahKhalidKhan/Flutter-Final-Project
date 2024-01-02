@@ -27,21 +27,21 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       } 
       catch (e) 
       {
-        emit(const CampusesErrorState('Campus creation failed.'));
+        emit(CampusesErrorState(e.toString()));
       }
     });
 
-    on<ReadOneCampusEvent>((event, emit) 
+    on<ReadOneCampusEvent>((event, emit) async
     {
       emit(CampusesLoadingState());
       try 
       {
-        final campus = campussRepository.readOneCampusFunctionInCampusesRepositoryFile(event.campusId);
-        emit(OneCampusSuccessOrLoadedState(campus));
+        final Campus? campus = await campussRepository.readOneCampusFunctionInCampusesRepositoryFile(event.campusId);
+        emit(OneCampusLoadedState(campus!));
       } 
       catch(e) 
       {
-        emit(const CampusesErrorState('OneCampus loading/reading failed.'));
+        emit(CampusesErrorState(e.toString()));
       }
     });
 
@@ -50,12 +50,12 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       emit(CampusesLoadingState());
       try 
       {
-        Stream<List<Campus>> streamResponse = campussRepository.allCampusesFunctionInCampusesRepositoryFile();
+        Stream<List<Campus>> streamResponse = campussRepository.readAllCampusesFunctionInCampusesRepositoryFile();
         emit(CampusesLoadedState(streamResponse));
       } 
       catch(e) 
       {
-        emit(const CampusesErrorState('Campus loading/reading failed.'));
+        emit(CampusesErrorState(e.toString()));
       }
     });
 
@@ -70,22 +70,21 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       } 
       catch (e) 
       {
-        emit(const CampusesErrorState('Campus update-ion failed.'));
+        emit(CampusesErrorState(e.toString()));
       }
     });
 
     on<DeleteCampusEvent>((event, emit) async 
     {
+      emit(CampusesLoadingState());
       try 
       {
-        if (state is CampusesLoadedState)
-        {
-          await campussRepository.deleteCampusFunctionInCampusesRepositoryFile(event.campusId);
-        }
+        await campussRepository.deleteCampusFunctionInCampusesRepositoryFile(event.campusId);
+        emit(CampusesSuccessState());
       } 
       catch (e) 
       {
-        emit(const CampusesErrorState('Campus deletion failed.'));
+        emit(CampusesErrorState(e.toString()));
       }
     });
   }
