@@ -23,7 +23,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
           email: event.email, 
           location: event.location
         );
-        emit(CampusesSuccessState());
+        emit(CampusAddedState());
       } 
       catch (e) 
       {
@@ -65,7 +65,7 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
       try 
       {
         await campussRepository.updateCampusFunctionInCampusesRepositoryFile(event.campus);
-        emit(CampusesSuccessState());
+        emit(CampusUpdatedState());
       } 
       catch (e) 
       {

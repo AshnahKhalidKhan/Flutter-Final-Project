@@ -6,8 +6,11 @@ import 'package:flutter_final_project/blocs/campuses_list/campuses_list_events.d
 import 'package:flutter_final_project/blocs/campuses_list/campuses_list_states.dart';
 import 'package:flutter_final_project/models/campus_model.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/app_bar.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/bottom_sheet_icon_text_info.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/circle_progress_indicator.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/drawer.dart';
 import 'package:flutter_final_project/reusable_widgets_constants/list_tile_icon_text_info.dart';
+import 'package:flutter_final_project/reusable_widgets_constants/snack_bar.dart';
 
 class CampusesList extends StatefulWidget {
   const CampusesList({super.key});
@@ -39,7 +42,7 @@ class _CampusesListState extends State<CampusesList> {
           child: BlocBuilder<CampusesBloc, CampusesState>(
               builder: (context, state) {
             if (state is CampusesLoadingState) {
-              return Center(child: CircularProgressIndicator());
+              return const MyCircularProgressIndicator();
             } else if (state is CampusesErrorState) {
               return Center(child: Text(state.error));
             } else if (state is CampusesLoadedState) {
@@ -90,13 +93,14 @@ class _CampusesListState extends State<CampusesList> {
             ListTileIconTextInfo(
                 icon: Icons.school_rounded, info: campus.campusName),
             SizedBox(height: 10.0),
-            CampusInfoField(icon: Icons.email, text: campus.email),
+            ListTileIconTextInfo(icon: Icons.email, info: campus.email),
             SizedBox(height: 10.0),
-            CampusInfoField(icon: Icons.location_pin, text: campus.location),
+            ListTileIconTextInfo(
+                icon: Icons.location_pin, info: campus.location),
             SizedBox(height: 10.0),
-            CampusInfoField(
+            ListTileIconTextInfo(
                 icon: Icons.star_rounded,
-                text: campus.lead!.isEmpty ? 'No Lead assigned' : campus.lead!),
+                info: campus.lead!.isEmpty ? 'No Lead assigned' : campus.lead!),
           ],
         ),
         trailing: Icon(
@@ -130,19 +134,18 @@ class _CampusesListState extends State<CampusesList> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ListTileIconTextInfo(
+                      BottomSheetIconTextInfo(
                           icon: Icons.school_rounded, info: campus.campusName),
-                      CampusInfoField(
-                          icon: Icons.school_rounded, text: campus.campusName),
                       SizedBox(height: 10.0),
-                      CampusInfoField(icon: Icons.email, text: campus.email),
+                      BottomSheetIconTextInfo(
+                          icon: Icons.email, info: campus.email),
                       SizedBox(height: 10.0),
-                      CampusInfoField(
-                          icon: Icons.location_pin, text: campus.location),
+                      BottomSheetIconTextInfo(
+                          icon: Icons.location_pin, info: campus.location),
                       SizedBox(height: 10.0),
-                      CampusInfoField(
+                      BottomSheetIconTextInfo(
                           icon: Icons.star_rounded,
-                          text: campus.lead!.isEmpty
+                          info: campus.lead!.isEmpty
                               ? 'No Lead assigned'
                               : campus.lead!),
                       SizedBox(height: 20.0),
@@ -168,101 +171,116 @@ class CampusAddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      style: ButtonStyle(
-        backgroundColor:
-            MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-        iconColor: MaterialStatePropertyAll(Colors.white),
-      ),
-      padding: EdgeInsets.all(20.0),
-      icon: Icon(Icons.add, size: 40.0),
-      onPressed: () async {
-        return showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            final TextEditingController campusName = TextEditingController();
-            final TextEditingController campusEmail = TextEditingController();
-            final TextEditingController campusLead = TextEditingController();
-            final TextEditingController campusLocation =
-                TextEditingController();
+    return BlocConsumer<CampusesBloc, CampusesState>(
+      builder: (context, state) {
+        if (state is CampusesLoadedState) {
+          return IconButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(
+                  Theme.of(context).colorScheme.primary),
+              iconColor: MaterialStatePropertyAll(Colors.white),
+            ),
+            padding: EdgeInsets.all(20.0),
+            icon: Icon(Icons.add, size: 40.0),
+            onPressed: () async {
+              return showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  final TextEditingController campusName =
+                      TextEditingController();
+                  final TextEditingController campusEmail =
+                      TextEditingController();
+                  final TextEditingController campusLead =
+                      TextEditingController();
+                  final TextEditingController campusLocation =
+                      TextEditingController();
 
-            return AlertDialog(
-              title: const Text('Add Campus'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: campusName,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.school_rounded),
-                      labelText: 'Name',
+                  return AlertDialog(
+                    title: const Text('Add Campus'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: campusName,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.school_rounded),
+                            labelText: 'Name',
+                          ),
+                          onChanged: (value) {},
+                        ),
+                        TextField(
+                          controller: campusEmail,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email_rounded),
+                            labelText: 'Email',
+                          ),
+                          onChanged: (value) {
+                            //
+                          },
+                        ),
+                        TextField(
+                          controller: campusLocation,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.location_pin),
+                            labelText: 'Location',
+                          ),
+                          onChanged: (value) {
+                            //
+                          },
+                        ),
+                        // TextField
+                        // (
+                        //   controller: campusLead,
+                        //   decoration: InputDecoration
+                        //   (
+                        //     prefixIcon: Icon(Icons.star_rounded),
+                        //     labelText: 'Lead',
+                        //   ),
+                        //   onChanged: (value)
+                        //   {
+                        //     //
+                        //   },
+                        // ),
+                      ],
                     ),
-                    onChanged: (value) {},
-                  ),
-                  TextField(
-                    controller: campusEmail,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email_rounded),
-                      labelText: 'Email',
-                    ),
-                    onChanged: (value) {
-                      //
-                    },
-                  ),
-                  TextField(
-                    controller: campusLocation,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.location_pin),
-                      labelText: 'Location',
-                    ),
-                    onChanged: (value) {
-                      //
-                    },
-                  ),
-                  // TextField
-                  // (
-                  //   controller: campusLead,
-                  //   decoration: InputDecoration
-                  //   (
-                  //     prefixIcon: Icon(Icons.star_rounded),
-                  //     labelText: 'Lead',
-                  //   ),
-                  //   onChanged: (value)
-                  //   {
-                  //     //
-                  //   },
-                  // ),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Cancel'),
-                  onPressed: () {
-                    Navigator.pop(context, 'Cancel');
-                  },
-                ),
-                TextButton(
-                  child: const Text('Save'),
-                  onPressed: () {
-                    BlocProvider.of<CampusesBloc>(context).add(
-                        CreateCampusEvent(campusName.text, campusEmail.text,
-                            campusLocation.text));
-                    Navigator.pop(context, 'Save');
-                    final updateCampusSnackBarMessage = SnackBar(
-                      content: Text(
-                        'Campus added.',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.pop(context, 'Cancel');
+                        },
                       ),
-                    );
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(updateCampusSnackBarMessage);
-                  },
-                ),
-              ],
-            );
-          },
-        );
+                      TextButton(
+                          child: const Text('Save'),
+                          onPressed: () {
+                            BlocProvider.of<CampusesBloc>(context).add(
+                                CreateCampusEvent(campusName.text,
+                                    campusEmail.text, campusLocation.text));
+                            
+                          }),
+                    ],
+                  );
+                },
+              );
+            },
+          );
+        } else {
+          return MyCircularProgressIndicator();
+        }
+      },
+      listener: (context, state) {
+        if (state is CampusesErrorState) {
+          final errorAddingCampusSnackBarMessage = MySnackBar(state.error);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(errorAddingCampusSnackBarMessage);
+        } else if (state is CampusAddedState) {
+          Navigator.pop(context, 'Save');
+          final addedCampusSnackBarMessage = MySnackBar('Campus added.');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(addedCampusSnackBarMessage);
+          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
+        }
       },
     );
   }
@@ -286,110 +304,123 @@ class _CampusEditButtonState extends State<CampusEditButton> {
         email: widget.campus.email,
         location: widget.campus.location,
         lead: widget.campus.lead);
-    return IconButton(
-      style: ButtonStyle(
-        backgroundColor:
-            MaterialStatePropertyAll(Theme.of(context).colorScheme.primary),
-        iconColor: MaterialStatePropertyAll(Colors.white),
-      ),
-      padding: EdgeInsets.all(20.0),
-      icon: Icon(Icons.edit, size: 30.0),
-      onPressed: () async {
-        return showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            final TextEditingController campusName =
-                TextEditingController(text: widget.campus.campusName);
-            final TextEditingController campusEmail =
-                TextEditingController(text: widget.campus.email);
-            final TextEditingController campusLead =
-                TextEditingController(text: widget.campus.lead);
-            final TextEditingController campusLocation =
-                TextEditingController(text: widget.campus.location);
+    return BlocConsumer<CampusesBloc, CampusesState>(
+      builder: (context, state) {
+        if (state is CampusesLoadedState) {
+          return IconButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(
+                  Theme.of(context).colorScheme.primary),
+              iconColor: MaterialStatePropertyAll(Colors.white),
+            ),
+            padding: EdgeInsets.all(20.0),
+            icon: Icon(Icons.edit, size: 30.0),
+            onPressed: () async {
+              return showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  final TextEditingController campusName =
+                      TextEditingController(text: widget.campus.campusName);
+                  final TextEditingController campusEmail =
+                      TextEditingController(text: widget.campus.email);
+                  final TextEditingController campusLead =
+                      TextEditingController(text: widget.campus.lead);
+                  final TextEditingController campusLocation =
+                      TextEditingController(text: widget.campus.location);
 
-            return AlertDialog(
-              title: const Text('Edit Campus'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: campusName,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.school_rounded),
-                      labelText: 'Name',
+                  return AlertDialog(
+                    title: const Text('Edit Campus'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: campusName,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.school_rounded),
+                            labelText: 'Name',
+                          ),
+                          onChanged: (value) {
+                            updatedCampus = updatedCampus.copyWith(
+                                campusName: campusName.text);
+                          },
+                        ),
+                        TextField(
+                          controller: campusEmail,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email_rounded),
+                            labelText: 'Email',
+                          ),
+                          onChanged: (value) {
+                            updatedCampus =
+                                updatedCampus.copyWith(email: campusEmail.text);
+                          },
+                        ),
+                        TextField(
+                          controller: campusLocation,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.location_pin),
+                            labelText: widget.campus.campusId, //'Location',
+                          ),
+                          onChanged: (value) {
+                            updatedCampus = updatedCampus.copyWith(
+                                location: campusLocation.text);
+                          },
+                        ),
+                        TextField(
+                          controller: campusLead,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.star_rounded),
+                            labelText: 'Lead',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              updatedCampus =
+                                  updatedCampus.copyWith(lead: campusLead.text);
+                              print(updatedCampus.toString());
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    onChanged: (value) {
-                      updatedCampus =
-                          updatedCampus.copyWith(campusName: campusName.text);
-                    },
-                  ),
-                  TextField(
-                    controller: campusEmail,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.email_rounded),
-                      labelText: 'Email',
-                    ),
-                    onChanged: (value) {
-                      updatedCampus =
-                          updatedCampus.copyWith(email: campusEmail.text);
-                    },
-                  ),
-                  TextField(
-                    controller: campusLocation,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.location_pin),
-                      labelText: widget.campus.campusId, //'Location',
-                    ),
-                    onChanged: (value) {
-                      updatedCampus =
-                          updatedCampus.copyWith(location: campusLocation.text);
-                    },
-                  ),
-                  TextField(
-                    controller: campusLead,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.star_rounded),
-                      labelText: 'Lead',
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        updatedCampus =
-                            updatedCampus.copyWith(lead: campusLead.text);
-                        print(updatedCampus.toString());
-                      });
-                    },
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Cancel'),
-                  onPressed: () {
-                    Navigator.pop(context, 'Cancel');
-                  },
-                ),
-                TextButton(
-                  child: const Text('Save'),
-                  onPressed: () {
-                    BlocProvider.of<CampusesBloc>(context)
-                        .add(UpdateCampusEvent(updatedCampus));
-                    Navigator.pop(context, 'Save');
-                    Navigator.pop(context, 'BottomSheet');
-                    final updateCampusSnackBarMessage = SnackBar(
-                      content: Text(
-                        'Campus information updated.',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('Cancel'),
+                        onPressed: () {
+                          Navigator.pop(context, 'Cancel');
+                        },
                       ),
-                    );
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(updateCampusSnackBarMessage);
-                  },
-                ),
-              ],
-            );
-          },
-        );
+                      TextButton(
+                        child: const Text('Save'),
+                        onPressed: () {
+                          BlocProvider.of<CampusesBloc>(context)
+                              .add(UpdateCampusEvent(updatedCampus));
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          );
+        } else {
+          return MyCircularProgressIndicator();
+        }
+      },
+      listener: (context, state) {
+        if (state is CampusesErrorState) {
+          final errorUpdatingCampusSnackBarMessage = MySnackBar(state.error);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(errorUpdatingCampusSnackBarMessage);
+        } else if (state is CampusUpdatedState) {
+          Navigator.pop(context, 'Save');
+          Navigator.pop(context, 'BottomSheet');
+          final updatedCampusSnackBarMessage =
+              MySnackBar('Campus information updated.');
+          ScaffoldMessenger.of(context)
+              .showSnackBar(updatedCampusSnackBarMessage);
+          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
+        }
       },
     );
   }
@@ -402,7 +433,10 @@ class CampusDeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
+return BlocConsumer<CampusesBloc, CampusesState>(
+      builder: (context, state) {
+        if (state is CampusesLoadedState) {
+         return IconButton(
       style: const ButtonStyle(
         iconColor: MaterialStatePropertyAll(Colors.grey),
       ),
@@ -429,16 +463,7 @@ class CampusDeleteButton extends StatelessWidget {
                         .add(DeleteCampusEvent(
                       campus.campusId,
                     ));
-                    Navigator.pop(context, 'OK');
-                    Navigator.pop(context, 'BottomSheet');
-                    final deleteCampusSnackBarMessage = SnackBar(
-                      content: Text(
-                        'Campus deleted.',
-                        style: TextStyle(color: Colors.white, fontSize: 20.0),
-                      ),
-                    );
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(deleteCampusSnackBarMessage);
+                    
                   },
                 ),
               ],
@@ -447,34 +472,25 @@ class CampusDeleteButton extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class CampusInfoField extends StatelessWidget {
-  const CampusInfoField({
-    super.key,
-    required this.icon,
-    required this.text,
-  });
-
-  final IconData icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Icon(icon, size: 20.0, color: Theme.of(context).colorScheme.primary),
-        SizedBox(width: 10.0),
-        Expanded(
-            child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 15.0,
-          ),
-        ))
-      ],
+        } else {
+          return MyCircularProgressIndicator();
+        }
+      },
+      listener: (context, state) {
+        if (state is CampusesErrorState) {
+          final errorUpdatingCampusSnackBarMessage = MySnackBar(state.error);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(errorUpdatingCampusSnackBarMessage);
+        } else if (state is CampusUpdatedState) {
+          Navigator.pop(context, 'OK');
+                    Navigator.pop(context, 'BottomSheet');
+          final deleteCampusSnackBarMessage =
+              MySnackBar('Campus deleted.');
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(deleteCampusSnackBarMessage);
+          BlocProvider.of<CampusesBloc>(context).add(ReadAllCampusesEvent());
+        }
+      },
     );
   }
 }

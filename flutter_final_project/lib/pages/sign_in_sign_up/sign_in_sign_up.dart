@@ -232,12 +232,7 @@ class _LoginTabState extends State<LoginTab> {
                 );
               }
             } else if (state is AuthenticationErrorState) {
-              final signInErrorSnackBarMessage = SnackBar(
-                content: Text(
-                  state.error,
-                  style: TextStyle(color: Colors.white, fontSize: 20.0),
-                ),
-              );
+              final signInErrorSnackBarMessage = MySnackBar(state.error);
               // final signInErrorSnackBarMessage =
               //     MySnackBar(snackBarMessage: state.error);
               ScaffoldMessenger.of(context)

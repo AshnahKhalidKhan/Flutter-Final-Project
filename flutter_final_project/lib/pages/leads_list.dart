@@ -203,15 +203,17 @@ class _CampusNameFieldState extends State<CampusNameField> {
       } else if (state is CampusesErrorState) {
         return Center(child: Text(state.error));
       } else if (state is OneCampusLoadedState) {
-        return FutureBuilder(
-            future: state.campus,
-            builder: (context, item) {
-              String campus = item.data == null
-                  ? 'Campus details unavailable.'
-                  : item.data!.campusName.toString();
-              return ListTileIconTextInfo(
-                  icon: Icons.location_pin, info: campus);
-            });
+        // return FutureBuilder(
+        //     future: state.campus,
+        //     builder: (context, item) {
+        //       String campus = item.data == null
+        //           ? 'Campus details unavailable.'
+        //           : item.data!.campusName.toString();
+        //       return ListTileIconTextInfo(
+        //           icon: Icons.location_pin, info: campus);
+        //     });
+        return ListTileIconTextInfo(
+                  icon: Icons.location_pin, info: state.campus.campusName);
       } else {
         return Center(child: CircularProgressIndicator());
       }
