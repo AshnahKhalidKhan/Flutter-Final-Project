@@ -34,7 +34,7 @@ class EventsListSuccessOrLoadedState extends EventsListState
 
 class OneEventSuccessOrLoadedState extends EventsListState
 {
-  final Future<Event?> event;
+  final Event event;
   OneEventSuccessOrLoadedState(this.event);
 
   @override

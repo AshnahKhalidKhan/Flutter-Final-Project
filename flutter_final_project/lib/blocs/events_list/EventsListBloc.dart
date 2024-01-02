@@ -74,12 +74,14 @@ class EventsListBloc extends Bloc<EventsListEvent, EventsListState> {
       }
     });
 
-    on<ReadOneEventEvent>((event, emit) {
+    on<ReadOneEventEvent>((event, emit) async {
       try {
         emit(EventsListLoadingState());
-        final Event? eventInstance = eventListRepository
-            .readOneEventFunctionInEventRepositoryFile(event.eventId);
-        emit(OneEventSuccessOrLoadedState(eventInstance));
+        final Event? eventInstance = await eventListRepository.readOneEventFunctionInEventRepositoryFile
+        (
+          event.eventId
+        );
+        emit(OneEventSuccessOrLoadedState(eventInstance!));
       } catch (e) {
         emit(const EventsListErrorState('OneEvent loading/reading failed.'));
       }

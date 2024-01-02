@@ -83,7 +83,6 @@ class AuthenticationRepository
         email: email, 
         password: password
       );
-      print(userCredential.toString());
       if (userCredential != null)
       {
         final User? signedInUser = userCredential.user;

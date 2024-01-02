@@ -135,9 +135,10 @@ class EventsListRepository {
     final userFromFirebase = await FirebaseFirestore
         .instance
         .collection('Events')
-        .where('eventId', isEqualTo: eventId)
-        .limit(1)
-        .get();
+        // .where('eventId', isEqualTo: eventId)
+        // .limit(1)
+        // .get();
+        .doc(eventId).get();
     // QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
     //     .instance
     //     .collection('Events')
@@ -157,15 +158,14 @@ class EventsListRepository {
             final Map<String, dynamic>? userData = userFromFirebase.data();
             if (userData != null) 
             {
-              AppUser user = AppUser.fromJson(userData);
+              Event user = Event.fromJson(userData);
               return user;
             }
           }
   } catch (e) {
     // Handle exceptions here if needed
-    print('Error fetching event: $e');
-    rethrow; // Rethrow the exception for higher-level handling
-  }
+    // print('Error fetching event: $e');
+throw Exception('Login failed. Please enter valid credentials and try again.\n $e');  }
 }
 
   Future<void> updateEventFunctionInEventRepositoryFile(Event event) async {

@@ -91,21 +91,21 @@ class _EventDetailsState extends State<EventDetails>
                   }
                   else if (state is OneEventSuccessOrLoadedState)
                   {
-                    return FutureBuilder
-                    (
-                      future: state.event,
-                      builder: (context, snapshot)
-                      {
-                        if (snapshot.hasData)
-                        {
-                          return Text(snapshot.data!.eventName);
-                        }
-                        else
-                        {
-                          return Text('Nahin aaya event bhai');
-                        }
-                      }
-                    );
+                    // return FutureBuilder
+                    // (
+                    //   future: state.event,
+                    //   builder: (context, snapshot)
+                    //   {
+                        // if (snapshot.hasData)
+                        // {
+                          return Text(state.event.eventName);
+                        // }
+                        // else
+                        // {
+                        //   return Text('Nahin aaya event bhai');
+                        // }
+                      // }
+                    // );
                   }
                   else
                   {
