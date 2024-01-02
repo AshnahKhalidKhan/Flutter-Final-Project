@@ -61,12 +61,11 @@ class CampusesBloc extends Bloc<CampusesEvent, CampusesState>
 
     on<UpdateCampusEvent>((event, emit) async 
     {
+      emit(CampusesLoadingState());
       try 
       {
-        if (state is CampusesLoadedState)
-        {
-          await campussRepository.updateCampusFunctionInCampusesRepositoryFile(event.campus);
-        }
+        await campussRepository.updateCampusFunctionInCampusesRepositoryFile(event.campus);
+        emit(CampusesSuccessState());
       } 
       catch (e) 
       {
