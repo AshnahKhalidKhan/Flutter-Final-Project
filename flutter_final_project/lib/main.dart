@@ -14,7 +14,7 @@ import 'package:flutter_final_project/core/repositories/EventsListRepository.dar
 import 'package:flutter_final_project/core/repositories/campus_repository.dart';
 import 'package:flutter_final_project/core/repositories/GDSCLeadsMembersListRepository.dart';
 import 'package:flutter_final_project/pages/event_details.dart';
-import 'package:flutter_final_project/pages/sign_in_sign_up.dart';
+import 'package:flutter_final_project/pages/sign_in_sign_up/sign_in_sign_up.dart';
 import 'package:flutter_final_project/pages/admin_homepage.dart';
 import 'package:flutter_final_project/pages/pending_member_requests.dart';
 import 'package:flutter_final_project/pages/account_pending_admin.dart';
